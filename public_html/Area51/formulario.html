@@ -1,0 +1,412 @@
+<!--<?php
+    function transpose($array) {
+        array_unshift($array, null);
+        return call_user_func_array('array_map', $array);
+    }
+
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    require_once($path."/php/conexao.php");
+
+    $resultado = mysqli_query($conexao, "SELECT * FROM PS_ESCOLA");
+
+    $dados = mysqli_fetch_all($resultado);
+
+    $transposta = transpose($dados);
+
+    $cidadesphp = implode("|", $transposta[2]);
+    $ufphp = implode("|", $transposta[3]);
+?>-->
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" type="text/css" href="/scripts/css/bootstrap.min.css">
+
+        <link rel="icon" type="image/png" href="/img/icon.png">
+
+        <title>Formulário de Inscrição</title>
+    </head>
+
+    <body>
+        <div class="container">
+            <form action="formulario.php" method="POST">
+                <h1><b>Informações pessoais e de contato</b></h1>
+                <br>
+                <div id="DADOS_PESSOAIS">
+                    <div class="form-row">
+                        <div class="form-group col-sm">
+                            <label for="nome"><b>Nome:</b></label>
+                            <input type="text" class="form-control" id="nome" placeholder="Nome" required>
+                        </div>
+                        <div class="form-group col-sm">
+                            <label for="sobrenome"><b>Sobrenome:</b></label>
+                            <input type="text" class="form-control" id="sobrenome" placeholder="Sobrenome">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="sexo"><b>Sexo:</b></label>
+                            <select class="form-control" id="sexo">
+                                <option value="" selected>Selecione...</option>
+                                <option value="F">Feminino</option>
+                                <option value="M">Masculino</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="rg"><b>Nº RG:</b></label>
+                            <input type="text" class="form-control" id="rg">
+                        </div>
+                        <div class="form-row col-md-9">
+                            <div class="form-group col-8">
+                                <label for="emissor"><b>Órgão Emissor:</b></label>
+                                <select class="form-control" id="emissor">
+                                    <option value="" selected>Selecione...</option>
+                                    <option value="CGPI">CGPI – Coordenação-Geral de Privilégios e Imunidades</option>
+                                    <option value="CNIG">CNIG – Conselho Nacional de Imigração</option>
+                                    <option value="CNT">CNT – Carteira Nacional de Habilitação</option>
+                                    <option value="DIC">DIC - Diretoria de Identificação Civil</option>
+                                    <option value="IFP">IFP - Instituto Félix Pacheco</option>
+                                    <option value="IPF">IPF - Instituto Pereira Faustino</option>
+                                    <option value="MAE">MAE - Ministério da Aeronáutica</option>
+                                    <option value="MEX">MEX - Ministério do Exército</option>
+                                    <option value="MMA">MMA - Ministério da Marinha</option>
+                                    <option value="MTE">MTE - Ministério do Trabalho e Emprego</option>
+                                    <option value="PC">PC - Policia Civil</option>
+                                    <option value="POF/DPF">POF/DPF – Polícia Federal</option>
+                                    <option value="POM">POM – Polícia Militar</option>
+                                    <option value="SDS">SDS – Secretaria de Defesa Social</option>
+                                    <option value="SNJ">SNJ – Secretaria Nacional de Justiça / Departamento de Estrangeiros</option>
+                                    <option value="SECC">SECC – Secretaria de Estado da Casa Civil</option>
+                                    <option value="SEJUSP">SEJUSP – Secretaria de Estado de Justiça e Segurança Pública</option>
+                                    <option value="SES/EST">SES/EST – Carteira de Estrangeiro</option>
+                                    <option value="SESP">SESP – Secretaria de Estado da Segurança Pública do Paraná</option>
+                                    <option value="SJS">SJS – Secretaria da Justiça e Segurança</option>
+                                    <option value="SJTC">SJTC – Secretaria da Justiça do Trabalho e Cidadania</option>
+                                    <option value="SJTS">SJTS – Secretaria da Justiça do Trabalho e Segurança</option>
+                                    <option value="SPTC">SPTC – Secretaria de Polícia Técnico-Científica</option>
+                                    <option value="SSP">SSP - Secretaria de Segurança Pública</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="uf_emissao"><b>UF de emissão:</b></label>
+                                <select class="form-control" id="uf-emissao">
+                                    <option value="" selected>Selecione...</option>
+                                    <option value="AC">AC</option>
+                                    <option value="AL">AL</option>
+                                    <option value="AP">AP</option>
+                                    <option value="AM">AM</option>
+                                    <option value="BA">BA</option>
+                                    <option value="CE">CE</option>
+                                    <option value="DF">DF</option>
+                                    <option value="ES">ES</option>
+                                    <option value="GO">GO</option>
+                                    <option value="MA">MA</option>
+                                    <option value="MS">MS</option>
+                                    <option value="MT">MT</option>
+                                    <option value="MG">MG</option>
+                                    <option value="PA">PA</option>
+                                    <option value="PB">PB</option>
+                                    <option value="PR">PR</option>
+                                    <option value="PE">PE</option>
+                                    <option value="PI">PI</option>
+                                    <option value="RJ">RJ</option>
+                                    <option value="RN">RN</option>
+                                    <option value="RS">RS</option>
+                                    <option value="RO">RO</option>
+                                    <option value="RR">RR</option>
+                                    <option value="SC">SC</option>
+                                    <option value="SP">SP</option>
+                                    <option value="SE">SE</option>
+                                    <option value="TO">TO</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="cpf"><b>CPF:</b></label>
+                            <input type="text" class="form-control cpf" id="cpf" placeholder="___.___.___-__" readonly>
+                        </div>
+                        <div class="form-row col-md-5">
+                            <div class="form-group col-6">
+                                <label for="data_nasc"><b>Data de Nascimento:</b></label>
+                                <input type="text" class="form-control" id="data_nasc" placeholder="dd/mm/aaaa" onblur="calcula_idade(this.value)">
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="linha_idade"><b>Idade:</b></label>
+                                <div class="form-group row" id="linha_idade">
+                                    <div class="col-6">
+                                        <input type="text" class="form-control" id="idade" readonly>
+                                    </div>
+                                    <label for="idade" class="col-form-label">Anos</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-8">
+                            <label for="e_mail"><b>E-mail:</b></label>
+                            <input type="email" class="form-control" id="e_email" placeholder="exemplo@email.com" readonly>
+                        </div>
+                        <div class="form-row col-md-4">
+                            <div class="form-group col-3">
+                                <label for="ddd_aluno"><b>DDD:</b></label>
+                                <input type="text" class="form-control" id="ddd_aluno">
+                            </div>
+                            <div class="form-group col-9">
+                                <label for="telefone_aluno"><b>Telefone (WhatsApp):</b></label>
+                                <input type="text" class="form-control" id="telefone_aluno">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="DADOS_RESPONSAVEL_MENOR" style="display: none;">
+                        <h3><b>Informações do responsável</b></h3>
+                        <div class="form-row">
+                            <div class="form-group col-md-9">
+                                <label for="nome_resp"><b>Nome completo:</b></label>
+                                <input type="text" class="form-control" id="nome_resp">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="parentesco"><b>Grau de parentesco:</b></label>
+                                <select id="parentesco" class="form-control">
+                                    <option value="" selected>Selecione...</option>
+                                    <option value="">Pai ou mãe</option>
+                                    <option value="">Avô ou avó</option>
+                                    <option value="">Tio ou tia</option>
+                                    <option value="">Irmão ou irmã</option>
+                                    <option value="">Outro</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="cpf_resp"><b>CPF:</b></label>
+                                <input type="text" class="form-control cpf" id="cpf_resp" placeholder="___.___.___-__">
+                            </div>
+                            <div class="form-row col-md-4">
+                                <div class="form-group col-3">
+                                    <label for="ddd_aluno"><b>DDD:</b></label>
+                                    <input type="text" class="form-control" id="ddd_resp">
+                                </div>
+                                <div class="form-group col-9">
+                                    <label for="telefone_aluno"><b>Telefone:</b></label>
+                                    <input type="text" class="form-control" id="telefone_resp">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <h1><b>Informações de endereço</b></h1>
+                <br>
+                <div id="DADOS_ENDERECO">
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="cep"><b>CEP:</b></label>
+                            <input type="text" class="form-control" id="cep" onblur="pesquisacep(this.value);">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-5">
+                            <label for="endereco"><b>Endereço:</b></label>
+                            <input type="text" class="form-control" id="endereco"  readonly>
+                        </div>
+                        <div class="form-row col-md-7">
+                            <div class="form-group col-3">
+                                <label for="numero"><b>Número:</b></label>
+                                <input type="text" class="form-control" id="numero">
+                            </div>
+                            <div class="form-group col-9">
+                                <label for="complemento"><b>Complemento:</b></label>
+                                <input type="text" class="form-control" id="complemento">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-5">
+                            <label for="bairro"><b>Bairro:</b></label>
+                            <input type="text" class="form-control" id="bairro" readonly>
+                        </div>
+                        <div class="form-row col-md-7">
+                            <div class="form-group col-9">
+                                <label for="cidade"><b>Cidade:</b></label>
+                                <input type="text" class="form-control" id="cidade" readonly>
+                            </div>
+                            <div class="form-group col-3">
+                                <label for="uf_endereco"><b>Estado:</b></label>
+                                <input type="text" class="form-control" id="uf_endereco" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <h1><b>Informações Escolares</b></h1>
+                <br>
+                <div id="DADOS_ESCOLARES">
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <input class="form-check-input" type="radio" name="tipo_aluno" id="tipo_aluno1" valor="Aluno" onclick="exibir_dados_estudante()" checked>
+                            <label class="form-check-label" for="tipo_aluno1">Cursando o ensino médio</label>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input class="form-check-input" type="radio" name="tipo_aluno" id="tipo_aluno2" valor="Formado" onclick="exibir_dados_formado()">
+                            <label class="form-check-label" for="tipo_aluno2">Formado</label>
+                        </div>
+                    </div>
+                    <div id="DADOS_ESTUDANTE">
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <label for="nome_escola"><b>Nome da escola:</b></label>
+                                <select class="form-control" id="nome_escola" onblur="outra_escola(this.value)">
+                                    <option value="" selected>Selecione...</option>
+                                <!--<?php foreach ($transposta[1] as $key => $value): ?>
+                                    <?php $key++; ?>
+                                    <?php echo "<option value=\"$key\" >$value</option>\n";?>
+                                <?php endforeach; ?>-->
+                                    <option value="outra">Outra (informe qual)</option>
+                                </select>
+                            </div>
+                            <div class="form-row col-md-7">
+                                <div class="form-group col-9">
+                                    <label for="cidade"><b>Cidade:</b></label>
+                                    <input type="text" class="form-control" id="cidade_escola" readonly>
+                                </div>
+                                <div class="form-group col-3">
+                                    <label for="uf_endereco"><b>Estado:</b></label>
+                                    <input type="text" class="form-control" id="uf_escola" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="NOVA_ESCOLA" style="display: none;">
+                            <div class="form-row">
+                                <div class="form-group col-md-5">
+                                    <input type="text" class="form-control" id="nome_nova_escola" placeholder="Nome da Escola">
+                                </div>
+                                <div class="form-row col-md-7">
+                                    <div class="form-group col">
+                                        <input type="text" class="form-control" id="cidade_nova_escola" placeholder="Cidade">
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <select class="form-control" id="uf_nova_escola">
+                                            <option value="" selected>Estado...</option>
+                                            <option value="AC">AC</option>
+                                            <option value="AL">AL</option>
+                                            <option value="AP">AP</option>
+                                            <option value="AM">AM</option>
+                                            <option value="BA">BA</option>
+                                            <option value="CE">CE</option>
+                                            <option value="DF">DF</option>
+                                            <option value="ES">ES</option>
+                                            <option value="GO">GO</option>
+                                            <option value="MA">MA</option>
+                                            <option value="MS">MS</option>
+                                            <option value="MT">MT</option>
+                                            <option value="MG">MG</option>
+                                            <option value="PA">PA</option>
+                                            <option value="PB">PB</option>
+                                            <option value="PR">PR</option>
+                                            <option value="PE">PE</option>
+                                            <option value="PI">PI</option>
+                                            <option value="RJ">RJ</option>
+                                            <option value="RN">RN</option>
+                                            <option value="RS">RS</option>
+                                            <option value="RO">RO</option>
+                                            <option value="RR">RR</option>
+                                            <option value="SC">SC</option>
+                                            <option value="SP">SP</option>
+                                            <option value="SE">SE</option>
+                                            <option value="TO">TO</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="btn btn-primary" onclick="adicionar_escola()" id="adc_esc">Adicionar</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row col-md-6">
+                                <div class="form-group col-6">
+                                    <label for="matricula"><b>Nº Matrícula:</b></label>
+                                    <input type="text" class="form-control" id="matricula">
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="serie"><b>Série:</b></label>
+                                    <select class="form-control" id="serie">
+                                        <option value="" selected>Selecione...</option>
+                                        <option value="1ª">1º ano do Ensino Médio</option>
+                                        <option value="2ª">2º ano do Ensino Médio</option>
+                                        <option value="3ª">3º ano do Ensino Médio</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row col-md-6">
+                                <div class="form-group col-6">
+                                    <label for="turma"><b>Turma:</b></label>
+                                    <input type="text" class="form-control" id="turma">
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="turno"><b>Turno:</b></label>
+                                    <select class="form-control" id="turno">
+                                        <option value="" selected>Selecione...</option>
+                                        <option value="Matutino">Matutino</option>
+                                        <option value="Vespertino">Vespertino</option>
+                                        <option value="Noturno">Norturno</option>
+                                        <option value="Integral">Integral (Manhã e Tarde)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div id="DADOS_FORMADO" style="display: none;">
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="ano_conclusao"><b>Ano de conclusão:</b></label>
+                                <select class="form-control" id="ano_conclusao">
+                                    <option value="" selected>Selecione...</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2015">2015</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-9">
+                                <label for="ARQUIVO_HIST"><b>Cópia do histórico escolar do ensino médio:</b></label>
+                                <div class="custom-file" id="ARQUIVO_HIST">
+                                    <input type="file" class="custom-file-input" id="historico">
+                                    <label class="custom-file-label" for="historico" data-browse="Procurar" id="lab_hist">Selecionar arquivo...</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <script>
+            var str_cidades, str_uf, cidades, estados;
+
+            str_cidades = "<?php echo $cidadesphp;?>";
+            str_uf = "<?php echo $ufphp;?>";
+
+            cidades = str_cidades.split("|");
+            estados = str_uf.split("|");
+        </script>
+        
+        <script src="/scripts/js/jquery-3.4.1.min.js"></script>
+        <script src="/scripts/js/bootstrap.min.js"></script>
+        <script src="/scripts/js/api_viacep.js"></script>
+        <script src="/scripts/js/jquery.maskedinput.js"></script>
+        <script src="/scripts/js/definicoes-maskedinput.js"></script>
+        <script src="/scripts/js/formularioAlunos.js"></script>
+
+    </body>
+</html>

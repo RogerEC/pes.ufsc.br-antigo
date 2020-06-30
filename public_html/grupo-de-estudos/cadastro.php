@@ -1,5 +1,5 @@
 <?php
-    ini_set('default_charset','utf-8');
+    /*ini_set('default_charset','utf-8');
     $path = $_SERVER['DOCUMENT_ROOT'];
 
     if(!empty($_POST["cpf"]) && isset($_POST["cpf"])){
@@ -24,7 +24,7 @@
         exit;
     }
 
-    $cursos = $conexao->query("SELECT NOME FROM pes_curso");
+    $cursos = $conexao->query("SELECT NOME FROM pes_curso");*/
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +39,13 @@
     </head>
 
     <body>
-
+        <div class="w-100 mt-5 mb-5 text-center">
+            <h1>Inscrições Encerradas</h1>
+        </div>
+        <div class="w-100 text-center">
+            <p><a href="/">Clique aqui</a> para voltar a página inicial do site.</p>
+        </div>
+        <?php /*
         <main class="pt-0 w-100 h-100" id="FormularioInscricao"><!--Conteúdo da página-->
             <!-- Barra de navegação lateral -->
             <div class="coluna-barra-lateral d-none d-sm-block bg-inscricao">
@@ -446,14 +452,10 @@
         <script src="/scripts/js/libs/jquery.validate.min.js"></script>
         <script src="/scripts/js/validacao/cadastro-GrupoEstudos.js"></script>
         <script src="/scripts/js/pagina/cadastro-GrupoEstudos.js"></script>
-        <script>
-            
-        </script>
-            
-        </script>
+        */?>
     </body>
 </html>
 <?php 
-    $cursos->close();
-    $conexao->close();
+    //$cursos->close();
+    //$conexao->close();
 ?>

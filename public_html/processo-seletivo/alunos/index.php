@@ -26,6 +26,7 @@
                     </button>
                 </div>
                 <p><h5>Documentos importantes:</h5></p>
+                <p>[07/07/2020] <a href="/processo-seletivo/alunos/2020/Cancelamento_Edital_N03PES2020.pdf" target="_blank">Cancelamento do Edital Nº 03/PES/2020</a></p>
                 <p>[16/03/2020] <a href="/processo-seletivo/alunos/2020/Suspensao_Edital_N03PES2020.pdf" target="_blank">Suspensão do Cronograma de Atividades para o Edital Nº 03/PES/2020</a></p>
                 <p>[15/03/2020] <a href="/processo-seletivo/alunos/2020/Retificacao_Edital_N03PES2020.pdf" target="_blank">Retificação do Edital Nº 03/PES/2020</a></p>
                 <p>[09/03/2020] <a href="/processo-seletivo/alunos/2020/Edital_N03PES2020.pdf" target="_blank">Edital Nº 03/PES/2020 - Processo Seletivo de Alunos 2020</a></p>

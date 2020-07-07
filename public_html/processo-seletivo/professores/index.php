@@ -26,6 +26,7 @@
                     </button>
                 </div>
                 <p><h5>Documentos importantes:</h5></p>
+                <p>[07/07/2020] <a href="/processo-seletivo/professores/2020/Cancelamento_Edital_N02PES2020.pdf" target="_blank">Cancelamento do Edital Nº 02/PES/2020</a></p>
                 <p>[16/03/2020] <a href="/processo-seletivo/professores/2020/Suspensao_Edital_N02PES2020.pdf" target="_blank">Suspensão do Cronograma de Atividades para o Edital Nº 02/PES/2020</a></p>
                 <p>[13/03/2020] <a href="/processo-seletivo/professores/2020/Edital_N02PES2020-2.pdf" target="_blank">Prorrogação do prazo de inscrição para o Edital Nº 02/PES/2020</a></p>
                 <p>[07/03/2020] <a href="/processo-seletivo/professores/2020/Edital_N02PES2020.pdf" target="_blank">Edital Nº 02/PES/2020 - Processo Seletivo de Professores 2020</a></p>

@@ -1,6 +1,6 @@
 <?php
     $path = $_SERVER['DOCUMENT_ROOT'];
-    require_once($path."/../private/scripts/php/senhas/Banco.php");
+    require_once($path."/../private/senhas/Banco.php");
 
     $conexao = new mysqli($host_banco, $usuario_banco, $senha_banco, $use_banco);
     

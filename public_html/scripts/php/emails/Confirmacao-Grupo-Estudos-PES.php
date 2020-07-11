@@ -6,7 +6,7 @@ use PHPMailer\PHPMailer\Exception;
 require($path."/scripts/php/PHPMailer/src/Exception.php");
 require($path."/scripts/php/PHPMailer/src/PHPMailer.php");
 require($path."/scripts/php/PHPMailer/src/SMTP.php");
-require($path."/../private/scripts/php/senhas/Email-SISTEMA.php");
+require($path."/../private/senhas/Email-SISTEMA.php");
 $mail = new PHPMailer(true);
 
 try {

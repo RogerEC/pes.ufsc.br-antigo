@@ -51,7 +51,7 @@ $(document).ready(function(){
             $("#cidade").val(info_aluno.cidade).blur();
             $("#uf").val(info_aluno.estado).blur();
             $("#tipo_aluno").val(info_aluno.tipo_aluno).blur().change();
-            if(info_aluno=="Está cursando o ensino médio"){
+            if(info_aluno.tipo_aluno=="Está cursando o ensino médio"){
                 $("#nome_escola").val(info_aluno.nome_escola).blur();
                 $("#cidade_escola").val(info_aluno.cidade_escola).blur();
                 $("#uf_escola").val(info_aluno.uf_escola).blur();

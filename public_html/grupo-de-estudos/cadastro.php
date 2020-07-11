@@ -676,7 +676,7 @@
         <script src="/scripts/js/definicoes-maskedinput.js"></script>
         <script src="/scripts/js/libs/jquery.validate.min.js"></script>
         <script src="/scripts/js/validacao/Inscricao-GrupoEstudos.js"></script>
-        <script src="/scripts/js/pagina/Inscricao-GrupoEstudos.js"></script>
+        <script src="/scripts/js/pagina/Inscricao-GrupoEstudosPES.js"></script>
 <?php }?>        
     </body>
 </html>

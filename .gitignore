@@ -1,0 +1,6 @@
+#Ignorar o diretório com arquivos de teste no host local
+public_html/Area51/
+#Ignorar o diretório de arquivos com as senhas de acesso ao banco/e-mails
+private/senhas/
+#Ignorar arquivos de log
+*.log

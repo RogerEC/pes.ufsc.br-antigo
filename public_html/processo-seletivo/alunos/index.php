@@ -15,12 +15,16 @@
         <main><!--Conteúdo da página-->
             <div class="container">
                 <div class="text-center w-100 pt-5 pb-5">
-                    <h1>Processo Seletivo de Alunos 2020</h1>
+                    <h1>Processo Seletivo de Alunos 2020 (CANCELADO)</h1>
                 </div>
-                <div class="text-center w-100 pb-5">
-                    <button type="button" class="btn btn-verde mt-2" id="BotaoInscrever">
-                        Realizar Inscrição
+                <p class="text-justify">As inscrições no Processo Seletivo de Alunos 2020 foram canceladas, mas você ainda pode se inscrever no Grupo de Estudos online 
+                    que sera oferecido pelo Cursinho PES ao longo desse ano <b>até o dia 25/07/2020</b>. Clique no botão "Mais informações sobre o Grupo de Estudos" para saber mais.
+                </p>
+                <div class="text-center w-100 pt-3 pb-5">
+                    <button type="button" class="btn btn-verde mt-2" id="BotaoInscrever" disabled>
+                        Realizar Inscrição (CANCELADO)
                     </button>
+                    <a href="/grupo-de-estudos" class="btn btn-verde ml-2 mt-2">Mais informações sobre o Grupo de Estudos</a>
                     <button type="button" class="btn btn-verde mt-2" id="BotaoAcompanhar" disabled hidden>
                         Acompanhar Inscrição
                     </button>

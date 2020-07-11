@@ -15,11 +15,11 @@
         <main><!--Conteúdo da página-->
             <div class="container">
                 <div class="text-center w-100 pt-5 pb-5">
-                    <h1>Processo Seletivo de Professores 2020</h1>
+                    <h1>Processo Seletivo de Professores 2020 (CANCELADO)</h1>
                 </div>
                 <div class="text-center w-100 pb-5">
-                    <button type="button" class="btn btn-verde mt-2" id="BotaoInscrever">
-                        Realizar Inscrição
+                    <button type="button" class="btn btn-verde mt-2" id="BotaoInscrever" disabled>
+                        Realizar Inscrição (CANCELADO)
                     </button>
                     <button type="button" class="btn btn-verde mt-2" id="BotaoAcompanhar" disabled hidden>
                         Acompanhar Inscrição

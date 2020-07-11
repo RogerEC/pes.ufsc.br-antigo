@@ -50,6 +50,15 @@ $("#FormularioAlunos").validate({
         fez_vestibular:{select:true},
         curso:{select:true},
         tipo_universidade:{select:true},
+        escola_quarentena:{select:true},
+        trabalho:{select:true},
+        periodo_trabalho:{select:true},
+        carga_horaria_trabalho:{select:true},
+        trabalho_quarentena:{select:true},
+        disp_banda_larga:{select:true},
+        tipo_dispositivo:{select:true},
+        velocidade_conexao:{select:true},
+        material_fisico:{select:true},
     },
     messages:{
         nome:{required:"Informe o seu nome."},
@@ -72,7 +81,7 @@ $("#FormularioAlunos").validate({
         email:{
             required:"Informe seu endereço de e-mail.",
             email:"O endereço de e-mail informado é inválido.",
-            remote:"O endereço de e-mail informado já foi utilizado por outro usuário. Informe um endereço de e-mail diferente."
+            remote:"O endereço de e-mail informado já foi utilizado por outro candidato inscrito. Informe um endereço de e-mail diferente."
         },
         telefone:{
             required:"Informe o seu número de telefone.",
@@ -104,6 +113,15 @@ $("#FormularioAlunos").validate({
         fez_vestibular:{select:"Selecione se alguma vez você já fez vestibular/ENEM."},
         curso:{select:"Selecione em qual curso você deseja entrar na universidade."},
         tipo_universidade:{select:"Selecione em qual tipo de universidade você deseja entrar."},
+        escola_quarentena:{select:"Você precisa selecionar uma resposta para essa pergunta!"},
+        trabalho:{select:"Você precisa selecionar uma resposta para essa pergunta!"},
+        periodo_trabalho:{select:"Você precisa selecionar uma resposta para essa pergunta!"},
+        carga_horaria_trabalho:{select:"Você precisa selecionar uma resposta para essa pergunta!"},
+        trabalho_quarentena:{select:"Você precisa selecionar uma resposta para essa pergunta!"},
+        disp_banda_larga:{select:"Você precisa selecionar uma resposta para essa pergunta!"},
+        tipo_dispositivo:{select:"Você precisa selecionar uma resposta para essa pergunta!"},
+        velocidade_conexao:{select:"Você precisa selecionar uma resposta para essa pergunta!"},
+        material_fisico:{select:"Você precisa selecionar uma resposta para essa pergunta!"},
     },
     highlight: function(element, errorClass, validClass) {
         $(element).addClass("is-invalid").removeClass("is-valid");

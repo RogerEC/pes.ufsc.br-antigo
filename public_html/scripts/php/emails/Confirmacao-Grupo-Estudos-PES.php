@@ -29,15 +29,16 @@ try {
     $mail->addReplyTo('grupodeestudos@pes.ufsc.br', 'Grupo de Estudos Cursinho PES');
     //Mensagem
     $mensagem = "<p>Olá $nome,</p>
-    <p>Seu cadastro no Grupo de Estudos do Cursinho PES foi realizada com sucesso!</p>
-    <p>Em breve você receberá um e-mail da nossa equipe informando os dados de acesso para nossa sala virtual no Google Sala de Aula.</p>
-    <p>Caso você tenha qualquer dúvida sobre o Grupo de Estudos pode entrar em contato pelo e-mail grupodeestudos@pes.ufsc.br ou através de nossas redes sociais no <a href='https://www.facebook.com/PES.UFSC/'>Facebook</a> ou <a href='https://www.instagram.com/cursinhopes/'>Instagram</a>.</p>
-    <p>ATENÇÃO: Se nossa equipe não entrar em contato no prazo de até 24 horas após a confirmação de cadastro, entre em contato pelo e-mail: grupodeestudos@pes.ufsc.br.</p>
+    <p>Sua inscrição no Grupo de Estudos do Cursinho PES foi realizada com sucesso!</p>
+    <p>Em breve você receberá um e-mail da nossa equipe informando as instruções de acesso ao Grupo de Estudos.</p>
+    <p>Caso você tenha qualquer dúvida sobre o Grupo de Estudos pode entrar em contato pelo e-mail <b>grupodeestudos@pes.ufsc.br</b> ou através de nossas redes sociais no <a href='https://www.facebook.com/cursinhopes/'>Facebook</a> ou <a href='https://www.instagram.com/cursinhopes/'>Instagram</a>.</p>
+    <p><b>ATENÇÃO:</b> Se nossa equipe não entrar em contato por e-mail ou WhatsApp até o fim do <b>dia 27/07/2020</b>, entre em contato pelo e-mail: <b>grupodeestudos@pes.ufsc.br.</b></p>
     <br>
+    <p>Tenha uma semana maravilhosa e até logo!</p>
     Cursinho PES.<br/>
     <small>Mensagem enviada automaticamente pelo sistema.</small>";
     $mail->isHTML(true);
-    $mail->Subject = "Confirmação de Cadastro - Grupo de Estudos Cursinho PES";
+    $mail->Subject = "Confirmação de Inscrição - Grupo de Estudos Cursinho PES 2020";
     $mail->Body    = $mensagem;
     $mail->AltBody = strip_tags($mensagem);
 

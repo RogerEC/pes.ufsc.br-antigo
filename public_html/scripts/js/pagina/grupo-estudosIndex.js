@@ -1,9 +1,4 @@
 $(document).ready(function(){
-    $('input').keypress(function (e) {
-        var code = null;
-        code = (e.keyCode ? e.keyCode : e.which);                
-        return (code == 13) ? false : true;
-    });
     $("#EnviarRealizarCadastro").on("click", function(){
         $("#FormularioRealizarCadastro").submit();
     });
@@ -40,17 +35,12 @@ $(document).ready(function(){
             cpf:{
                 cpf: true,
                 required: true,
-                remote:{
-                    url: "/grupo-de-estudos/verifica-cpf.php",
-                    type:"post"
-                }
             }                         
         },
         messages:{
             cpf:{
                 required:"Informe o seu CPF",
                 cpf:"Número de CPF inválido.",
-                remote:"<div class='text-justify'>O CPF informado já está cadastrado no Grupo de Estudos!<br>Aguarde o recebimento do e-mail de confirmação para mais informações.<br>Caso tenha se inscrito a mais de 24h e ainda não tenha recebido a confirmação de cadastro, entre em contato com a equipe do Cursinho PES pelo e-mail <b>grupodeestudos@pes.ufsc.br.</b></div>"
             }
         },
         highlight: function(element, errorClass, validClass) {

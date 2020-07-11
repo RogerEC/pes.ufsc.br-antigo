@@ -15,23 +15,22 @@
         <main><!--Conteúdo da página-->
             <div class="container">
                 <div class="text-center w-100 pt-4 pb-4">
-                    <h1 class="mb-5">Grupo de Estudos Cursinho PES</h1>
-                    <p class="text-justify">Tendo em vista a suspensão das atividades na UFSC em decorrência da pandemia de Covid-19, o Cursinho PES organizou um Grupo de Estudos para auxiliar 
-                        de maneira remota os candidatos que tenham interesse em prestar o ENEM ou o vestibular das UFSC a se prepararem para as provas.</p>
-                    <p class="text-justify">Foi criada uma turma no Google Sala de Aula onde os candidatos terão acesso a um cronograma de conteúdos semanais, uma indicação de materiais disponíveis 
-                        na internet para estudar os assuntos propostos e um espaço para tirar dúvidas diretamente com os professores do Cursinho PES de maneira online através de videoconferências.</p>
-                    <p class="text-justify">Pode se cadastrar no grupo de estudo qualquer pessoa de Araranguá-SC e cidades próximas que tenha vontade de se prepara para a realização do ENEM ou Vestibular UFSC, 
-                        basta preencher a ficha de inscrição clicando no botão "Realizar Cadastro" abaixo.</p>
-                    <p class="text-justify">Apenas relembrando, o Cursinho PES é um projeto de extensão inteiramente voluntário da UFSC Campus Araranguá e conta com um número limitado de colaboradores. 
-                        Inicialmente não será estipulado limite no número de participantes do Grupo de Estudos, mas caso haja elevada demanda pelo grupo, será priorizado o atendimento individual aos alunos inscritos 
-                        no <b>Processo Seletivo de Alunos 2020</b> e que se enquadrem dentro dos critérios de seleção estipulados no <b>EDITAL Nº 03/PES/2020</b> disponível 
-                        <a href="/processo-seletivo/alunos/2020/Edital_N03PES2020.pdf" target="_blank">nesse link</a>.</p>
+                    <h1 class="mb-5">Grupo de Estudos Cursinho PES — 2ª Chamada</h1>
+                    <p class="text-justify">Considerando a descisão da Universidade Federal de Santa Catarina em não retomar o ensino de forma presencial este ano 
+                        (<a href="https://noticias.ufsc.br/2020/06/nota-oficial-ufsc-nao-retomara-ensino-presencial-em-2020/" target="_blank">link</a>), 
+                        o Cursinho PES comunica que não irá realizar nenhuma atividade presencial em 2020, cancelando o Edital Nº 03/PES/2020 que tratava do Processo Seletivo de Alunos 2020. Durante esse ano 
+                        entretanto, iremos manter um grupo de estudos online para auxiliar os estudantes que tenham interesse em prestar o ENEM ou o vestibular das UFSC a se prepararem para as provas.</p>
+                    <p class="text-justify">Para não prejudicar os candidatos que estavam a espera do retorno das atividades normais, iremos abrir uma segunda chamada de inscrições para o Grupo de Estudos.
+                        Podem se inscrever qualquer pessoa com 16 anos completos ou mais que tenha vontade de se prepara para a realização do ENEM ou do Vestibular UFSC. Para tal, basta preencher a ficha de 
+                        inscrição clicando no botão "Realizar Inscrição no Grupo de Estudos.</p>
+                    <p class="text-justify"><b>PRAZO PARA INSCRIÇÃO NA 2ª CHAMADA:</b> de 11/07/2020 até 25/07/2020 às 23:59:59. Após esse prazo não serão aceitas novas inscrições.</p>
+                    <p class="text-justify"><b>Informações adicionais:</b> <a href="#" target="_blank">Informações sobre o Grupo de Estudos do Cursinho PES</a></p>
                     <p class="text-justify">Dúvidas podem ser encaminhadas para o e-mail <b>grupodeestudos@pes.ufsc.br</b> ou nas nossas redes sociais no 
                     <a href='https://www.facebook.com/PES.UFSC/'>Facebook</a> ou <a href='https://www.instagram.com/cursinhopes/'>Instagram</a>.</p>
                 </div>
                 <div class="text-center w-100 pb-4">
                     <button type="button" class="btn btn-verde mt-2" id="BotaoCadastrar">
-                        Realizar Cadastro no Grupo de Estudos
+                        Realizar Inscrição no Grupo de Estudos
                     </button>
                 </div>
             </div>
@@ -75,6 +74,6 @@
         <script src="/scripts/js/libs/jquery.maskedinput.js"></script>
         <script src="/scripts/js/definicoes-maskedinput.js"></script>
         <script src="/scripts/js/libs/jquery.validate.min.js"></script>
-        <script src="/scripts/js/pagina/grupo-estudos-index.js"></script>
+        <script src="/scripts/js/pagina/grupo-estudosIndex.js"></script>
     </body>
 </html>

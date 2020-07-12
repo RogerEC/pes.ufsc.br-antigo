@@ -1,37 +1,50 @@
 <?php
+    // Definição de datas
+    $inicio_inscricoes = '13/07/2020 00:00:00';
+    $final_inscricoes = '25/07/2020 23:59:59';
+    $timezone = new DateTimeZone('America/Sao_Paulo');
+    $agora = new DateTime('now', $timezone);
+    $inicio = DateTime::createFromFormat('d/m/Y H:i:s', $inicio_inscricoes, $timezone);
+    $final = DateTime::createFromFormat('d/m/Y H:i:s', $final_inscricoes, $timezone);
+
     ini_set('default_charset','utf-8');
     $path = $_SERVER['DOCUMENT_ROOT'];
 
     if(!empty($_POST["cpf"]) && isset($_POST["cpf"])){
+        
         $cpf = $_POST["cpf"];
-    }else{
-        $erro=401;
-        include $path."/erro.php";
-        exit;
-    }
-    if(!empty($_POST["email"]) && isset($_POST["email"])){
-        $email = $_POST["email"];
-    }else{
-        $erro=401;
-        include $path."/erro.php";
-        exit;
-    }
-    if(!empty($_POST["senha"]) && isset($_POST["senha"])){
-        $senha = password_hash($_POST["senha"], PASSWORD_DEFAULT);
+
+        require_once($path."/scripts/php/banco/conexao.php");
+
+        $cpf2 = preg_replace('/[^0-9]/', '', $_POST["cpf"]);
+
+        $resultado = $conexao->query("SELECT ID_USUARIO FROM pes_usuario WHERE USUARIO = '{$cpf2}' LIMIT 1");
+
+        $inscrito = ($resultado->num_rows == 1)? true:false;
+        $obj = $resultado->fetch_object();
+        $id_usuario = $obj->ID_USUARIO;
+        $resultado->close();
+        $resultado = $conexao->query("SELECT ID_VOLUNT, DATA_REGISTRO FROM pes_volunt WHERE ID_USUARIO = $id_usuario AND VERSAO_PS = '2020-2'");
+        $cadastro_existente = ($resultado->num_rows == 1)? true:false;
+        if($cadastro_existente){
+            $obj = $resultado->fetch_object();
+            $data_registro_str = $obj->DATA_REGISTRO;
+            $resultado->close();
+            $resultado = $conexao->query("SELECT NOME, SOBRENOME, NUM_WPP, EMAIL, DATA_NASC FROM info_pessoal WHERE CPF = '{$cpf2}' LIMIT 1");
+            $info_inscrito = $resultado->fetch_object();
+            $resultado->close();
+        }    
     }else{
         $erro=401;
         include $path."/erro.php";
         exit;
     }
 
-    require_once($path."/scripts/php/banco/conexao.php");
-    
     $cursos = $conexao->query("SELECT ID_CURSO, NOME FROM pes_curso");
     $disciplinas = $conexao->query("SELECT ID_DISCIPLINA, NOME FROM pes_disciplina WHERE DISPONIBILIDADE = 1");
 
     $conexao->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
@@ -44,7 +57,57 @@
     </head>
 
     <body>
-
+    <?php if($agora < $inicio){ ?>
+        <!-- Mensagem de erro: prazo não iniciado -->
+        <div class="container mt-5 mb-5 text-center">
+            <h1>O Prazo de inscrição ainda não começou!</h1>
+        </div>
+        <div class="container text-center">
+            <p>O prazo de inscrição para esse processo seletivo se <b>inicia no dia <?php echo $inicio->format('d/m/Y'); ?> às <?php echo $inicio->format('H:i:s'); ?></b>. Retorne ao site após essa data para realizar a sua inscrição.</p>
+            <p>Apenas lembrando, o prazo de inscrição <b>encerra no dia <?php echo $final->format('d/m/Y'); ?> às <?php echo $final->format('H:i:s'); ?>,</b> sendo necessário enviar sua inscrição antes disso! ;)</p>
+            <p><a href="/">Clique aqui</a> para voltar a página inicial do site.</p>
+        </div>
+        <!-- Scripts -->
+        <script src="/scripts/js/libs/jquery-3.4.1.min.js"></script>
+        <script src="/scripts/js/libs/bootstrap.min.js"></script>
+<?php }else if($agora > $final){ ?>
+        <!-- Mensagem de erro: prazo encerrado -->
+        <div class="container mt-5 mb-5 text-center">
+            <h1>Prazo de inscrição encerrado!</h1>
+        </div>
+        <div class="container text-center">
+            <p>Você não pode mais se inscrever para esse processo seletivo, o prazo de inscrição <b>encerrou no dia <?php echo $final->format('d/m/Y'); ?> às <?php echo $final->format('H:i:s'); ?></b>.</p>
+            <p><a href="/">Clique aqui</a> para voltar a página inicial do site.</p>
+        </div>
+        <!-- Scripts -->
+        <script src="/scripts/js/libs/jquery-3.4.1.min.js"></script>
+        <script src="/scripts/js/libs/bootstrap.min.js"></script>
+<?php }else if($cadastro_existente){ 
+        $data_nasc = DateTime::createFromFormat('Y-m-d', $info_inscrito->DATA_NASC, $timezone);
+        $data_registro = DateTime::createFromFormat('Y-m-d H:i:s', $data_registro_str, $timezone);
+        $email = explode('@', trim($info_inscrito->EMAIL));
+?>
+        <!-- Mensagem de erro: Aluno já inscrito -->
+        <div class="container mt-5 mb-5 text-center">
+            <h1>ATENÇÃO: Você já realizou a inscrição no Grupo de Estudos!</h1>
+        </div>
+        <div class="container text-center">
+            <p class="text-justify">A inscrição para o número de CPF informado foi registrada com sucesso na nossa base de dados no dia <b><?php echo $data_registro->format('d/m/Y'); ?></b> às <b><?php echo $data_registro->format('H:i:s'); ?>.</b></p>
+            <p class="text-justify mt-4"><b>RESUMO DOS DADOS DA INSCRIÇÃO:</b></p>
+            <p class="text-justify mb-1"><b>Nome: </b><?php echo $info_inscrito->NOME." ".$info_inscrito->SOBRENOME; ?></p>
+            <p class="text-justify mb-1"><b>CPF: </b><?php echo $cpf; ?> </p>
+            <p class="text-justify mb-1"><b>Data de nascimento: </b><?php echo $data_nasc->format('d/m/Y'); ?></p>
+            <p class="text-justify mb-1"><b>Endereço de e-mail: </b><?php echo substr($email[0], 0, -5).'*****@'.$email[1]; ?> </p>
+            <p class="text-justify"><b>Número de telefone: </b><?php echo '('.substr(trim($info_inscrito->NUM_WPP), 0, 2).') 9 ****-'.substr(trim($info_inscrito->NUM_WPP), -4); ?></p>
+            <p class="text-justify mb-4"><small>* Por questão de privacidade, foram omitidos alguns caracteres do e-mail e telefone de contato.</small> </p>
+            <p class="text-justify mb-4">Caso alguma informação esteja incorreta, você pode entrar em contato pelo e-mail <b>processoseletivo@pes.ufsc.br</b> para que sejam feitas as respectivas correções.
+             Entraremos em contato pelo e-mail fornecido na inscrição a partir do dia <b><?php $final->add(new DateInterval('P1D')); echo $final->format('d/m/Y'); ?></b> para informar as instruções das próximas etapas do processo seletivo.</p>
+            <p><a href="/">Clique aqui</a> para voltar a página inicial do site.</p>
+        </div>
+        <!-- Scripts -->
+        <script src="/scripts/js/libs/jquery-3.4.1.min.js"></script>
+        <script src="/scripts/js/libs/bootstrap.min.js"></script>
+<?php }else{ ?>
         <main class="pt-0 w-100 h-100" id="FormularioInscricao"><!--Conteúdo da página-->
             <!-- Barra de navegação lateral -->
             <div class="coluna-barra-lateral d-none d-sm-block bg-inscricao">
@@ -769,6 +832,7 @@
         <script src="/scripts/js/libs/jquery.validate.min.js"></script>
         <script src="/scripts/js/validacao/inscricao-PSProfs.js"></script>
         <script src="/scripts/js/pagina/inscricao-PSProfs.js"></script>
+<?php }?>
     </body>
 </html>
 <?php 

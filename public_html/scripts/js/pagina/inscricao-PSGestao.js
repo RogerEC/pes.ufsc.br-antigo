@@ -1,4 +1,129 @@
 $(document).ready(function(){
+    if($("#inscrito").val()==true){
+        $("#BotaoPreenchimentoAutomatico").click();
+    }
+
+    $("#BotaoFecharPreenAuto").on("click", function(){
+        $("#FecharModalPreenAuto").click();
+    });
+
+    $("#BotaoCancelarPreenAuto").on("click", function(){
+        $("#FecharModalPreenAuto").click();
+    });
+
+    function exibir_botao_fechar(){
+        $("#BotaoFecharPreenAuto").show();
+        $("#BotaoConfirmarPreenAuto").hide();
+        $("#BotaoCancelarPreenAuto").hide();
+    }
+
+    $("#BotaoConfirmarPreenAuto").on("click", function(){
+        $("#MensgPreenAutoInicial").hide();
+        $("#MensgPreenAutoCarregando").show();
+        if (request) {
+            request.abort();
+        }
+        request = $.ajax({
+            url: "/processo-seletivo/gestao/carregar-info-inscrito.php",
+            type: "post",
+            data: $("#cpf").serializeArray()
+        });
+        request.done(function(msg){
+            console.log(msg);
+            const info_voluntario = JSON.parse(msg);
+            //preencher dados
+            /*$("#INICIO").addClass("d-none");
+        $("#DADOS_PESSOAIS").addClass("d-none");
+        $("#CARGO_MOTIVACAO").addClass("d-none");
+        $("#DISPONIBILIDADE").addClass("d-none");
+        $("#DADOS_ADICIONAIS").addClass("d-none");
+        $("#REVISAR_ENVIAR").addClass("d-none");*/
+            oculta_tudo();
+            $("#DADOS_PESSOAIS").removeClass("d-none");
+                $("#nome").val(info_voluntario.nome).blur();
+                $("#sobrenome").val(info_voluntario.sobrenome).blur();
+                $("#sexo").val(info_voluntario.sexo).blur();
+                $("#data_nasc").val(info_voluntario.data_nasc).blur();
+                if($("#idade").val()<18){
+                    $("#nome_resp").val(info_voluntario.nome_resp).blur();
+                    $("#cpf_resp").val(info_voluntario.cpf_resp).blur();
+                    $("#telefone_resp").val(info_voluntario.telefone_resp).blur();
+                    $("#parentesco").val(info_voluntario.parentesco).blur();
+                }
+                $("#email").val(info_voluntario.email).blur();
+                $("#telefone_cand").val(info_voluntario.telefone).blur();
+            $("#DADOS_PESSOAIS").addClass("d-none");    
+            if(info_voluntario.tipo_info=="G"){
+                $("#CARGO_MOTIVACAO").removeClass("d-none");
+                    if(info_voluntario.setores.length > 2)
+                        $("#setor03").val(info_voluntario.setores[2].ID_SETOR).blur();
+                    if(info_voluntario.setores.length > 1)
+                        $("#setor02").val(info_voluntario.setores[1].ID_SETOR).blur();
+                    if(info_voluntario.setores.length > 0)
+                        $("#setor01").val(info_voluntario.setores[0].ID_SETOR).blur();
+                    $("#porque_setor").val(info_voluntario.motivo_opcao).blur();
+                    $("#porque_entrar").val(info_voluntario.motivacao).blur();
+                    $("#como_ajudar").val(info_voluntario.como_contr).blur();
+                $("#CARGO_MOTIVACAO").addClass("d-none");
+            }
+            $("#DISPONIBILIDADE").removeClass("d-none");
+                $("#quantas_horas").val(info_voluntario.disp_semanal).blur();
+            $("#DISPONIBILIDADE").addClass("d-none");
+            $("#DADOS_ADICIONAIS").removeClass("d-none");
+                $("#relacao_cursinho").val(info_voluntario.rel_pes).blur();
+                $("#ocupacao").val(info_voluntario.ocupacao).blur().change();
+                if(info_voluntario.estudante = 1){
+                    $("#curso").val(info_voluntario.curso).blur();
+                    $("#fase").val(info_voluntario.fase).blur();
+                    if(info_voluntario.matricula != 0){
+                        $("#matricula").val(info_voluntario.matricula).blur();
+                    }
+                }
+                if(info_voluntario.atv_atual.length > 0){
+                    $("#outros_projetos").val("Sim").blur().change();
+                    for(var i=0; i<info_voluntario.atv_atual.length; i++){
+                        $("#nome_projeto"+i.toString()).val(info_voluntario.atv_atual[i].NOME).blur();
+                        $("#carga_horaria_projeto"+i.toString()).val(info_voluntario.atv_atual[i].CARGA_HORARIA).blur();
+                        if(i != (info_voluntario.atv_atual.length-1)){
+                            $("#ADD_PROJETO").click();
+                        }
+                    }
+                }else{
+                    $("#outros_projetos").val("Nao").blur().change();
+                }
+                if(info_voluntario.atv_antiga.length > 0){
+                    $("#outros_projetos_antigo").val("Sim").blur().change();
+                    for(var i=0; i<info_voluntario.atv_antiga.length; i++){
+                        $("#nome_projeto_antigo"+i.toString()).val(info_voluntario.atv_antiga[i].NOME).blur();
+                        $("#prof_projeto_antigo"+i.toString()).val(info_voluntario.atv_antiga[i].NOME_PROF).blur();
+                        if(i != (info_voluntario.atv_antiga.length-1)){
+                            $("#ADD_PROJETO").click();
+                        }
+                    }
+                }else{
+                    $("#outros_projetos_antigo").val("Nao").blur().change();
+                }
+                if(info_voluntario.exp_voluntario.length > 2){
+                    $("#voluntario").val("Sim").change().blur();
+                    $("#exp_voluntario").val(info_voluntario.exp_voluntario).blur();
+                }else{
+                    $("#voluntario").val("Nao").change().blur();
+                }
+            $("#DADOS_ADICIONAIS").addClass("d-none");
+
+            $("#BotaoInicio").addClass("btn-ativo");
+            $("#INICIO").removeClass("d-none");    
+            $("#MensgPreenAutoCarregando").hide();
+            $("#MensgPreenAutoSucesso").show();
+            exibir_botao_fechar();
+        });
+        request.fail(function(){
+            $("#MensgPreenAutoCarregando").hide();
+            $("#MensgPreenAutoErro").show();
+            exibir_botao_fechar();
+        })
+    });
+    
     $('input').keypress(function (e) {
         var code = null;
         code = (e.keyCode ? e.keyCode : e.which);                
@@ -185,12 +310,14 @@ $(document).ready(function(){
         var aux = 0;
         $("#INFO_PROJETOS .col-md-6").each(function(){
             $(this).find("input").attr("name", "nome_projeto"+aux);
+            $(this).find("input").attr("id", "nome_projeto"+aux);
             $(this).find(".error").attr("id", "nome_projeto"+aux+"-error").attr("for","nome_projeto"+aux);
             aux++;
         });
         aux = 0;
         $("#INFO_PROJETOS .col-md-4").each(function(){
             $(this).find("input").attr("name", "carga_horaria_projeto"+aux);
+            $(this).find("input").attr("id", "carga_horaria_projeto"+aux);
             $(this).find(".error").attr("id", "carga_horaria_projeto"+aux+"-error").attr("for","carga_horaria_projeto"+aux);
             aux++;
         });
@@ -199,12 +326,14 @@ $(document).ready(function(){
         var aux = 0;
         $("#INFO_PROJETOS_ANTIGO .col-md-6").each(function(){
             $(this).find("input").attr("name", "nome_projeto_antigo"+aux);
+            $(this).find("input").attr("id", "nome_projeto_antigo"+aux);
             $(this).find(".error").attr("id", "nome_projeto_antigo"+aux+"-error").attr("for","nome_projeto_antigo"+aux);
             aux++;
         });
         aux = 0;
         $("#INFO_PROJETOS_ANTIGO .col-md-4").each(function(){
             $(this).find("input").attr("name", "prof_projeto_antigo"+aux);
+            $(this).find("input").attr("id", "prof_projeto_antigo"+aux);
             $(this).find(".error").attr("id", "prof_projeto_antigo"+aux+"-error").attr("for","prof_projeto_antigo"+aux);
             aux++;
         });

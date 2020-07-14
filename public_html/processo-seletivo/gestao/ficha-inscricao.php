@@ -1,37 +1,59 @@
 <?php
-    ini_set('default_charset','UTF-8');
+    // Definição de datas
+    $inicio_inscricoes = '13/07/2020 00:00:00';
+    $final_inscricoes = '25/07/2020 23:59:59';
+    $timezone = new DateTimeZone('America/Sao_Paulo');
+    $agora = new DateTime('now', $timezone);
+    $inicio = DateTime::createFromFormat('d/m/Y H:i:s', $inicio_inscricoes, $timezone);
+    $final = DateTime::createFromFormat('d/m/Y H:i:s', $final_inscricoes, $timezone);
+
+    ini_set('default_charset','utf-8');
     $path = $_SERVER['DOCUMENT_ROOT'];
 
     if(!empty($_POST["cpf"]) && isset($_POST["cpf"])){
+        
         $cpf = $_POST["cpf"];
+
+        require_once($path."/scripts/php/banco/conexao.php");
+
+        $cpf2 = preg_replace('/[^0-9]/', '', $_POST["cpf"]);
+
+        $resultado = $conexao->query("SELECT ID_USUARIO FROM pes_usuario WHERE USUARIO = '{$cpf2}' LIMIT 1");
+
+        if($resultado->num_rows == 1){
+            $inscrito = true;
+            $obj = $resultado->fetch_object();
+            $id_usuario = $obj->ID_USUARIO;
+            
+            $resultado->close();
+            $resultado = $conexao->query("SELECT ID_VOLUNT, DATA_REGISTRO FROM pes_volunt WHERE ID_USUARIO = $id_usuario AND VERSAO_PS = '2020-2'");
+        
+            if($resultado->num_rows == 1){
+                $cadastro_existente = true;
+                $obj = $resultado->fetch_object();
+                $data_registro_str = $obj->DATA_REGISTRO;
+                $resultado->close();
+                $resultado = $conexao->query("SELECT NOME, SOBRENOME, NUM_WPP, EMAIL, DATA_NASC FROM info_pessoal WHERE CPF = '{$cpf2}' LIMIT 1");
+                $info_inscrito = $resultado->fetch_object();
+                $resultado->close();
+            }else{
+                $cadastro_existente = false;
+            }
+        }else{
+            $inscrito = false;
+            $cadastro_existente = false;
+        }
     }else{
         $erro=401;
         include $path."/erro.php";
         exit;
     }
-    if(!empty($_POST["email"]) && isset($_POST["email"])){
-        $email = $_POST["email"];
-    }else{
-        $erro=401;
-        include $path."/erro.php";
-        exit;
-    }
-    if(!empty($_POST["senha"]) && isset($_POST["senha"])){
-        $senha = password_hash($_POST["senha"], PASSWORD_DEFAULT);
-    }else{
-        $erro=401;
-        include $path."/erro.php";
-        exit;
-    }
-    
-    require_once($path."/scripts/php/banco/conexao.php");
-    
+
     $cursos = $conexao->query("SELECT ID_CURSO, NOME FROM pes_curso");
     $setores = $conexao->query("SELECT ID_SETOR, NOME FROM pes_setor WHERE DISPONIBILIDADE = 1");
 
     $conexao->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
@@ -44,7 +66,57 @@
     </head>
 
     <body>
-
+<?php if($agora < $inicio){ ?>
+        <!-- Mensagem de erro: prazo não iniciado -->
+        <div class="container mt-5 mb-5 text-center">
+            <h1>O Prazo de inscrição ainda não começou!</h1>
+        </div>
+        <div class="container text-center">
+            <p>O prazo de inscrição para esse processo seletivo se <b>inicia no dia <?php echo $inicio->format('d/m/Y'); ?> às <?php echo $inicio->format('H:i:s'); ?></b>. Retorne ao site após essa data para realizar a sua inscrição.</p>
+            <p>Apenas lembrando, o prazo de inscrição <b>encerra no dia <?php echo $final->format('d/m/Y'); ?> às <?php echo $final->format('H:i:s'); ?>,</b> sendo necessário enviar sua inscrição antes disso! ;)</p>
+            <p><a href="/">Clique aqui</a> para voltar a página inicial do site.</p>
+        </div>
+        <!-- Scripts -->
+        <script src="/scripts/js/libs/jquery-3.4.1.min.js"></script>
+        <script src="/scripts/js/libs/bootstrap.min.js"></script>
+<?php }else if($agora > $final){ ?>
+        <!-- Mensagem de erro: prazo encerrado -->
+        <div class="container mt-5 mb-5 text-center">
+            <h1>Prazo de inscrição encerrado!</h1>
+        </div>
+        <div class="container text-center">
+            <p>Você não pode mais se inscrever para esse processo seletivo, o prazo de inscrição <b>encerrou no dia <?php echo $final->format('d/m/Y'); ?> às <?php echo $final->format('H:i:s'); ?></b>.</p>
+            <p><a href="/">Clique aqui</a> para voltar a página inicial do site.</p>
+        </div>
+        <!-- Scripts -->
+        <script src="/scripts/js/libs/jquery-3.4.1.min.js"></script>
+        <script src="/scripts/js/libs/bootstrap.min.js"></script>
+<?php }else if($cadastro_existente){ 
+        $data_nasc = DateTime::createFromFormat('Y-m-d', $info_inscrito->DATA_NASC, $timezone);
+        $data_registro = DateTime::createFromFormat('Y-m-d H:i:s', $data_registro_str, $timezone);
+        $email = explode('@', trim($info_inscrito->EMAIL));
+?>
+        <!-- Mensagem de erro: Aluno já inscrito -->
+        <div class="container mt-5 mb-5 text-center">
+            <h1>ATENÇÃO: Você já realizou a inscrição no Grupo de Estudos!</h1>
+        </div>
+        <div class="container text-center">
+            <p class="text-justify">A inscrição para o número de CPF informado foi registrada com sucesso na nossa base de dados no dia <b><?php echo $data_registro->format('d/m/Y'); ?></b> às <b><?php echo $data_registro->format('H:i:s'); ?>.</b></p>
+            <p class="text-justify mt-4"><b>RESUMO DOS DADOS DA INSCRIÇÃO:</b></p>
+            <p class="text-justify mb-1"><b>Nome: </b><?php echo $info_inscrito->NOME." ".$info_inscrito->SOBRENOME; ?></p>
+            <p class="text-justify mb-1"><b>CPF: </b><?php echo $cpf; ?> </p>
+            <p class="text-justify mb-1"><b>Data de nascimento: </b><?php echo $data_nasc->format('d/m/Y'); ?></p>
+            <p class="text-justify mb-1"><b>Endereço de e-mail: </b><?php echo substr($email[0], 0, -5).'*****@'.$email[1]; ?> </p>
+            <p class="text-justify"><b>Número de telefone: </b><?php echo '('.substr(trim($info_inscrito->NUM_WPP), 0, 2).') 9 ****-'.substr(trim($info_inscrito->NUM_WPP), -4); ?></p>
+            <p class="text-justify mb-4"><small>* Por questão de privacidade, foram omitidos alguns caracteres do e-mail e telefone de contato.</small> </p>
+            <p class="text-justify mb-4">Caso alguma informação esteja incorreta, você pode entrar em contato pelo e-mail <b>processoseletivo@pes.ufsc.br</b> para que sejam feitas as respectivas correções.
+             Entraremos em contato pelo e-mail fornecido na inscrição a partir do dia <b><?php $final->add(new DateInterval('P1D')); echo $final->format('d/m/Y'); ?></b> para informar as instruções das próximas etapas do processo seletivo.</p>
+            <p><a href="/">Clique aqui</a> para voltar a página inicial do site.</p>
+        </div>
+        <!-- Scripts -->
+        <script src="/scripts/js/libs/jquery-3.4.1.min.js"></script>
+        <script src="/scripts/js/libs/bootstrap.min.js"></script>
+<?php }else{ ?>
         <main class="pt-0 w-100 h-100" id="FormularioInscricao"><!--Conteúdo da página-->
             <!-- Barra de navegação lateral -->
             <div class="coluna-barra-lateral d-none d-sm-block bg-inscricao">
@@ -64,16 +136,16 @@
                 <form action="" method="POST" id="FormularioGestao">
                     <div id="INICIO" class="corpo">
                         <div class="conteudo">
-                            <div class="titulo">Ficha de Inscrição - Processo Seletivo de Gestores 2020-1</div>
+                            <div class="titulo">Ficha de Inscrição - Processo Seletivo de Gestores 2020-2</div>
                                 <p class="text-justify">Olá candidato e, espero, futuro voluntário do Cursinho PES. Estamos muito felizes por você querer fazer parte do projeto.</p>
-                                <p class="text-justify">Antes de começar a preencher a ficha de inscrição, reiteramos a importância da leitura completa do <b>EDITAL Nº 01/PES/2020</b>, que está disponível <a href="/processo-seletivo/gestao/2020/Edital_N01PES2020.pdf" target="_blank">nesse link</a>. 
+                                <p class="text-justify">Antes de começar a preencher a ficha de inscrição, reiteramos a importância da leitura completa do <b>EDITAL Nº 04/PES/2020</b>, que está disponível <a href="/processo-seletivo/gestao/2020/Edital_N04PES2020.pdf" target="_blank">nesse link</a>. 
                                 Nele estão contidas todas as regras, etapas e datas do Processo Seletivo. Caso ainda sim a qualquer momento você tenha alguma dúvida sobre o processo seletivo, você pode entrar em contato com a equipe do Cursinho  
                                 através do e-mail: <b>processoseletivo@pes.ufsc.br</b> ou através das nossas redes sociais no <a href="https://www.facebook.com/PES.UFSC/" target="_blank">Facebook</a> ou <a href="https://www.instagram.com/cursinhopes/" target="_blank">Instagram</a>.</p>
                                 <div class="subtitulo">Instruções para o preenchimento da ficha de inscrição</div>
                                     <p>Para começar a preencher a ficha de inscrição, confime abaixo a leitura completa do edital e em seguida clique no botão "Iniciar inscrição" no final dessa página. Todos os campos são obrigatórios, exceto os indicados com (opcional) ao lado da pergunta.</p>
                                     <div class="custom-control custom-checkbox my-1 mr-sm-2">
                                         <input type="checkbox" class="custom-control-input" id="ConfirmaLeituraEdital" name="ConfirmaLeituraEdital">
-                                        <label class="custom-control-label" for="ConfirmaLeituraEdital">Eu declaro que realizei a leitura do <b>Edital Nº 01/PES/2020</b>, aceito seu termos e quero participar do Processo Seletivo de Gestores 2020-1.</label>
+                                        <label class="custom-control-label" for="ConfirmaLeituraEdital">Eu declaro que realizei a leitura do <b>Edital Nº 04/PES/2020</b>, aceito seu termos e quero participar do Processo Seletivo de Gestores 2020-2.</label>
                                     </div>
                                     <div class="invalid-feedback font-100 ocultar" id="ErroConfirmaLeituraEdital"><b>ATENÇÃO!</b> Você precisa declarar ciência do Edital antes de prosseguir com a inscrição.</div>
                         </div>
@@ -109,7 +181,8 @@
                                 <div class="form-group col-md-3">
                                     <label for="cpf"><b>CPF:</b></label>
                                     <input type="text" class="form-control cpf" id="cpf" name="cpf" value="<?php echo $cpf?>" readonly>
-                                    <input type="text" id="senha" name="senha" value="<?php echo $senha?>" hidden>
+                                    <!--<input type="text" id="senha" name="senha" value="<?php //echo $senha ?>" hidden>-->
+                                    <input type="text" id="inscrito" name="inscrito" value="<?php echo $inscrito?>" hidden>
                                 </div>
                                 <div class="form-row col-md-5">
                                     <div class="form-group col-6">
@@ -447,11 +520,11 @@
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label><b>Nome da atividade:</b></label>
-                                                    <input type="text" class="form-control" name="nome_projeto0" placeholder="Digite o nome do projeto/atividade">
+                                                    <input type="text" class="form-control" name="nome_projeto0" id="nome_projeto0" placeholder="Digite o nome do projeto/atividade">
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label><b>Carga horária (horas/semana):</b></label>
-                                                    <input type="text" class="form-control" name="carga_horaria_projeto0" placeholder="Digite a carga horária">
+                                                    <input type="text" class="form-control" name="carga_horaria_projeto0" id="carga_horaria_projeto0" placeholder="Digite a carga horária">
                                                 </div>
                                             </div>
                                         </div>
@@ -479,11 +552,11 @@
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label><b>Nome da atividade:</b></label>
-                                                    <input type="text" class="form-control" name="nome_projeto_antigo0" placeholder="Digite o nome do projeto/atividade">
+                                                    <input type="text" class="form-control" name="nome_projeto_antigo0" id="nome_projeto_antigo0" placeholder="Digite o nome do projeto/atividade">
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label><b>Professor responsável: </b><small>(Opcional)</small></label>
-                                                    <input type="text" class="form-control" name="prof_projeto_antigo0" placeholder="Informe o professor responsável">
+                                                    <input type="text" class="form-control" name="prof_projeto_antigo0" id="prof_projeto_antigo0" placeholder="Informe o professor responsável">
                                                 </div>
                                             </div>
                                         </div>
@@ -727,6 +800,43 @@
                     </div>
                 </div>
             </div><!--/Modal Mensagem Erro Preenchimento -->
+            <!-- Modal Preenchimento Automático já inscritos -->
+            <button type="button" class="btn btn-verde" data-toggle="modal" data-target="#MensagemPreenchimentoAutomatico" id="BotaoPreenchimentoAutomatico" hidden></button>
+            <div class="modal fade" id="MensagemPreenchimentoAutomatico" tabindex="-1" role="dialog" aria-labelledby="TituloMensagemPreenchimentoAutomatico" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-bordo-pes">
+                            <h5 class="modal-title" id="TituloMensagemPreenchimentoAutomatico">ATENÇÃO!</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar" id="FecharModalPreenAuto">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid" id="MensgPreenAutoInicial">
+                                <p>Você havia realizado a inscrição para o Processo Seletivo de Alunos 2020.</p>
+                                <p>Os dados da sua inscrição podem ser importados.</p>
+                            </div>
+                            <div class="container-fluid ocultar" id="MensgPreenAutoCarregando">
+                                <p>Estamos carregando os dados da sua inscrição.</p>
+                                <p>Aguarde!</p>
+                            </div>
+                            <div class="container-fluid ocultar" id="MensgPreenAutoSucesso">
+                                <p>Seus dados foram carregados com sucesso!</p>
+                                <p>Confira as suas respostas e preencha os campos faltantes.</p>
+                            </div>
+                            <div class="container-fluid ocultar" id="MensgPreenAutoErro">
+                                <p>Houve um erro ao carregar os dados salvos na nossa base de dados relativos ao Processo Seletivo de Alunos 2020..</p>
+                                <p>Entretando, você ainda pode preencher os dados manualmente e enviar a sua inscrição em logo em seguida.</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer bg-bordo-pes">
+                            <button type="button" class="btn btn-bordo" id="BotaoCancelarPreenAuto">Cancelar</button>
+                            <button type="button" class="btn btn-verde" id="BotaoConfirmarPreenAuto">Carregar dados</button>
+                            <button type="button" class="btn btn-verde ocultar" id="BotaoFecharPreenAuto">Entendi</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!--/Modal Preenchimento Automático já inscritos -->
         </main><!--/Conteúdo da página-->
         
         <!--Javascript-->
@@ -737,7 +847,7 @@
         <script src="/scripts/js/libs/jquery.validate.min.js"></script>
         <script src="/scripts/js/validacao/inscricao-PSGestao.js"></script>
         <script src="/scripts/js/pagina/inscricao-PSGestao.js"></script>
-        </script>
+<?php }?>
     </body>
 </html>
 <?php 

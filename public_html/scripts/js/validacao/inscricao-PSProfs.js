@@ -106,7 +106,7 @@ $("#FormularioProfessores").validate({
             cpf:"O número de CPF é inválido."
         },
         telefone_resp:{required:"Informe o número de telefone do seu responsável."},
-        email:{required:"ERRO CRÍTICO! Volte na página do processo seletivo de alunos e reinicie a sua inscrição."},
+        email:{required:"Por favor, informe o seu endereço de e-mail."},
         telefone_cand:{required:"Informe o seu número de telefone."},
         materia01:{select: "Selecione sua primeira opção de matéria."},
         materia_especifica:{

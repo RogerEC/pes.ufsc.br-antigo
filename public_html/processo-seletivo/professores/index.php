@@ -18,7 +18,7 @@
                     <h1>Processo Seletivo de Professores 2020 (CANCELADO)</h1>
                 </div>
                 <div class="text-center w-100 pb-5">
-                    <button type="button" class="btn btn-verde mt-2" id="BotaoInscrever" disabled>
+                    <button type="button" class="btn btn-verde mt-2" id="BotaoInscrever">
                         Realizar Inscrição (CANCELADO)
                     </button>
                     <button type="button" class="btn btn-verde mt-2" id="BotaoAcompanhar" disabled hidden>
@@ -49,26 +49,8 @@
                             <form action="ficha-inscricao.php" method="POST" class="container-fluid" id="FormularioRealizarInscricao">
                                 <div class="form-row">
                                     <div class="form-group w-100">
-                                        <label for="email_insc"><b>Endereço de e-mail:</b></label>
-                                        <input type="email" class="form-control" id="email_insc" name="email" placeholder="meu.email@exemplo.com">
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group w-100">
                                         <label for="cpf_insc"><b>Número do CPF:</b></label>
                                         <input type="text" class="form-control cpf" id="cpf_insc" name="cpf" placeholder="___.___.___-__">
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group w-100">
-                                        <label for="senha_insc"><b>Crie uma senha:</b></label>
-                                        <input type="password" class="form-control" id="senha_insc" name="senha">
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group w-100">
-                                        <label for="senha_insc2"><b>Repita a sua senha:</b></label>
-                                        <input type="password" class="form-control" id="confirme_senha" name="confirme_senha">
                                     </div>
                                 </div>
                             </form>
@@ -80,97 +62,6 @@
                     </div>
                 </div>
             </div><!--/Modal Realizar inscrição -->
-
-            <!-- Modal Acompanhar Inscrição -->
-            <button type="button" class="btn btn-verde" data-toggle="modal" data-target="#AcompanharInscricao" id="BotaoAcompanharOculto" hidden></button>
-            <div class="modal fade" id="AcompanharInscricao" tabindex="-1" role="dialog" aria-labelledby="TituloAcompanharInscricao" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="TituloIniciarInscricao">Acompanhar sua inscrição no Processo Seletivo</h5>
-                            <button type="button" class="close cancelar-formulario white-color" data-dismiss="modal" aria-label="Fechar" value="#FormularioAcompanharInscricao">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="/processo-seletivo/acompanhar-inscricao.php" method="POST" class="container-fluid" id="FormularioAcompanharInscricao">
-                                <div class="form-row">
-                                    <div class="form-group w-100">
-                                        <label for="cpf_login"><b>Usuário (Nº CPF):</b></label>
-                                        <input type="text" class="form-control cpf" id="cpf_login" name="cpf" placeholder="___.___.___-__">
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group w-100">
-                                        <label for="senha_login"><b>Senha:</b></label>
-                                        <input type="password" class="form-control" id="senha_login" name="senha">
-                                        <div class="w-100">
-                                            <small class="link-form-insc float-right" id="EsqueceuSenha">Esqueceu sua senha?</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-bordo cancelar-formulario" data-dismiss="modal" value="#FormularioAcompanharInscricao" id="BotaoCancelarAcompanhar">Cancelar</button>
-                            <button class="btn btn-verde" id="EnviarAcompanharInscricao" value="professor">Entrar</button>
-                        </div>
-                    </div>
-                </div>
-            </div><!--/Modal Acompanhar Inscrição -->
-
-            <!-- Modal Recuperar Senha -->
-            <button type="button" class="btn btn-verde" data-toggle="modal" data-target="#RecuperarSenha" id="BotaoRecuperarOculto" hidden></button>
-            <div class="modal fade" id="RecuperarSenha" tabindex="-1" role="dialog" aria-labelledby="TituloRecuperarSenha" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="TituloRecuperarSenha">Recuperar senha</h5>
-                            <button type="button" class="close cancelar-formulario white-color" data-dismiss="modal" aria-label="Fechar" value="#FormularioRecuperarSenha">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="/recuperar-senha.php" method="POST" class="container-fluid" id="FormularioRecuperarSenha">
-                                <div class="form-row">
-                                    <div class="form-group w-100">
-                                        <label for="cpf_login"><b>Informe o seu número de CPF:</b></label>
-                                        <input type="text" class="form-control cpf" id="cpf_RecSenha" name="cpf" placeholder="___.___.___-__">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-bordo cancelar-formulario" data-dismiss="modal" value="#FormularioRecuperarSenha" id="BotaoCancelarRecuperar">Cancelar</button>
-                            <button class="btn btn-verde" id="EnviarRecuperarSenha">Recuperar Senha</button>
-                        </div>
-                    </div>
-                </div>
-            </div><!--/Modal Recuperar Senha -->
-            
-            <!-- Modal Data de inscrição encerrada -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#MensagemErroData" id="BotaoMensagemErroDataData" hidden></button>
-            <div class="modal fade" id="MensagemErroData" tabindex="-1" role="dialog" aria-labelledby="TituloMensagemErroData" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-erro-form">
-                            <h5 class="modal-title text-center w-100" id="TituloMensagemErroData">ATENÇÃO!</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="container-fluid">
-                                <p class="mb-1">Você não pode mais se inscrever nesse processo seletivo.</p>
-                                <p>As datas de inscrição já foram encerradas .</p>
-                            </div>
-                        </div>
-                        <div class="modal-footer bg-bordo-pes">
-                            <button type="button" class="btn btn-verde btn-ativo" data-dismiss="modal">Entendi</button>
-                        </div>
-                    </div>
-                </div>
-            </div><!--/Modal Data de inscrição encerrada -->
         </main><!--/Conteúdo da página-->
 
         <?php require_once($path."/scripts/php/componentes/rodape.php"); //Rodapé?>

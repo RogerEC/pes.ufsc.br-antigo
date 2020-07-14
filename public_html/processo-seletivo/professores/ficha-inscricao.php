@@ -20,20 +20,29 @@
 
         $resultado = $conexao->query("SELECT ID_USUARIO FROM pes_usuario WHERE USUARIO = '{$cpf2}' LIMIT 1");
 
-        $inscrito = ($resultado->num_rows == 1)? true:false;
-        $obj = $resultado->fetch_object();
-        $id_usuario = $obj->ID_USUARIO;
-        $resultado->close();
-        $resultado = $conexao->query("SELECT ID_VOLUNT, DATA_REGISTRO FROM pes_volunt WHERE ID_USUARIO = $id_usuario AND VERSAO_PS = '2020-2'");
-        $cadastro_existente = ($resultado->num_rows == 1)? true:false;
-        if($cadastro_existente){
+        if($resultado->num_rows == 1){
+            $inscrito = true;
             $obj = $resultado->fetch_object();
-            $data_registro_str = $obj->DATA_REGISTRO;
+            $id_usuario = $obj->ID_USUARIO;
+            
             $resultado->close();
-            $resultado = $conexao->query("SELECT NOME, SOBRENOME, NUM_WPP, EMAIL, DATA_NASC FROM info_pessoal WHERE CPF = '{$cpf2}' LIMIT 1");
-            $info_inscrito = $resultado->fetch_object();
-            $resultado->close();
-        }    
+            $resultado = $conexao->query("SELECT ID_VOLUNT, DATA_REGISTRO FROM pes_volunt WHERE ID_USUARIO = $id_usuario AND VERSAO_PS = '2020-2'");
+        
+            if($resultado->num_rows == 1){
+                $cadastro_existente = true;
+                $obj = $resultado->fetch_object();
+                $data_registro_str = $obj->DATA_REGISTRO;
+                $resultado->close();
+                $resultado = $conexao->query("SELECT NOME, SOBRENOME, NUM_WPP, EMAIL, DATA_NASC FROM info_pessoal WHERE CPF = '{$cpf2}' LIMIT 1");
+                $info_inscrito = $resultado->fetch_object();
+                $resultado->close();
+            }else{
+                $cadastro_existente = false;
+            }
+        }else{
+            $inscrito = false;
+            $cadastro_existente = false;
+        }
     }else{
         $erro=401;
         include $path."/erro.php";
@@ -127,16 +136,16 @@
                 <form action="/processo-seletivo/gestao/salvar-inscricao.php" method="POST" id="FormularioProfessores">
                     <div id="INICIO" class="corpo">
                         <div class="conteudo">
-                        <div class="titulo">Ficha de Inscrição - Processo Seletivo de Professores 2020</div>
-                                <p class="text-justify">Olá candidato e, espero, futuro professor do Cursinho PES. Estamos muito felizes por você querer fazer parte do projeto.</p>
-                                <p class="text-justify">Antes de começar a preencher a ficha de inscrição, reiteramos a importância da leitura completa do <b>EDITAL Nº 02/PES/2020</b>, que está disponível <a href="/processo-seletivo/professores/2020/Edital_N02PES2020.pdf" target="_blank">nesse link</a>. 
+                        <div class="titulo">Ficha de Inscrição - Processo Seletivo de Monitores 2020</div>
+                                <p class="text-justify">Olá candidato e, espero, futuro monitor/professor do Cursinho PES. Estamos muito felizes por você querer fazer parte do projeto.</p>
+                                <p class="text-justify">Antes de começar a preencher a ficha de inscrição, reiteramos a importância da leitura completa do <b>EDITAL Nº 05/PES/2020</b>, que está disponível <a href="/processo-seletivo/professores/2020/Edital_N05PES2020.pdf" target="_blank">nesse link</a>. 
                                 Nele estão contidas todas as regras, etapas e datas do Processo Seletivo. Caso ainda sim a qualquer momento você tenha alguma dúvida sobre o processo seletivo, você pode entrar em contato com a quipe do Cursinho  
                                 através do e-mail: <b>processoseletivo@pes.ufsc.br</b> ou através das nossas redes sociais no <a href="https://www.facebook.com/PES.UFSC/" target="_blank">Facebook</a> ou <a href="https://www.instagram.com/cursinhopes/" target="_blank">Instagram</a>.</p>
                                 <div class="subtitulo">Instruções para o preenchimento da ficha de inscrição</div>
                                     <p>Para começar a preencher a ficha de inscrição, confime abaixo a leitura completa do edital e em seguida clique no botão "Iniciar inscrição" no final dessa página. Todos os campos são obrigatórios, exceto os indicados com (opcional) ao lado da pergunta.</p>
                                     <div class="custom-control custom-checkbox my-1 mr-sm-2">
                                         <input type="checkbox" class="custom-control-input" id="ConfirmaLeituraEdital" name="ConfirmaLeituraEdital">
-                                        <label class="custom-control-label" for="ConfirmaLeituraEdital">Eu declaro que realizei a leitura do <b>Edital Nº 02/PES/2020</b>, aceito seu termos e quero participar do Processo Seletivo de Professores 2020.</label>
+                                        <label class="custom-control-label" for="ConfirmaLeituraEdital">Eu declaro que realizei a leitura do <b>Edital Nº 05/PES/2020</b>, aceito seu termos e quero participar do Processo Seletivo de Monitores 2020.</label>
                                     </div>
                                     <div class="invalid-feedback font-100 ocultar" id="ErroConfirmaLeituraEdital"><b>ATENÇÃO!</b> Você precisa declarar ciência do Edital antes de prosseguir com a inscrição.</div>
                         </div>
@@ -171,8 +180,9 @@
                             <div class="form-row">
                                 <div class="form-group col-md-3">
                                     <label for="cpf"><b>CPF:</b></label>
-                                    <input type="text" class="form-control cpf" id="cpf" name="cpf" value=<?php echo "\"$cpf\""; ?> readonly>
-                                    <input type="text" id="senha" name="senha" value="<?php echo $senha?>" hidden>
+                                    <input type="text" class="form-control cpf" id="cpf" name="cpf" value="<?php echo $cpf?>" readonly>
+                                    <!--<input type="text" id="senha" name="senha" value="<?php //echo $senha ?>" hidden>-->
+                                    <input type="text" id="inscrito" name="inscrito" value="<?php echo $inscrito?>" hidden>
                                 </div>
                                 <div class="form-row col-md-5">
                                     <div class="form-group col-6">
@@ -224,7 +234,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-8">
                                     <label for="email"><b>E-mail:</b></label>
-                                    <input type="email" class="form-control" id="email" name="email" value=<?php echo "\"$email\""; ?> readonly>
+                                    <input type="email" class="form-control" id="email" name="email" readonly>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="telefone_cand"><b>Telefone (WhatsApp):</b></label>
@@ -317,14 +327,12 @@
                     <div id="DISPONIBILIDADE" class="d-none corpo">
                         <div class="conteudo">
                             <div class="titulo mb-3">Disponibilidade</div>
-                            <p class="mb-1 text-justify">As aulas do Cursinho PES ocorrem de segunda a sexta-feira no Campus da UFSC Jardim das Avenidas, no horário das 18h30min às 22h. </p>
-                            <p class="mb-1 text-justify">Em 2020 as aulas irão seguir o calendário letivo disponível <a href="/processo-seletivo/professores/2020/Calendario2020-Professores.pdf" target="_blank">nesse link.</a></p>
-                            <p class="mb-1 text-justify">Cada aula possuí duração de 50 minutos e cada professor leciona uma aula por semana, salvo o período de aula teste do processo seletivo de alunos. 
-                                Neste período, que ocorre entre 6 a 29 de abril de 2020, cada professor irá lecionar duas aulas por semana de acordo com as específicações do Anexo I do Edital de inscrição disponível 
-                                <a href="/processo-seletivo/professores/2020/Edital_N02PES2020-Anexo_I.pdf" target="_blank">nesse link.</a></p>
-                            <p class="text-justify">Além da aula de 50min/semana, lembramos que cada professor é responsável por preparar a sua aula. Desta forma, é necessário separar um tempo a mais na semana
-                                para isso. Também é dever do professor participar das reuniões com a gestão, cuja as datas já foram definidas e constam no calendário letivo disponível 
-                                (<a href="/processo-seletivo/professores/2020/Calendario2020-Professores.pdf" target="_blank">nesse link.</a>)</p>
+                            <p class="mb-1 text-justify">As monitorias online do Cursinho PES ocorrem de segunda a sexta-feira no horário das 19h às 21h atravez de um grupo no Discord.</p>
+                            <p class="mb-1 text-justify">Em 2020 será oferecido apenas o Grupo de Estudos online. A ideia é que semanalmente os monitores montem um breve guia de estudos e uma lista de exercícios sobre um determinado 
+                                assunto da sua disciplina (fornecido pela gestão do projeto) a ser enviada para os alunos através do Google Sala de Aula. Também uma vez por semana, os monitores tem um horário de monitoria no grupo do  
+                                Discord para tirar as duvidas que os alunos tiveram durante a semana em relação a lista de exercícios postada na semana anterior.
+                            <p class="mb-1 text-justify">Cada horário de monitoria possuí duração de até 60 minutos e cada monitor fica responsável por atender a monitoria de uma disciplina. Nas matérias que possuem mais de um monitor  
+                                os monitores se revesam no atendimento dos alunos entre as semanas.</p>
                             <div class="subtitulo">Disponibilidade semanal</div>
                             <div class="form-row">
                                 <div class="form-group col-auto pt-1-5">
@@ -345,7 +353,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <p class="text-justify">Na tabela abaixo, selecione os horários nos quais você tem disponibilidade para lecionar a sua aula. Selecione todas as
+                            <p class="text-justify">Na tabela abaixo, selecione os horários nos quais você tem disponibilidade para lecionar a sua monitoria. Selecione todas as
                                 respostas aplicáveis, elas serão utilizadas pela diretoria Docente para montar a grade de horários semanal.</p>
                             <div class="subtitulo">Disponibilidade de horário</div>
                             <div id="disponibilidade">
@@ -371,7 +379,7 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-auto centralizar-horas">
-                                        <b>18h30<br>19h20</b>
+                                        <b>19h<br>20h</b>
                                     </div>
                                     <div class="form-group col">
                                         <input type='text' class="btn btn-danger col" name="SEG1" value="Indisponível" readonly>
@@ -391,7 +399,7 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-auto centralizar-horas">
-                                        <b>19h20<br>20h10</b>
+                                        <b>20h<br>21h</b>
                                     </div>
                                     <div class="form-group col">
                                         <input type='text' class="btn btn-danger col" name="SEG2" value="Indisponível" readonly>
@@ -409,7 +417,7 @@
                                         <input type='text' class="btn btn-danger col" name="SEX2" value="Indisponível" readonly>
                                     </div>
                                 </div>
-                                <div class="form-row">
+                                <!--<div class="form-row">
                                     <div class="form-group col-auto centralizar-horas">
                                         <b>20h20<br>21h10</b>
                                     </div>
@@ -448,7 +456,7 @@
                                     <div class="form-group col">
                                         <input type='text' class="btn btn-danger col" name="SEX4" value="Indisponível" readonly>
                                     </div>
-                                </div>
+                                </div>-->1
                                 <div class="invalid-feedback ocultar font-100" id="ErroDisponibilidade"><b>ATENÇÃO!</b> É obrigatório selecionar pelo menos um horário na tabela acima para prosseguir.</div>
                                 <small>Clique sobre os botões da linha e coluna correspondentes ao dia/horário desejado para alternar entre disponível e insdisponível.</small>
                             </div>
@@ -542,11 +550,11 @@
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label><b>Nome da atividade:</b></label>
-                                                    <input type="text" class="form-control" name="nome_projeto0" placeholder="Digite o nome do projeto/atividade">
+                                                    <input type="text" class="form-control" name="nome_projeto0" id="nome_projeto0" placeholder="Digite o nome do projeto/atividade">
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label><b>Carga horária (horas/semana):</b></label>
-                                                    <input type="text" class="form-control" name="carga_horaria_projeto0" placeholder="Digite a carga horária">
+                                                    <input type="text" class="form-control" name="carga_horaria_projeto0" id="carga_horaria_projeto0" placeholder="Digite a carga horária">
                                                 </div>
                                             </div>
                                         </div>
@@ -574,11 +582,11 @@
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label><b>Nome da atividade:</b></label>
-                                                    <input type="text" class="form-control" name="nome_projeto_antigo0" placeholder="Digite o nome do projeto/atividade">
+                                                    <input type="text" class="form-control" name="nome_projeto_antigo0" id="nome_projeto_antigo0" placeholder="Digite o nome do projeto/atividade">
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label><b>Professor responsável: </b><small>(Opcional)</small></label>
-                                                    <input type="text" class="form-control" name="prof_projeto_antigo0" placeholder="Informe o professor responsável">
+                                                    <input type="text" class="form-control" name="prof_projeto_antigo0" id="prof_projeto_antigo0" placeholder="Informe o professor responsável">
                                                 </div>
                                             </div>
                                         </div>
@@ -822,6 +830,43 @@
                     </div>
                 </div>
             </div><!--/Modal Mensagem Erro Preenchimento -->
+            <!-- Modal Preenchimento Automático já inscritos -->
+            <button type="button" class="btn btn-verde" data-toggle="modal" data-target="#MensagemPreenchimentoAutomatico" id="BotaoPreenchimentoAutomatico" hidden></button>
+            <div class="modal fade" id="MensagemPreenchimentoAutomatico" tabindex="-1" role="dialog" aria-labelledby="TituloMensagemPreenchimentoAutomatico" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-bordo-pes">
+                            <h5 class="modal-title" id="TituloMensagemPreenchimentoAutomatico">ATENÇÃO!</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar" id="FecharModalPreenAuto">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid" id="MensgPreenAutoInicial">
+                                <p>Você havia realizado a inscrição para o Processo Seletivo de Alunos 2020.</p>
+                                <p>Os dados da sua inscrição podem ser importados.</p>
+                            </div>
+                            <div class="container-fluid ocultar" id="MensgPreenAutoCarregando">
+                                <p>Estamos carregando os dados da sua inscrição.</p>
+                                <p>Aguarde!</p>
+                            </div>
+                            <div class="container-fluid ocultar" id="MensgPreenAutoSucesso">
+                                <p>Seus dados foram carregados com sucesso!</p>
+                                <p>Confira as suas respostas e preencha os campos faltantes.</p>
+                            </div>
+                            <div class="container-fluid ocultar" id="MensgPreenAutoErro">
+                                <p>Houve um erro ao carregar os dados salvos na nossa base de dados relativos ao Processo Seletivo de Alunos 2020..</p>
+                                <p>Entretando, você ainda pode preencher os dados manualmente e enviar a sua inscrição em logo em seguida.</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer bg-bordo-pes">
+                            <button type="button" class="btn btn-bordo" id="BotaoCancelarPreenAuto">Cancelar</button>
+                            <button type="button" class="btn btn-verde" id="BotaoConfirmarPreenAuto">Carregar dados</button>
+                            <button type="button" class="btn btn-verde ocultar" id="BotaoFecharPreenAuto">Entendi</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!--/Modal Preenchimento Automático já inscritos -->
         </main><!--/Conteúdo da página-->
         
         <!--Javascript-->

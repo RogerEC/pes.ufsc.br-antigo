@@ -14,56 +14,54 @@
             echo "_INEXISTENTE_";
         }else{
             $objeto = $consulta->fetch_object();
-            $id_usuario = $objeto->ID_USUARIO;
+            $id_usuario = $objeto->ID_USUARIO; 
             $consulta = $conexao->query("SELECT * FROM pes_info_pessoal WHERE ID_USUARIO = $id_usuario");
             $info_pessoal = $consulta->fetch_object();
-            $id_aluno = $info_pessoal->ID_ALUNO;
-            $id_endereco = $info_pessoal->ID_ENDERECO;
-            $consulta = $conexao->query("SELECT * FROM pes_aluno WHERE ID_ALUNO = $id_aluno");
-            $aluno = $consulta->fetch_object();
-            $consulta = $conexao->query("SELECT * FROM pes_endereco WHERE ID_ENDERECO = $id_endereco");
-            $endereco = $consulta->fetch_object();
-
-            if($aluno->ESTUDANTE == 1){
-                $tipo_aluno = "Está cursando o ensino médio";
-            }else{
-                $tipo_aluno = "Já concluiu o ensino médio";
-            }
+            $id_voluntario = $info_pessoal->ID_VOLUNT;
+            $consulta = $conexao->query("SELECT * FROM pes_volunt WHERE ID_VOLUNT = $id_voluntario");  
+            $voluntario = $consulta->fetch_object();
+            $consulta = $conexao->query("SELECT ID_DISCIPLINA FROM pes_disciplina_prof WHERE ID_VOLUNT = $id_voluntario ORDER BY OPCAO ASC");
+            $disciplinas = array();
+            for($i=0; $i<$consulta->num_rows; $i++) $disciplinas[] = $consulta->fetch_object();
+            $consulta = $conexao->query("SELECT a.NOME, a.NOME_PROF FROM pes_atividade_antiga a, pes_atividade_antiga_voluntario b WHERE a.ID_ATIVIDADE_ANTIGA = b.ID_ATIVIDADE_ANTIGA AND b.ID_VOLUNT = $id_voluntario");
+            $atv_antiga = array();
+            for($i=0; $i<$consulta->num_rows; $i++) $atv_antiga[] = $consulta->fetch_object();
+            $consulta = $conexao->query("SELECT a.NOME, a.CARGA_HORARIA FROM pes_atividade_atual a, pes_atividade_atual_voluntario b WHERE a.ID_ATIVIDADE_ATUAL = b.ID_ATIVIDADE AND b.ID_VOLUNT = $id_voluntario");
+            $atv_atual = array();
+            for($i=0; $i<$consulta->num_rows; $i++) $atv_atual[] = $consulta->fetch_object();
 
             $data_nasc = DateTime::createFromFormat('Y-m-d', trim($info_pessoal->DATA_NASC), $timezone);
-            $localizacao = explode('-',trim($aluno->LOCALIZACAO));
 
-            $info_aluno = array(
+            $info_voluntario = array(
                 "nome" => trim($info_pessoal->NOME),
                 "sobrenome" => trim($info_pessoal->SOBRENOME),
                 "sexo" => trim($info_pessoal->GENERO),
                 "data_nasc" => $data_nasc->format('d/m/Y'),
                 "email" => trim($info_pessoal->EMAIL),
                 "telefone" => trim($info_pessoal->NUM_WPP),
-                "bairro" => trim($endereco->BAIRRO),
-                "cidade" => trim($endereco->CIDADE),
-                "estado" => trim($endereco->ESTADO),
-                "tipo_aluno" => trim($tipo_aluno),
-                "nome_escola" => trim($aluno->NOME_ESCOLA),
-                "cidade_escola" => trim($localizacao[0]),
-                "uf_escola" => trim($localizacao[1]),
-                "matricula" => trim($aluno->NUM_MATRICULA),
-                "serie" => trim($aluno->SERIE),
-                "turno" => trim($aluno->TURNO_ESTUDO),
-                "turma" => trim($aluno->TURMA),
-                "ano_conclusao" => trim($aluno->ANO_CONCLUSAO),
-                "rotina_estudo" => trim($aluno->ROTINA_ESTUDO),
-                "dias_estudo" => trim($aluno->DIAS_ESTUDO),
-                "tempo_estudo" => trim($aluno->TEMPO_ESTUDO),
-                "fez_vest" => trim($aluno->FEZ_VEST),
-                "curso" => trim($aluno->CURSO),
-                "tipo_uni" => trim($aluno->TIPO_UNI),
-                "trabalho" => trim($aluno->TRABALHO),
-                "periodo_ocupacao" => trim($aluno->PERIODO_OCUPACAO),
-                "carga_horaria_trabalho" => trim($aluno->CARGA_HORARIA)
+                "tipo_info" => trim($info_pessoal->TIPO_INFO),
+                "nome_resp" => trim($info_pessoal->NOME_RESP),
+                "telefone_resp" => trim($info_pessoal->NUM_RESP),
+                "cpf_resp" => trim($info_pessoal->CPF_RESP),
+                "parentesco" => trim($info_pessoal->PARENTESCO),
+                "motivacao" => trim($voluntario->MOTIVACAO),
+                "como_contr" => trim($voluntario->COMO_CONTR),
+                "motivo_opcao" => trim($voluntario->MOTIVO_OPCAO),
+                "motivo_educacao" => trim($voluntario->MOTIVO_EDUCACAO),
+                "exp_voluntario" => trim($voluntario->EXP_VOLUNTARIO),
+                "ocupacao" => trim($voluntario->OCUPACAO),
+                "disp_semanal" => trim($voluntario->DISP_SEMANAL),
+                "rel_pes" => trim($voluntario->REL_PES),
+                "estudante" => trim($voluntario->ESTUDANTE),
+                "curso" => trim($voluntario->ID_CURSO),
+                "fase" => trim($voluntario->FASE),
+                "matricula" => trim($voluntario->MATRICULA),
+                "atv_antiga" => $atv_antiga,
+                "atv_atual" => $atv_atual,
+                "disciplinas" => $disciplinas,
             );
 
-            echo json_encode($info_aluno);
+            echo json_encode($info_voluntario);
         }
 
     }else{

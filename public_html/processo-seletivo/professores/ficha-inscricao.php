@@ -21,7 +21,7 @@
         $resultado = $conexao->query("SELECT ID_USUARIO FROM pes_usuario WHERE USUARIO = '{$cpf2}' LIMIT 1");
 
         if($resultado->num_rows == 1){
-            $inscrito = true;
+            $inscrito = 1;
             $obj = $resultado->fetch_object();
             $id_usuario = $obj->ID_USUARIO;
             
@@ -33,14 +33,14 @@
                 $obj = $resultado->fetch_object();
                 $data_registro_str = $obj->DATA_REGISTRO;
                 $resultado->close();
-                $resultado = $conexao->query("SELECT NOME, SOBRENOME, NUM_WPP, EMAIL, DATA_NASC FROM info_pessoal WHERE CPF = '{$cpf2}' LIMIT 1");
+                $resultado = $conexao->query("SELECT NOME, SOBRENOME, NUM_WPP, EMAIL, DATA_NASC, TIPO_INFO FROM pes_info_pessoal WHERE CPF = '{$cpf2}' LIMIT 1");
                 $info_inscrito = $resultado->fetch_object();
                 $resultado->close();
             }else{
                 $cadastro_existente = false;
             }
         }else{
-            $inscrito = false;
+            $inscrito = 0;
             $cadastro_existente = false;
         }
     }else{
@@ -95,22 +95,27 @@
         $data_nasc = DateTime::createFromFormat('Y-m-d', $info_inscrito->DATA_NASC, $timezone);
         $data_registro = DateTime::createFromFormat('Y-m-d H:i:s', $data_registro_str, $timezone);
         $email = explode('@', trim($info_inscrito->EMAIL));
+        $nome_ps = ($info_inscrito->TIPO_INFO == 'P')? "Processo Seletivo de Monitores 2020":"Processo Seletivo de Gestores 2020-2";
+        $link_edital = ($info_inscrito->TIPO_INFO == 'P')? "<a href='/processo-seletivo/professores/2020/Edital_N05PES2020.pdf' target='_blank'>Edital Nº 05/PES/2020</a>":"<a href='/processo-seletivo/gestao/2020/Edital_N04PES2020.pdf' target='_blank'>Edital Nº 04/PES/2020</a>";
 ?>
         <!-- Mensagem de erro: Aluno já inscrito -->
         <div class="container mt-5 mb-5 text-center">
-            <h1>ATENÇÃO: Você já realizou a inscrição no Grupo de Estudos!</h1>
+            <h1 class="pb-4">ATENÇÃO: Inscrição já realizada!</h1>
+            <h5>Você já realizou inscrição em um dos processos seletivos em aberto!</h5>
         </div>
         <div class="container text-center">
             <p class="text-justify">A inscrição para o número de CPF informado foi registrada com sucesso na nossa base de dados no dia <b><?php echo $data_registro->format('d/m/Y'); ?></b> às <b><?php echo $data_registro->format('H:i:s'); ?>.</b></p>
             <p class="text-justify mt-4"><b>RESUMO DOS DADOS DA INSCRIÇÃO:</b></p>
-            <p class="text-justify mb-1"><b>Nome: </b><?php echo $info_inscrito->NOME." ".$info_inscrito->SOBRENOME; ?></p>
-            <p class="text-justify mb-1"><b>CPF: </b><?php echo $cpf; ?> </p>
+            <p class="text-justify mb-1"><b>Nome do processo seletivo: </b><?php echo $nome_ps; ?></p>
+            <p class="text-justify mb-1"><b>Nome do candidato: </b><?php echo $info_inscrito->NOME." ".$info_inscrito->SOBRENOME; ?></p>
+            <p class="text-justify mb-1"><b>CPF do candidato: </b><?php echo $cpf; ?> </p>
             <p class="text-justify mb-1"><b>Data de nascimento: </b><?php echo $data_nasc->format('d/m/Y'); ?></p>
-            <p class="text-justify mb-1"><b>Endereço de e-mail: </b><?php echo substr($email[0], 0, -5).'*****@'.$email[1]; ?> </p>
-            <p class="text-justify"><b>Número de telefone: </b><?php echo '('.substr(trim($info_inscrito->NUM_WPP), 0, 2).') 9 ****-'.substr(trim($info_inscrito->NUM_WPP), -4); ?></p>
+            <p class="text-justify mb-1"><b>E-mail do candidato: </b><?php echo substr($email[0], 0, -5).'*****@'.$email[1]; ?> </p>
+            <p class="text-justify"><b>Telefone do candidato: </b><?php echo '('.substr(trim($info_inscrito->NUM_WPP), 0, 2).') 9 ****-'.substr(trim($info_inscrito->NUM_WPP), -4); ?></p>
             <p class="text-justify mb-4"><small>* Por questão de privacidade, foram omitidos alguns caracteres do e-mail e telefone de contato.</small> </p>
             <p class="text-justify mb-4">Caso alguma informação esteja incorreta, você pode entrar em contato pelo e-mail <b>processoseletivo@pes.ufsc.br</b> para que sejam feitas as respectivas correções.
-             Entraremos em contato pelo e-mail fornecido na inscrição a partir do dia <b><?php $final->add(new DateInterval('P1D')); echo $final->format('d/m/Y'); ?></b> para informar as instruções das próximas etapas do processo seletivo.</p>
+             Entraremos em contato pelo e-mail fornecido na inscrição a partir do dia <b><?php $final->add(new DateInterval('P1D')); echo $final->format('d/m/Y'); ?></b> para informar as instruções das 
+             próximas etapas do processo seletivo de acordo com os dados do <b><?php echo $link_edital; ?></a></b>.</p>
             <p><a href="/">Clique aqui</a> para voltar a página inicial do site.</p>
         </div>
         <!-- Scripts -->
@@ -138,9 +143,9 @@
                         <div class="conteudo">
                         <div class="titulo">Ficha de Inscrição - Processo Seletivo de Monitores 2020</div>
                                 <p class="text-justify">Olá candidato e, espero, futuro monitor/professor do Cursinho PES. Estamos muito felizes por você querer fazer parte do projeto.</p>
-                                <p class="text-justify">Antes de começar a preencher a ficha de inscrição, reiteramos a importância da leitura completa do <b>EDITAL Nº 05/PES/2020</b>, que está disponível <a href="/processo-seletivo/professores/2020/Edital_N05PES2020.pdf" target="_blank">nesse link</a>. 
-                                Nele estão contidas todas as regras, etapas e datas do Processo Seletivo. Caso ainda sim a qualquer momento você tenha alguma dúvida sobre o processo seletivo, você pode entrar em contato com a quipe do Cursinho  
-                                através do e-mail: <b>processoseletivo@pes.ufsc.br</b> ou através das nossas redes sociais no <a href="https://www.facebook.com/PES.UFSC/" target="_blank">Facebook</a> ou <a href="https://www.instagram.com/cursinhopes/" target="_blank">Instagram</a>.</p>
+                                <p class="text-justify">Antes de começar a preencher a ficha de inscrição, reiteramos a importância da leitura completa do <b><a href="/processo-seletivo/professores/2020/Edital_N05PES2020.pdf" target="_blank">EDITAL Nº 05/PES/2020</a></b>. 
+                                Nele estão contidas todas as regras, etapas e datas do Processo Seletivo. Caso ainda sim a qualquer momento você tenha alguma dúvida sobre o processo seletivo, você pode entrar em contato com a quipe do Cursinho PES  
+                                através do e-mail <b>processoseletivo@pes.ufsc.br</b> ou através das nossas redes sociais no <a href="https://www.facebook.com/cursinhopes/" target="_blank">Facebook</a> ou <a href="https://www.instagram.com/cursinhopes/" target="_blank">Instagram</a>.</p>
                                 <div class="subtitulo">Instruções para o preenchimento da ficha de inscrição</div>
                                     <p>Para começar a preencher a ficha de inscrição, confime abaixo a leitura completa do edital e em seguida clique no botão "Iniciar inscrição" no final dessa página. Todos os campos são obrigatórios, exceto os indicados com (opcional) ao lado da pergunta.</p>
                                     <div class="custom-control custom-checkbox my-1 mr-sm-2">
@@ -234,11 +239,11 @@
                             <div class="form-row">
                                 <div class="form-group col-md-8">
                                     <label for="email"><b>E-mail:</b></label>
-                                    <input type="email" class="form-control" id="email" name="email" readonly>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="email@exemplo.com">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="telefone_cand"><b>Telefone (WhatsApp):</b></label>
-                                    <input type="text" class="form-control telefone" id="telefone_cand" name="telefone_cand">
+                                    <input type="text" class="form-control telefone" id="telefone_cand" name="telefone_cand" placeholder="(__) _____-____">
                                 </div>
                             </div>
                         </div>
@@ -831,32 +836,31 @@
                 </div>
             </div><!--/Modal Mensagem Erro Preenchimento -->
             <!-- Modal Preenchimento Automático já inscritos -->
-            <button type="button" class="btn btn-verde" data-toggle="modal" data-target="#MensagemPreenchimentoAutomatico" id="BotaoPreenchimentoAutomatico" hidden></button>
+            <button type="button" class="btn btn-verde" data-toggle="modal" data-backdrop="static" data-target="#MensagemPreenchimentoAutomatico" id="BotaoPreenchimentoAutomatico" hidden></button>
             <div class="modal fade" id="MensagemPreenchimentoAutomatico" tabindex="-1" role="dialog" aria-labelledby="TituloMensagemPreenchimentoAutomatico" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header bg-bordo-pes">
                             <h5 class="modal-title" id="TituloMensagemPreenchimentoAutomatico">ATENÇÃO!</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar" id="FecharModalPreenAuto">
+                            <button type="button" class="close white-color" data-dismiss="modal" aria-label="Fechar" id="FecharModalPreenAuto">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <div class="container-fluid" id="MensgPreenAutoInicial">
-                                <p>Você havia realizado a inscrição para o Processo Seletivo de Alunos 2020.</p>
-                                <p>Os dados da sua inscrição podem ser importados.</p>
+                                <p class="text-justify mb-2">Você havia realizado a inscrição em algum dos nossos processos seletivos no início do ano.</p>
+                                <p class="text-justify">Alguns dos seus dados da sua inscrição podem ser importados. Deseja carregar seus dados?</p>
                             </div>
                             <div class="container-fluid ocultar" id="MensgPreenAutoCarregando">
-                                <p>Estamos carregando os dados da sua inscrição.</p>
-                                <p>Aguarde!</p>
+                                <p class="text-justify">Estamos carregando os dados da sua inscrição.</p>
+                                <p class="text-justify">Aguarde!</p>
                             </div>
                             <div class="container-fluid ocultar" id="MensgPreenAutoSucesso">
-                                <p>Seus dados foram carregados com sucesso!</p>
-                                <p>Confira as suas respostas e preencha os campos faltantes.</p>
+                                <p class="text-justify">Seus dados foram carregados com sucesso!</p>
+                                <p class="text-justify">Confira as suas respostas e preencha os campos faltantes.</p>
                             </div>
                             <div class="container-fluid ocultar" id="MensgPreenAutoErro">
-                                <p>Houve um erro ao carregar os dados salvos na nossa base de dados relativos ao Processo Seletivo de Alunos 2020..</p>
-                                <p>Entretando, você ainda pode preencher os dados manualmente e enviar a sua inscrição em logo em seguida.</p>
+                                <p class="text-justify">Houve um erro ao carregar os dados salvos na nossa base de dados. Entretando, você ainda pode preencher os dados manualmente e enviar a sua inscrição em logo em seguida.</p>
                             </div>
                         </div>
                         <div class="modal-footer bg-bordo-pes">

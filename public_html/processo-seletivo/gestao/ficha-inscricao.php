@@ -21,7 +21,7 @@
         $resultado = $conexao->query("SELECT ID_USUARIO FROM pes_usuario WHERE USUARIO = '{$cpf2}' LIMIT 1");
 
         if($resultado->num_rows == 1){
-            $inscrito = true;
+            $inscrito = 1;
             $obj = $resultado->fetch_object();
             $id_usuario = $obj->ID_USUARIO;
             
@@ -30,17 +30,16 @@
         
             if($resultado->num_rows == 1){
                 $cadastro_existente = true;
-                $obj = $resultado->fetch_object();
-                $data_registro_str = $obj->DATA_REGISTRO;
-                $resultado->close();
-                $resultado = $conexao->query("SELECT NOME, SOBRENOME, NUM_WPP, EMAIL, DATA_NASC FROM info_pessoal WHERE CPF = '{$cpf2}' LIMIT 1");
+                $obj2 = $resultado->fetch_object();
+                $data_registro_str = $obj2->DATA_REGISTRO;
+                $resultado = $conexao->query("SELECT NOME, SOBRENOME, NUM_WPP, EMAIL, DATA_NASC FROM pes_info_pessoal WHERE CPF = '{$cpf2}' LIMIT 1");
                 $info_inscrito = $resultado->fetch_object();
                 $resultado->close();
             }else{
                 $cadastro_existente = false;
             }
         }else{
-            $inscrito = false;
+            $inscrito = 0;
             $cadastro_existente = false;
         }
     }else{
@@ -98,7 +97,7 @@
 ?>
         <!-- Mensagem de erro: Aluno já inscrito -->
         <div class="container mt-5 mb-5 text-center">
-            <h1>ATENÇÃO: Você já realizou a inscrição no Grupo de Estudos!</h1>
+            <h1>ATENÇÃO: Você já realizou a inscrição no Processo Seletivo!</h1>
         </div>
         <div class="container text-center">
             <p class="text-justify">A inscrição para o número de CPF informado foi registrada com sucesso na nossa base de dados no dia <b><?php echo $data_registro->format('d/m/Y'); ?></b> às <b><?php echo $data_registro->format('H:i:s'); ?>.</b></p>
@@ -234,7 +233,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-8">
                                     <label for="email"><b>E-mail:</b></label>
-                                    <input type="email" class="form-control" id="email" name="email" value="<?php echo $email?>" readonly>
+                                    <input type="email" class="form-control" id="email" name="email">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="telefone_cand"><b>Telefone (WhatsApp):</b></label>

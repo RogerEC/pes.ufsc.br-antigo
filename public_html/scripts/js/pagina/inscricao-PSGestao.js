@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    if($("#inscrito").val()==true){
+    if($("#inscrito").val()=='1'){
         $("#BotaoPreenchimentoAutomatico").click();
     }
 
@@ -166,6 +166,9 @@ $(document).ready(function(){
             data: serializedData
         });
         request.done(function (response, textStatus, jqXHR){
+            console.log(response);
+            console.log(textStatus);
+            console.log(jqXHR);
             $("#SALVANDO_RESPOSTA").hide();
             $("#EncerrarInscricao").prop("disabled", false);
             if(response.indexOf("ERRO_EMAIL")>=0){
@@ -177,6 +180,9 @@ $(document).ready(function(){
             }
         });
         request.fail(function (jqXHR, textStatus, errorThrown){
+            console.log(errorThrown);
+            console.log(textStatus);
+            console.log(jqXHR);
             $("#SALVANDO_RESPOSTA").hide();
             $("#FINALIZAR_ERRO_SERVIDOR").show();
             $("#EncerrarInscricao").prop("disabled", false);
@@ -486,7 +492,6 @@ $(document).ready(function(){
             if(limite=="BotaoDadosPessoais"){
                 $("#BotaoDadosPessoais").addClass("btn-ativo");
                 validator.element("#cpf");
-                validator.element("#email");
                 return;
             }
             if(validator.form()){

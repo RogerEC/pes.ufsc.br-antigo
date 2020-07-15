@@ -3,14 +3,6 @@
         echo "ERRO_GRAVE";
         exit;
     }
-    if(!isset($_POST["senha"]) || empty($_POST["senha"])){
-        echo "ERRO_GRAVE";
-        exit;
-    }
-    if(!isset($_POST["email"]) || empty($_POST["email"])){
-        echo "ERRO_GRAVE";
-        exit;
-    }
 
     $disp = array();//disponibilidade
     $proj_atu = array();//nome projetos atuais
@@ -19,7 +11,9 @@
     $prof_proj = array();//prof responsavel projeto antigo
     $divulgacao = array();//pesquisa divulgacao
 
-    $senha = (isset($_POST["senha"]))? $_POST["senha"]:null;
+    $versao_ps = "2020-2";
+    $senha = "Recurso Desativado";
+    $inscrito = (isset($_POST["inscrito"]))? intval($_POST["inscrito"]):0;
     $nome = (isset($_POST["nome"]))? $_POST["nome"]:null;
     $sobrenome = (isset($_POST["sobrenome"]))? $_POST["sobrenome"]:null;
     $sexo = (isset($_POST["sexo"]) && $_POST["sexo"]!="null")? $_POST["sexo"]:null;
@@ -100,56 +94,120 @@
         exit;
     }
 
-    $conexao->query("INSERT INTO pes_usuario(TIPO, USUARIO, SENHA) VALUES('G', '$cpf', '$senha')");
-    $id_usuario = $conexao->insert_id;
-    if(isset($_POST["curso"]) && !empty($_POST["curso"])){
-        $estudante = 1;
+    if($inscrito == 1){
+        $consulta = $conexao->query("SELECT ID_USUARIO FROM pes_usuario WHERE USUARIO = '{$cpf}' LIMIT 1");
+        $usuario = $consulta->fetch_object();
+        $id_usuario = $usuario->ID_USUARIO;
+        $consulta = $conexao->query("SELECT ID_VOLUNT FROM pes_volunt WHERE ID_USUARIO = $id_usuario");
+        $voluntario = $consulta->fetch_object();
+        $id_voluntario = $voluntario->ID_VOLUNT;
+        if(isset($_POST["curso"]) && !empty($_POST["curso"])){
+            $estudante = 1;
+        }else{
+            $estudante = 0;
+        }
+        $conexao->query("UPDATE pes_volunt SET MOTIVACAO = '$porque_entrar', COMO_CONTR = '$como_ajudar', MOTIVO_OPCAO = '$porque_setor', EXP_VOLUNTARIO = '$exp_voluntario', ESTUDANTE = $estudante, OCUPACAO = '$ocupacao', TIPO_VOLUNTARIO = 'G', DISP_SEMANAL = '$quantas_horas', REL_PES = '$relacao_cursinho', FASE = $fase, MATRICULA =$matricula, ID_CURSO = $curso, ID_USUARIO = $id_usuario, VERSAO_PS = '$versao_ps', DATA_REGISTRO = NOW() WHERE ID_VOLUNT = $id_voluntario");
+        $data = "STR_TO_DATE('$data_nasc','%d/%m/%Y')";
+        $conexao->query("UPDATE pes_info_pessoal SET NOME = '$nome', SOBRENOME = '$sobrenome', EMAIL = '$email', NUM_WPP = '$num_wpp', DATA_NASC = $data, IDADE = $idade, GENERO = '$sexo', NOME_RESP = '$nome_resp', NUM_RESP = '$num_resp', CPF_RESP = '$cpf_resp', PARENTESCO = '$parentesco', TIPO_INFO = 'G' WHERE ID_VOLUNT = $id_voluntario");
+        $conexao->query("DELETE FROM pes_setor_gestao WHERE ID_VOLUNT = $id_voluntario");
+        if(!empty($setor01)){
+            $conexao->query("INSERT INTO pes_setor_gestao(ID_SETOR, ID_VOLUNT, OPCAO) VALUES($setor01, $id_voluntario, 1)");
+        }
+        if(!empty($setor02)){
+            $conexao->query("INSERT INTO pes_setor_gestao(ID_SETOR, ID_VOLUNT, OPCAO) VALUES($setor02, $id_voluntario, 2)");
+        }
+        if(!empty($setor03)){
+            $conexao->query("INSERT INTO pes_setor_gestao(ID_SETOR, ID_VOLUNT, OPCAO) VALUES($setor03, $id_voluntario, 3)");
+        }
+        $conexao->query("DELETE FROM pes_atividade_atual WHERE ID_ATIVIDADE_ATUAL IN (SELECT * FROM (SELECT ID_ATIVIDADE FROM pes_atividade_atual_voluntario WHERE ID_VOLUNT = $id_voluntario) AS aux)");
+        $conexao->query("DELETE FROM pes_atividade_atual_voluntario WHERE ID_VOLUNT = $id_voluntario");
+        if($projetos_atuais){
+            for($i=0; $i<5; $i++){
+                if(!empty($proj_atu[$i]) && !empty($CH_proj[$i])){
+                    $conexao->query("INSERT INTO pes_atividade_atual(NOME, CARGA_HORARIA) VALUES('$proj_atu[$i]', $CH_proj[$i])");
+                    $id_atv = $conexao->insert_id;
+                    $conexao->query("INSERT INTO pes_atividade_atual_voluntario(ID_ATIVIDADE, ID_VOLUNT) VALUES($id_atv, $id_voluntario)");
+                }
+            }
+        }
+        $conexao->query("DELETE FROM pes_atividade_antiga WHERE ID_ATIVIDADE_ANTIGA IN (SELECT * FROM (SELECT ID_ATIVIDADE_ANTIGA_VOLUNTARIO FROM pes_atividade_antiga_voluntario WHERE ID_VOLUNT = $id_voluntario) AS aux)");
+        $conexao->query("DELETE FROM pes_atividade_antiga_voluntario WHERE ID_VOLUNT = $id_voluntario");
+        if($projetos_antigo){
+            for($i=0; $i<5; $i++){
+                if(!empty($proj_ant[$i])){
+                    $conexao->query("INSERT INTO pes_atividade_antiga(NOME, NOME_PROF) VALUES('$proj_ant[$i]', '$prof_proj[$i]')");
+                    $id_atv = $conexao->insert_id;
+                    $conexao->query("INSERT INTO pes_atividade_antiga_voluntario(ID_ATIVIDADE_ANTIGA, ID_VOLUNT) VALUES($id_atv, $id_voluntario)");
+                }
+            }
+        }
+        $conexao->query("DELETE FROM pes_divulg_volunt WHERE ID_VOLUNT = $id_voluntario");
+        if(!empty($divulgacao)){
+            foreach($divulgacao as $chave => $valor){
+                if($valor){
+                    $conexao->query("INSERT INTO pes_divulg_volunt(ID_DIVULG, ID_VOLUNT) VALUES($chave, $id_voluntario)");
+                }
+            }
+        }
+        $conexao->query("DELETE FROM pes_disp_turno_gestao WHERE ID_VOLUNT = $id_voluntario");
+        for($i=1; $i<16; $i++){
+            if($disp[$i]){
+                $conexao->query("INSERT INTO pes_disp_turno_gestao(ID_DISP_TURNO, ID_VOLUNT) VALUES($i, $id_voluntario)");
+            }
+        }
     }else{
-        $estudante = 0;
-    }
-    $conexao->query("INSERT INTO pes_volunt(CONFIRMADO, CONTRATADO, MOTIVACAO, COMO_CONTR, MOTIVO_OPCAO, EXP_VOLUNTARIO, ESTUDANTE, OCUPACAO, TIPO_VOLUNTARIO, DISP_SEMANAL, REL_PES, FASE, MATRICULA, ID_CURSO, ID_USUARIO) VALUES(0, 0, '$porque_entrar', '$como_ajudar', '$porque_setor', '$exp_voluntario', $estudante, '$ocupacao', 'G', '$quantas_horas', '$relacao_cursinho', $fase, $matricula, $curso, $id_usuario)");
-    $id_volunt = $conexao->insert_id;
-    $data = "STR_TO_DATE('$data_nasc','%d/%m/%Y')";
-    $conexao->query("INSERT INTO pes_info_pessoal(NOME, SOBRENOME, EMAIL, NUM_WPP, CPF, DATA_NASC, IDADE, GENERO, NOME_RESP, NUM_RESP, CPF_RESP, PARENTESCO, TIPO_INFO, ID_VOLUNT, ID_USUARIO) VALUES('$nome', '$sobrenome', '$email', '$num_wpp', '$cpf', $data, $idade, '$sexo', '$nome_resp', '$num_resp', '$cpf_resp', '$parentesco', 'G', $id_volunt, $id_usuario)");
-    if(!empty($setor01)){
-        $conexao->query("INSERT INTO pes_setor_gestao(ID_SETOR, ID_VOLUNT, OPCAO) VALUES($setor01, $id_volunt, 1)");
-    }
-    if(!empty($setor02)){
-        $conexao->query("INSERT INTO pes_setor_gestao(ID_SETOR, ID_VOLUNT, OPCAO) VALUES($setor02, $id_volunt, 2)");
-    }
-    if(!empty($setor03)){
-        $conexao->query("INSERT INTO pes_setor_gestao(ID_SETOR, ID_VOLUNT, OPCAO) VALUES($setor03, $id_volunt, 3)");
-    }
-    if($projetos_atuais){
-        for($i=0; $i<5; $i++){
-            if(!empty($proj_atu[$i]) && !empty($CH_proj[$i])){
-                $conexao->query("INSERT INTO pes_atividade_atual(NOME, CARGA_HORARIA) VALUES('$proj_atu[$i]', $CH_proj[$i])");
-                $id_atv = $conexao->insert_id;
-                $conexao->query("INSERT INTO pes_atividade_atual_voluntario(ID_ATIVIDADE, ID_VOLUNT) VALUES($id_atv, $id_volunt)");
+        $conexao->query("INSERT INTO pes_usuario(TIPO, USUARIO, SENHA) VALUES('G', '$cpf', '$senha')");
+        $id_usuario = $conexao->insert_id;
+        if(isset($_POST["curso"]) && !empty($_POST["curso"])){
+            $estudante = 1;
+        }else{
+            $estudante = 0;
+        }
+        $conexao->query("INSERT INTO pes_volunt(CONFIRMADO, CONTRATADO, MOTIVACAO, COMO_CONTR, MOTIVO_OPCAO, EXP_VOLUNTARIO, ESTUDANTE, OCUPACAO, TIPO_VOLUNTARIO, DISP_SEMANAL, REL_PES, FASE, MATRICULA, ID_CURSO, ID_USUARIO, VERSAO_PS, DATA_REGISTRO) VALUES(0, 0, '$porque_entrar', '$como_ajudar', '$porque_setor', '$exp_voluntario', $estudante, '$ocupacao', 'G', '$quantas_horas', '$relacao_cursinho', $fase, $matricula, $curso, $id_usuario, '$versao_ps', NOW())");
+        $id_volunt = $conexao->insert_id;
+        $data = "STR_TO_DATE('$data_nasc','%d/%m/%Y')";
+        $conexao->query("INSERT INTO pes_info_pessoal(NOME, SOBRENOME, EMAIL, NUM_WPP, CPF, DATA_NASC, IDADE, GENERO, NOME_RESP, NUM_RESP, CPF_RESP, PARENTESCO, TIPO_INFO, ID_VOLUNT, ID_USUARIO) VALUES('$nome', '$sobrenome', '$email', '$num_wpp', '$cpf', $data, $idade, '$sexo', '$nome_resp', '$num_resp', '$cpf_resp', '$parentesco', 'G', $id_volunt, $id_usuario)");
+        if(!empty($setor01)){
+            $conexao->query("INSERT INTO pes_setor_gestao(ID_SETOR, ID_VOLUNT, OPCAO) VALUES($setor01, $id_volunt, 1)");
+        }
+        if(!empty($setor02)){
+            $conexao->query("INSERT INTO pes_setor_gestao(ID_SETOR, ID_VOLUNT, OPCAO) VALUES($setor02, $id_volunt, 2)");
+        }
+        if(!empty($setor03)){
+            $conexao->query("INSERT INTO pes_setor_gestao(ID_SETOR, ID_VOLUNT, OPCAO) VALUES($setor03, $id_volunt, 3)");
+        }
+        if($projetos_atuais){
+            for($i=0; $i<5; $i++){
+                if(!empty($proj_atu[$i]) && !empty($CH_proj[$i])){
+                    $conexao->query("INSERT INTO pes_atividade_atual(NOME, CARGA_HORARIA) VALUES('$proj_atu[$i]', $CH_proj[$i])");
+                    $id_atv = $conexao->insert_id;
+                    $conexao->query("INSERT INTO pes_atividade_atual_voluntario(ID_ATIVIDADE, ID_VOLUNT) VALUES($id_atv, $id_volunt)");
+                }
+            }
+        }
+        if($projetos_antigo){
+            for($i=0; $i<5; $i++){
+                if(!empty($proj_ant[$i])){
+                    $conexao->query("INSERT INTO pes_atividade_antiga(NOME, NOME_PROF) VALUES('$proj_ant[$i]', '$prof_proj[$i]')");
+                    $id_atv = $conexao->insert_id;
+                    $conexao->query("INSERT INTO pes_atividade_antiga_voluntario(ID_ATIVIDADE_ANTIGA, ID_VOLUNT) VALUES($id_atv, $id_volunt)");
+                }
+            }
+        }
+        if(!empty($divulgacao)){
+            foreach($divulgacao as $chave => $valor){
+                if($valor){
+                    $conexao->query("INSERT INTO pes_divulg_volunt(ID_DIVULG, ID_VOLUNT) VALUES($chave, $id_volunt)");
+                }
+            }
+        }
+        for($i=1; $i<16; $i++){
+            if($disp[$i]){
+                $conexao->query("INSERT INTO pes_disp_turno_gestao(ID_DISP_TURNO, ID_VOLUNT) VALUES($i, $id_volunt)");
             }
         }
     }
-    if($projetos_antigo){
-        for($i=0; $i<5; $i++){
-            if(!empty($proj_ant[$i])){
-                $conexao->query("INSERT INTO pes_atividade_antiga(NOME, NOME_PROF) VALUES('$proj_ant[$i]', '$prof_proj[$i]')");
-                $id_atv = $conexao->insert_id;
-                $conexao->query("INSERT INTO pes_atividade_antiga_voluntario(ID_ATIVIDADE_ANTIGA, ID_VOLUNT) VALUES($id_atv, $id_volunt)");
-            }
-        }
-    }
-    if(!empty($divulgacao)){
-        foreach($divulgacao as $chave => $valor){
-            if($valor){
-                $conexao->query("INSERT INTO pes_divulg_volunt(ID_DIVULG, ID_VOLUNT) VALUES($chave, $id_volunt)");
-            }
-        }
-    }
-    for($i=1; $i<16; $i++){
-        if($disp[$i]){
-            $conexao->query("INSERT INTO pes_disp_turno_gestao(ID_DISP_TURNO, ID_VOLUNT) VALUES($i, $id_volunt)");
-        }
-    }
+
     $nomePS = "de Gestores 2020-1";
     //require_once($path."/scripts/php/emails/Confirmacao-PS-Profs-Gestao.php");
     echo "SUCESSO";

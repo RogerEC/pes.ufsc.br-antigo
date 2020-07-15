@@ -12,15 +12,11 @@ $(document).ready(function(){
         $("#FecharModalPreenAuto").click();
     });
 
-    function exibir_botao_fechar(){
-        $("#BotaoFecharPreenAuto").show();
-        $("#BotaoConfirmarPreenAuto").hide();
-        $("#BotaoCancelarPreenAuto").hide();
-    }
-
     $("#BotaoConfirmarPreenAuto").on("click", function(){
         $("#MensgPreenAutoInicial").hide();
         $("#MensgPreenAutoCarregando").show();
+        $("#BotaoConfirmarPreenAuto").hide();
+        $("#BotaoCancelarPreenAuto").hide();
         if (request) {
             request.abort();
         }
@@ -93,7 +89,7 @@ $(document).ready(function(){
                         $("#nome_projeto_antigo"+i.toString()).val(info_voluntario.atv_antiga[i].NOME).blur();
                         $("#prof_projeto_antigo"+i.toString()).val(info_voluntario.atv_antiga[i].NOME_PROF).blur();
                         if(i != (info_voluntario.atv_antiga.length-1)){
-                            $("#ADD_PROJETO").click();
+                            $("#ADD_PROJETO_ANTIGO").click();
                         }
                     }
                 }else{
@@ -111,12 +107,12 @@ $(document).ready(function(){
             $("#INICIO").removeClass("d-none");    
             $("#MensgPreenAutoCarregando").hide();
             $("#MensgPreenAutoSucesso").show();
-            exibir_botao_fechar();
+            $("#BotaoFecharPreenAuto").show();
         });
         request.fail(function(){
             $("#MensgPreenAutoCarregando").hide();
             $("#MensgPreenAutoErro").show();
-            exibir_botao_fechar();
+            $("#BotaoFecharPreenAuto").show();
         })
     });
 
@@ -482,7 +478,6 @@ $(document).ready(function(){
             if(limite=="BotaoDadosPessoais"){
                 $("#BotaoDadosPessoais").addClass("btn-ativo");
                 validator.element("#cpf");
-                validator.element("#email");
                 return;
             }
             if(validator.form()){

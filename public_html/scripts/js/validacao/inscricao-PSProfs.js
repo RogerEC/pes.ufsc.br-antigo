@@ -21,7 +21,7 @@ $("#FormularioProfessores").validate({
             cpf:true
         },
         telefone_resp:{required:true, telefone: true},
-        email:{required:true},
+        email:{required:true, email:true},
         telefone_cand:{required: true, telefone: true},
         materia01:{select: true},
         materia02:{select_op2: true},
@@ -106,7 +106,8 @@ $("#FormularioProfessores").validate({
             cpf:"O número de CPF é inválido."
         },
         telefone_resp:{required:"Informe o número de telefone do seu responsável."},
-        email:{required:"Por favor, informe o seu endereço de e-mail."},
+        email:{required:"Por favor, informe o seu endereço de e-mail.",
+                email:"Endereço de e-mail inválido!"},
         telefone_cand:{required:"Informe o seu número de telefone."},
         materia01:{select: "Selecione sua primeira opção de matéria."},
         materia_especifica:{

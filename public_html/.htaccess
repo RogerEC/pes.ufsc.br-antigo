@@ -1,3 +1,4 @@
+# Redirecionamento das mensagens de erro
 ErrorDocument 400 /erro.php?erro=400
 ErrorDocument 401 /erro.php?erro=401
 ErrorDocument 402 /erro.php?erro=402

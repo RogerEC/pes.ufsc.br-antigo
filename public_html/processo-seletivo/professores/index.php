@@ -40,7 +40,7 @@
             </div>
         
             <!-- Modal Realizar inscrição -->
-            <button type="button" class="btn btn-verde" data-toggle="modal" data-target="#RealizarInscricao" id="BotaoInscreverOculto" hidden></button>
+            <button type="button" class="btn btn-verde" data-toggle="modal" data-backdrop="static" data-target="#RealizarInscricao" id="BotaoInscreverOculto" hidden></button>
             <div class="modal fade" id="RealizarInscricao" tabindex="-1" role="dialog" aria-labelledby="TituloRealizarInscricao" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">

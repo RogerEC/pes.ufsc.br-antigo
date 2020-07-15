@@ -28,19 +28,14 @@ try {
     $mail->addAddress($email, $nome." ".$sobrenome);
     $mail->addReplyTo('processoseletivo@pes.ufsc.br', 'Processo Seletivo - Cursinho PES');
     //Mensagem
-    /*$mensagem = "<p>Olá $nome,</p>
-    <p>Sua inscrição no Processo Seletivo $nomePS foi realizada com sucesso!</p>
-    <p>Informações sobre os próximos passos do processo seletivo serão enviadas por e-mail no dia 17/03/2020.</p>
-    <p>Tenha uma ótima semana e até breve!</p>
-    <br>Cursinho PES.<br>
-    <small>Mensagem enviada automaticamente pelo sistema.</small>";*/
     $mensagem = "<p>Olá $nome,</p>
     <p>Sua inscrição no Processo Seletivo $nomePS foi realizada com sucesso!</p>
-    <p>No momento, devido a pandemia de Covid-19 as próximas etapas do Processo Seletivo $nomePS que seriam realizadas presencialmente encontram-se suspensas.</p>
-    <p>Assim que as atividades na UFSC voltarem a normalidade, novas datas serão divulgadas pelo e-mail, no nosso <a href='https://pes.ufsc.br/processo-seletivo/'>site</a> e pelas nossas redes sociais oficiais (<a href='https://www.facebook.com/PES.UFSC/'>Facebook</a> e <a href='https://www.instagram.com/cursinhopes/'>Instagram</a>).</p>
-    <p>Quaisquer dúvidas adicionais podem ser encaminhadas para o e-mail processoseletivo@pes.ufsc.br.</p>
-    <p>Desde já, agradecemos a compreensão de todos e esperamos voltar a entrar em contato o mais breve possível.</p>
-    <br>Cursinho PES.<br>
+    <p>Informações sobre os próximos passos do processo seletivo serão enviadas por e-mail no dia <b>26/07/2020.</b></p>
+    <p>Caso você tenha qualquer dúvida sobre o processo seletivo pode entrar em contato pelo e-mail <b>processoseletivo@pes.ufsc.br</b> ou através de nossas redes sociais no <a href='https://www.facebook.com/cursinhopes/'>Facebook</a> ou <a href='https://www.instagram.com/cursinhopes/'>Instagram</a>.</p>
+    <p><b>ATENÇÃO:</b> Se nossa equipe não entrar em contato por e-mail ou WhatsApp até o fim do <b>dia 27/07/2020</b>, entre em contato pelo e-mail: <b>processoseletivo@pes.ufsc.br.</b></p>
+    <br>
+    <p>Tenha uma semana maravilhosa e até logo!</p>
+    Cursinho PES.<br/>
     <small>Mensagem enviada automaticamente pelo sistema.</small>";
     $mail->isHTML(true);
     $mail->Subject = "Confirmação de inscrição - Processo Seletivo $nomePS - Cursinho PES";

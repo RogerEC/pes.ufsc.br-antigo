@@ -17,6 +17,7 @@ $(document).ready(function(){
         $("#MensgPreenAutoCarregando").show();
         $("#BotaoConfirmarPreenAuto").hide();
         $("#BotaoCancelarPreenAuto").hide();
+        $("#BotaoFecharPreenAuto").show();
         if (request) {
             request.abort();
         }
@@ -107,12 +108,12 @@ $(document).ready(function(){
             $("#INICIO").removeClass("d-none");    
             $("#MensgPreenAutoCarregando").hide();
             $("#MensgPreenAutoSucesso").show();
-            $("#BotaoFecharPreenAuto").show();
+            $("#BotaoFecharPreenAuto").prop("disabled", false);
         });
         request.fail(function(){
             $("#MensgPreenAutoCarregando").hide();
             $("#MensgPreenAutoErro").show();
-            $("#BotaoFecharPreenAuto").show();
+            $("#BotaoFecharPreenAuto").prop("disabled", false);
         })
     });
 
@@ -127,8 +128,7 @@ $(document).ready(function(){
     $("#telefone_resp").change(function(){
         tipo_telefone($(this).val());
     });
-    $("#EncerrarInscricao").on("click", function(){
-        event.preventDefault();
+    function limpar_formulario(){
         $("#FormularioProfessores").validate().resetForm();
         $("#FormularioProfessores").each(function(){
             this.reset();
@@ -137,11 +137,10 @@ $(document).ready(function(){
         $("#FormularioProfessores input").val("");
         $("#FormularioProfessores select").val("null");
         $("#disponibilidade input").val("Indisponível");
-        $(location).attr('href', 'https://pes.ufsc.br/processo-seletivo/professores');
-    });
+    }
     $("#BotaoFinalizar").on("click", function(){
         event.preventDefault();
-        $("#EncerrarInscricao").click();
+        $("#LinkEncerrarInscricao").click();
     });
     var request;
     function enviar_formulario(){
@@ -159,7 +158,6 @@ $(document).ready(function(){
         });
         request.done(function (response, textStatus, jqXHR){
             $("#SALVANDO_RESPOSTA").hide();
-            $("#EncerrarInscricao").prop("disabled", false);
             if(response.indexOf("ERRO_EMAIL")>=0){
                 $("#FINALIZAR_ERRO_EMAIL").show();
             }else if(response.indexOf("SUCESSO")>=0){
@@ -167,11 +165,12 @@ $(document).ready(function(){
             }else{
                 $("#FINALIZAR_ERRO_GRAVE").show();
             }
+            limpar_formulario();
         });
         request.fail(function (jqXHR, textStatus, errorThrown){
             $("#SALVANDO_RESPOSTA").hide();
             $("#FINALIZAR_ERRO_SERVIDOR").show();
-            $("#EncerrarInscricao").prop("disabled", false);
+            limpar_formulario();
         });
         request.always(function () {
             $inputs.prop("disabled", false);

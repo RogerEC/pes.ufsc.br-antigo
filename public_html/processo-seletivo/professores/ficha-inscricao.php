@@ -635,18 +635,13 @@
                                             </div>
                                             <div class="form-group col-md-3">
                                                 <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                                                    <input type="checkbox" class="custom-control-input" id="divulgacao_cartaz" name="divulgacao_cartaz">
-                                                    <label class="custom-control-label" for="divulgacao_cartaz">Cartaz nos murais da UFSC</label>
+                                                    <input type="checkbox" class="custom-control-input" id="divulgacao_linkedin" name="divulgacao_linkedin">
+                                                    <label class="custom-control-label" for="divulgacao_linkedin">Linkedin</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-row">
-                                            <div class="form-group col-md-3">
-                                                <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                                                    <input type="checkbox" class="custom-control-input" id="divulgacao_sala" name="divulgacao_sala">
-                                                    <label class="custom-control-label" for="divulgacao_sala">Passaram na minha sala avisar</label>
-                                                </div>
-                                            </div>
+                                            <!---->
                                             <div class="form-group col-md-3">
                                                 <div class="custom-control custom-checkbox my-1 mr-sm-2">
                                                     <input type="checkbox" class="custom-control-input" id="divulgacao_email" name="divulgacao_email">
@@ -659,8 +654,14 @@
                                                     <label class="custom-control-label" for="divulgacao_amigo_familiar">Indicação de amigo/familiar</label>
                                                 </div>
                                             </div>
+                                            <div class="form-group col-md-3">
+                                                <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                                                    <input type="checkbox" class="custom-control-input" id="divulgacao_outro" name="divulgacao_outro">
+                                                    <label class="custom-control-label" for="divulgacao_outro">Outro</label>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="form-row">
+                                        <!--<div class="form-row">
                                             <div class="form-group col-md-3">
                                                 <div class="custom-control custom-checkbox my-1 mr-sm-2">
                                                     <input type="checkbox" class="custom-control-input" id="divulgacao_hall" name="divulgacao_hall">
@@ -669,11 +670,17 @@
                                             </div>
                                             <div class="form-group col-md-3">
                                                 <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                                                    <input type="checkbox" class="custom-control-input" id="divulgacao_outro" name="divulgacao_outro">
-                                                    <label class="custom-control-label" for="divulgacao_outro">Outro</label>
+                                                    <input type="checkbox" class="custom-control-input" id="divulgacao_sala" name="divulgacao_sala">
+                                                    <label class="custom-control-label" for="divulgacao_sala">Passaram na minha sala avisar</label>
                                                 </div>
                                             </div>
-                                        </div>
+                                            <div class="form-group col-md-3">
+                                                <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                                                    <input type="checkbox" class="custom-control-input" id="divulgacao_cartaz" name="divulgacao_cartaz">
+                                                    <label class="custom-control-label" for="divulgacao_cartaz">Cartaz nos murais da UFSC</label>
+                                                </div>
+                                            </div>
+                                        </div>-->
                                         <div class="invalid-feedback font-100 ocultar" id="ErroPesquisaDivulgacao"><b>ATENÇÃO!</b> Você precisa selecionar pelo menos uma das opções acima.</div>
                                     </div>
                         </div>
@@ -808,12 +815,12 @@
                         </div>
                     </div>
                     <div class="rodape">
-                        <button class="btn btn-verde" id="EncerrarInscricao" disabled>Encerrar Inscrição</button>
+                        <a class="btn btn-verde" href="/processo-seletivo/professores/">Encerrar Inscrição</a>
                     </div>
                 </div>
             </div><!-- /Coluna do formulário -->
             <!-- Modal Mensagem Erro Preenchimento -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#MensagemErro" id="BotaoMensagemErro" hidden></button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-backdrop="static" data-target="#MensagemErro" id="BotaoMensagemErro" hidden></button>
             <div class="modal fade" id="MensagemErro" tabindex="-1" role="dialog" aria-labelledby="TituloMensagemErro" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -866,7 +873,7 @@
                         <div class="modal-footer bg-bordo-pes">
                             <button type="button" class="btn btn-bordo" id="BotaoCancelarPreenAuto">Cancelar</button>
                             <button type="button" class="btn btn-verde" id="BotaoConfirmarPreenAuto">Carregar dados</button>
-                            <button type="button" class="btn btn-verde ocultar" id="BotaoFecharPreenAuto">Entendi</button>
+                            <button type="button" class="btn btn-verde ocultar" id="BotaoFecharPreenAuto" disabled>Entendi</button>
                         </div>
                     </div>
                 </div>

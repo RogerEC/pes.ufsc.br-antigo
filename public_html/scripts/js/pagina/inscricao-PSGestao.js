@@ -16,6 +16,7 @@ $(document).ready(function(){
         $("#MensgPreenAutoCarregando").show();
         $("#BotaoConfirmarPreenAuto").hide();
         $("#BotaoCancelarPreenAuto").hide();
+        $("#BotaoFecharPreenAuto").show();
         if (request) {
             request.abort();
         }
@@ -104,12 +105,12 @@ $(document).ready(function(){
             $("#INICIO").removeClass("d-none");    
             $("#MensgPreenAutoCarregando").hide();
             $("#MensgPreenAutoSucesso").show();
-            $("#BotaoFecharPreenAuto").show();
+            $("#BotaoFecharPreenAuto").prop("disabled", false);
         });
         request.fail(function(){
             $("#MensgPreenAutoCarregando").hide();
             $("#MensgPreenAutoErro").show();
-            $("#BotaoFecharPreenAuto").show();
+            $("#BotaoFecharPreenAuto").prop("disabled", false);
         })
     });
     
@@ -124,8 +125,7 @@ $(document).ready(function(){
     $("#telefone_resp").change(function(){
         tipo_telefone($(this).val());
     });
-    $("#EncerrarInscricao").on("click", function(){
-        event.preventDefault();
+    function limpar_formulario(){
         $("#FormularioGestao").validate().resetForm();
         $("#FormularioGestao").each(function(){
             this.reset();
@@ -134,11 +134,9 @@ $(document).ready(function(){
         $("#FormularioGestao input").val("");
         $("#FormularioGestao select").val("null");
         $("#disponibilidade input").val("Indisponível");
-        $(location).attr('href', 'https://pes.ufsc.br/processo-seletivo/gestao');
-    });
+    }
     $("#BotaoFinalizar").on("click", function(){
         event.preventDefault();
-        $("#EncerrarInscricao").click();
     });
     var request;
     function enviar_formulario(){
@@ -156,7 +154,7 @@ $(document).ready(function(){
         });
         request.done(function (response, textStatus, jqXHR){
             $("#SALVANDO_RESPOSTA").hide();
-            $("#EncerrarInscricao").prop("disabled", false);
+            limpar_formulario();
             if(response.indexOf("ERRO_EMAIL")>=0){
                 $("#FINALIZAR_ERRO_EMAIL").show();
             }else if(response.indexOf("SUCESSO")>=0){
@@ -168,7 +166,7 @@ $(document).ready(function(){
         request.fail(function (jqXHR, textStatus, errorThrown){
             $("#SALVANDO_RESPOSTA").hide();
             $("#FINALIZAR_ERRO_SERVIDOR").show();
-            $("#EncerrarInscricao").prop("disabled", false);
+            limpar_formulario();
         });
         request.always(function () {
             $inputs.prop("disabled", false);

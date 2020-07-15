@@ -14,25 +14,25 @@
     $versao_ps = '2020-2';
     $senha = 'Recurso Desativado';
     $inscrito = (isset($_POST['inscrito']))? intval($_POST['inscrito']):0;
-    $nome = (isset($_POST["nome"]))? $_POST["nome"]:null;
-    $sobrenome = (isset($_POST["sobrenome"]))? $_POST["sobrenome"]:null;
+    $nome = (isset($_POST["nome"]))? trim($_POST["nome"]):null;
+    $sobrenome = (isset($_POST["sobrenome"]))? trim($_POST["sobrenome"]):null;
     $sexo = (isset($_POST["sexo"]) && $_POST["sexo"]!="null")? $_POST["sexo"]:null;
     $cpf = (isset($_POST["cpf"]))? preg_replace('/[^0-9]/', '', $_POST["cpf"]):null;
     $data_nasc = (isset($_POST["data_nasc"]))? $_POST["data_nasc"]:null;
     $idade = (isset($_POST["idade"]))? intval($_POST["idade"]):0;
-    $nome_resp = (isset($_POST["nome_resp"]))? $_POST["nome_resp"]:null;
+    $nome_resp = (isset($_POST["nome_resp"]))? trim($_POST["nome_resp"]):null;
     $parentesco = (isset($_POST["parentesco"]) && $_POST["parentesco"]!="null")? $_POST["parentesco"]:null;
     $cpf_resp = (isset($_POST["cpf_resp"]))? preg_replace('/[^0-9]/', '', $_POST["cpf_resp"]):null;
     $num_resp = (isset($_POST["telefone_resp"]))? preg_replace('/[^0-9]/', '', $_POST["telefone_resp"]):null;
-    $email = (isset($_POST["email"]))? $_POST["email"]:null;
+    $email = (isset($_POST["email"]))? trim($_POST["email"]):null;
     $num_wpp = (isset($_POST["telefone_cand"]))? preg_replace('/[^0-9]/', '', $_POST["telefone_cand"]):null;
     $materia01 = (isset($_POST["materia01"]) && $_POST["materia01"]!="null")? intval($_POST["materia01"]):null;
     $materia02 = (isset($_POST["materia02"]) && $_POST["materia02"]!="null")? intval($_POST["materia02"]):null;
     $materia03 = (isset($_POST["materia03"]) && $_POST["materia03"]!="null")? intval($_POST["materia03"]):null;
-    $materia_especifica = (isset($_POST["materia_especifica"]))? $_POST["materia_especifica"]:null;
-    $porque_entrar = (isset($_POST["porque_entrar"]))? $_POST["porque_entrar"]:null;
-    $como_ajudar = (isset($_POST["como_ajudar"]))? $_POST["como_ajudar"]:null;
-    $porque_educacao = (isset($_POST["porque_educacao"]))? $_POST["porque_educacao"]:null;
+    $materia_especifica = (isset($_POST["materia_especifica"]))? trim($_POST["materia_especifica"]):null;
+    $porque_entrar = (isset($_POST["porque_entrar"]))? trim($_POST["porque_entrar"]):null;
+    $como_ajudar = (isset($_POST["como_ajudar"]))? trim($_POST["como_ajudar"]):null;
+    $porque_educacao = (isset($_POST["porque_educacao"]))? trim($_POST["porque_educacao"]):null;
     $quantas_horas = (isset($_POST["quantas_horas"]))? $_POST["quantas_horas"]:null;
     $disp[1] = (isset($_POST["SEG1"]) && $_POST["SEG1"]=="Disponível")? true:false;
     $disp[2] = (isset($_POST["SEG2"]) && $_POST["SEG2"]=="Disponível")? true:false;
@@ -82,7 +82,7 @@
     $prof_proj[3] = (isset($_POST["prof_projeto_antigo3"]))? $_POST["prof_projeto_antigo3"]:null;
     $prof_proj[4] = (isset($_POST["prof_projeto_antigo4"]))? $_POST["prof_projeto_antigo4"]:null;
     $voluntario = (isset($_POST["voluntario"]) && $_POST["voluntario"]=="Sim")? true:false;
-    $exp_voluntario = (isset($_POST["exp_voluntario"]))? $_POST["exp_voluntario"]:null;
+    $exp_voluntario = (isset($_POST["exp_voluntario"]))? trim($_POST["exp_voluntario"]):null;
     $divulgacao[1] = (isset($_POST["divulgacao_instagram"]) && $_POST["divulgacao_instagram"]=="on")? true:false;
     $divulgacao[2] = (isset($_POST["divulgacao_facebook"]) && $_POST["divulgacao_facebook"]=="on")? true:false;
     $divulgacao[4] = (isset($_POST["divulgacao_cartaz"]) && $_POST["divulgacao_cartaz"]=="on")? true:false;
@@ -91,7 +91,8 @@
     $divulgacao[7] = (isset($_POST["divulgacao_amigo_familiar"]) && $_POST["divulgacao_amigo_familiar"]=="on")? true:false;
     $divulgacao[5] = (isset($_POST["divulgacao_hall"]) && $_POST["divulgacao_hall"]=="on")? true:false;
     $divulgacao[13] = (isset($_POST["divulgacao_outro"]) && $_POST["divulgacao_outro"]=="on")? true:false;
-    
+    $divulgacao[14] = (isset($_POST["divulgacao_linkedin"]) && $_POST["divulgacao_linkedin"]=="on")? true:false;
+
     $path = $_SERVER['DOCUMENT_ROOT'];
     require_once($path."/scripts/php/banco/conexao.php");
 
@@ -117,6 +118,7 @@
         $data = "STR_TO_DATE('$data_nasc','%d/%m/%Y')";
         $conexao->query("UPDATE pes_info_pessoal SET NOME = '$nome', SOBRENOME = '$sobrenome', EMAIL = '$email', NUM_WPP = '$num_wpp', DATA_NASC = $data, IDADE = $idade, GENERO = '$sexo', NOME_RESP = '$nome_resp', NUM_RESP = '$num_resp', CPF_RESP = '$cpf_resp', PARENTESCO = '$parentesco', TIPO_INFO = 'P' WHERE ID_VOLUNT = $id_voluntario");
         $conexao->query("DELETE FROM pes_disciplina_prof WHERE ID_VOLUNT = $id_voluntario");
+        $conexao->query("DELETE FROM pes_setor_gestao WHERE ID_VOLUNT = $id_voluntario");
         if(!empty($materia01)){
             $conexao->query("INSERT INTO pes_disciplina_prof(ID_DISCIPLINA, ID_VOLUNT, OPCAO) VALUES($materia01, $id_voluntario, 1)");
         }
@@ -157,6 +159,7 @@
             }
         }
         $conexao->query("DELETE FROM pes_disp_dia_prof WHERE ID_VOLUNT = $id_voluntario");
+        $conexao->query("DELETE FROM pes_disp_turno_gestao WHERE ID_VOLUNT = $id_voluntario");
         for($i=1; $i<21; $i++){
             if($disp[$i]){
                 $conexao->query("INSERT INTO pes_disp_dia_prof(ID_DISP_DIA, ID_VOLUNT) VALUES($i, $id_voluntario)");
@@ -215,8 +218,8 @@
             }
         }
     }
-    $nomePS = "de Professores 2020";
-    //require_once($path."/scripts/php/emails/Confirmacao-PS-Profs-Gestao.php");
+    $nomePS = "de Monitores 2020";
+    require_once($path."/scripts/php/emails/Confirmacao-PS-Profs-Gestao.php");
     echo "SUCESSO";
     $conexao->close();
 ?>

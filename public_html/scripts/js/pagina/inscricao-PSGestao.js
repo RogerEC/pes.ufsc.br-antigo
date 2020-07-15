@@ -11,15 +11,11 @@ $(document).ready(function(){
         $("#FecharModalPreenAuto").click();
     });
 
-    function exibir_botao_fechar(){
-        $("#BotaoFecharPreenAuto").show();
-        $("#BotaoConfirmarPreenAuto").hide();
-        $("#BotaoCancelarPreenAuto").hide();
-    }
-
     $("#BotaoConfirmarPreenAuto").on("click", function(){
         $("#MensgPreenAutoInicial").hide();
         $("#MensgPreenAutoCarregando").show();
+        $("#BotaoConfirmarPreenAuto").hide();
+        $("#BotaoCancelarPreenAuto").hide();
         if (request) {
             request.abort();
         }
@@ -29,15 +25,8 @@ $(document).ready(function(){
             data: $("#cpf").serializeArray()
         });
         request.done(function(msg){
-            console.log(msg);
             const info_voluntario = JSON.parse(msg);
             //preencher dados
-            /*$("#INICIO").addClass("d-none");
-        $("#DADOS_PESSOAIS").addClass("d-none");
-        $("#CARGO_MOTIVACAO").addClass("d-none");
-        $("#DISPONIBILIDADE").addClass("d-none");
-        $("#DADOS_ADICIONAIS").addClass("d-none");
-        $("#REVISAR_ENVIAR").addClass("d-none");*/
             oculta_tudo();
             $("#DADOS_PESSOAIS").removeClass("d-none");
                 $("#nome").val(info_voluntario.nome).blur();
@@ -97,7 +86,7 @@ $(document).ready(function(){
                         $("#nome_projeto_antigo"+i.toString()).val(info_voluntario.atv_antiga[i].NOME).blur();
                         $("#prof_projeto_antigo"+i.toString()).val(info_voluntario.atv_antiga[i].NOME_PROF).blur();
                         if(i != (info_voluntario.atv_antiga.length-1)){
-                            $("#ADD_PROJETO").click();
+                            $("#ADD_PROJETO_ANTIGO").click();
                         }
                     }
                 }else{
@@ -115,12 +104,12 @@ $(document).ready(function(){
             $("#INICIO").removeClass("d-none");    
             $("#MensgPreenAutoCarregando").hide();
             $("#MensgPreenAutoSucesso").show();
-            exibir_botao_fechar();
+            $("#BotaoFecharPreenAuto").show();
         });
         request.fail(function(){
             $("#MensgPreenAutoCarregando").hide();
             $("#MensgPreenAutoErro").show();
-            exibir_botao_fechar();
+            $("#BotaoFecharPreenAuto").show();
         })
     });
     
@@ -166,9 +155,6 @@ $(document).ready(function(){
             data: serializedData
         });
         request.done(function (response, textStatus, jqXHR){
-            console.log(response);
-            console.log(textStatus);
-            console.log(jqXHR);
             $("#SALVANDO_RESPOSTA").hide();
             $("#EncerrarInscricao").prop("disabled", false);
             if(response.indexOf("ERRO_EMAIL")>=0){
@@ -180,9 +166,6 @@ $(document).ready(function(){
             }
         });
         request.fail(function (jqXHR, textStatus, errorThrown){
-            console.log(errorThrown);
-            console.log(textStatus);
-            console.log(jqXHR);
             $("#SALVANDO_RESPOSTA").hide();
             $("#FINALIZAR_ERRO_SERVIDOR").show();
             $("#EncerrarInscricao").prop("disabled", false);

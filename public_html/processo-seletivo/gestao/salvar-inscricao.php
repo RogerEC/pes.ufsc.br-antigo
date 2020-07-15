@@ -106,7 +106,8 @@
         }else{
             $estudante = 0;
         }
-        $conexao->query("UPDATE pes_volunt SET MOTIVACAO = '$porque_entrar', COMO_CONTR = '$como_ajudar', MOTIVO_OPCAO = '$porque_setor', EXP_VOLUNTARIO = '$exp_voluntario', ESTUDANTE = $estudante, OCUPACAO = '$ocupacao', TIPO_VOLUNTARIO = 'G', DISP_SEMANAL = '$quantas_horas', REL_PES = '$relacao_cursinho', FASE = $fase, MATRICULA =$matricula, ID_CURSO = $curso, ID_USUARIO = $id_usuario, VERSAO_PS = '$versao_ps', DATA_REGISTRO = NOW() WHERE ID_VOLUNT = $id_voluntario");
+        $conexao->query("UPDATE pes_usuario SET TIPO = 'G' WHERE ID_USUARIO = $id_usuario");
+        $conexao->query("UPDATE pes_volunt SET MOTIVACAO = '$porque_entrar', MOTIVO_EDUCACAO = '', COMO_CONTR = '$como_ajudar', MOTIVO_OPCAO = '$porque_setor', EXP_VOLUNTARIO = '$exp_voluntario', ESTUDANTE = $estudante, OCUPACAO = '$ocupacao', TIPO_VOLUNTARIO = 'G', DISP_SEMANAL = '$quantas_horas', REL_PES = '$relacao_cursinho', FASE = $fase, MATRICULA =$matricula, ID_CURSO = $curso, ID_USUARIO = $id_usuario, VERSAO_PS = '$versao_ps', DATA_REGISTRO = NOW() WHERE ID_VOLUNT = $id_voluntario");
         $data = "STR_TO_DATE('$data_nasc','%d/%m/%Y')";
         $conexao->query("UPDATE pes_info_pessoal SET NOME = '$nome', SOBRENOME = '$sobrenome', EMAIL = '$email', NUM_WPP = '$num_wpp', DATA_NASC = $data, IDADE = $idade, GENERO = '$sexo', NOME_RESP = '$nome_resp', NUM_RESP = '$num_resp', CPF_RESP = '$cpf_resp', PARENTESCO = '$parentesco', TIPO_INFO = 'G' WHERE ID_VOLUNT = $id_voluntario");
         $conexao->query("DELETE FROM pes_setor_gestao WHERE ID_VOLUNT = $id_voluntario");
@@ -130,7 +131,7 @@
                 }
             }
         }
-        $conexao->query("DELETE FROM pes_atividade_antiga WHERE ID_ATIVIDADE_ANTIGA IN (SELECT * FROM (SELECT ID_ATIVIDADE_ANTIGA_VOLUNTARIO FROM pes_atividade_antiga_voluntario WHERE ID_VOLUNT = $id_voluntario) AS aux)");
+        $conexao->query("DELETE FROM pes_atividade_antiga WHERE ID_ATIVIDADE_ANTIGA IN (SELECT * FROM (SELECT ID_ATIVIDADE_ANTIGA FROM pes_atividade_antiga_voluntario WHERE ID_VOLUNT = $id_voluntario) AS aux)");
         $conexao->query("DELETE FROM pes_atividade_antiga_voluntario WHERE ID_VOLUNT = $id_voluntario");
         if($projetos_antigo){
             for($i=0; $i<5; $i++){

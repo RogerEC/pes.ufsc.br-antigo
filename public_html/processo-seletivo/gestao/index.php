@@ -32,6 +32,7 @@
                 </div>
                 <p><h5>Documentos importantes:</h5></p>
                 <p>[13/07/2020] <a href="/processo-seletivo/gestao/2020/Edital_N04PES2020.pdf" target="_blank">Edital Nº 04/PES/2020 - Processo Seletivo de Gestores 2020-2</a></p>
+                <p>[13/07/2020] <a href="/processo-seletivo/gestao/2020/Edital_N04PES2020-Anexo_I.pdf" target="_blank">Anexo I - Organização interna e atribuições de cada setor</a></p>
                 <!--<p>[07/07/2020] <a href="/processo-seletivo/gestao/2020/Cancelamento_Edital_N01PES2020.pdf" target="_blank">Cancelamento do Edital Nº 01/PES/2020</a></p>
                 <p>[16/03/2020] <a href="/processo-seletivo/gestao/2020/Suspensao_Edital_N01PES2020.pdf" target="_blank">Suspensão do Cronograma de Atividades para o Edital Nº 01/PES/2020</a></p>
                 <p>[13/03/2020] <a href="/processo-seletivo/gestao/2020/Edital_N01PES2020-2.pdf" target="_blank">Prorrogação do prazo de inscrição para o Edital Nº 01/PES/2020</a></p>

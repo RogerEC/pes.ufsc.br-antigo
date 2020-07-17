@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
-        <title>Processo Seletivo de Professores - Cursinho PES</title>
+        <title>Processo Seletivo de Monitores - Cursinho PES</title>
         <meta name="keywords" content="">
         <meta name="description" content="">
         <meta name="robots" content="index, follow">

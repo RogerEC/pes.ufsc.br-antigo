@@ -1,4 +1,11 @@
-# Redirecionamento das mensagens de erro
+# Redireciona de http para https
+#<IfModule mod_rewrite.c>
+#RewriteEngine on
+#RewriteCond %{HTTP:X-Forwarded-Proto} !https
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
+#</IfModule>
+
+# Redireciona as mensagens de erro
 ErrorDocument 400 /erro.php?erro=400
 ErrorDocument 401 /erro.php?erro=401
 ErrorDocument 402 /erro.php?erro=402

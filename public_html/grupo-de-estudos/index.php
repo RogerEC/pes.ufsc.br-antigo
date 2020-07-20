@@ -24,7 +24,8 @@
                         Podem se inscrever qualquer pessoa com 16 anos completos ou mais que tenha vontade de se prepara para a realização do ENEM ou do Vestibular UFSC. Para tal, basta preencher a ficha de 
                         inscrição clicando no botão "Realizar Inscrição no Grupo de Estudos.</p>
                     <p class="text-justify"><b>PRAZO PARA INSCRIÇÃO NA 2ª CHAMADA:</b> de 11/07/2020 até 25/07/2020 às 23:59:59. Após esse prazo não serão aceitas novas inscrições.</p>
-                    <p class="text-justify"><b>Informações adicionais:</b> <a href="#" target="_blank">Informações sobre o Grupo de Estudos do Cursinho PES</a></p>
+                    <p class="text-justify"><b>Informações adicionais:</b> <a href="https://pes.ufsc.br/grupo-de-estudos/Funcionamento-GEPES.pdf" target="_blank">Informações adicionais sobre o Grupo de Estudos do Cursinho PES</a></p>
+                    <p class="text-justify"><b>Gravações das monitorias:</b> <a href="https://www.youtube.com/channel/UC6rD7xpvC-YvUtkrP6KhyNA" target="_blank">Disponíveis no canal no YouTube do Cursinho PES</a></p>
                     <p class="text-justify">Dúvidas podem ser encaminhadas para o e-mail <b>grupodeestudos@pes.ufsc.br</b> ou nas nossas redes sociais no 
                     <a href='https://www.facebook.com/PES.UFSC/'>Facebook</a> ou <a href='https://www.instagram.com/cursinhopes/'>Instagram</a>.</p>
                 </div>

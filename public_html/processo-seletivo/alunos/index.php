@@ -18,7 +18,7 @@
                     <h1>Processo Seletivo de Alunos 2020 (CANCELADO)</h1>
                 </div>
                 <p class="text-justify">As inscrições no Processo Seletivo de Alunos 2020 foram canceladas, mas você ainda pode se inscrever no Grupo de Estudos online 
-                    que sera oferecido pelo Cursinho PES ao longo desse ano <b>até o dia 25/07/2020</b>. Clique no botão "Mais informações sobre o Grupo de Estudos" para saber mais.
+                    que sera oferecido pelo Cursinho PES ao longo desse ano <b>até o dia 01/08/2020</b>. Clique no botão "Mais informações sobre o Grupo de Estudos" para saber mais.
                 </p>
                 <div class="text-center w-100 pt-3 pb-5">
                     <button type="button" class="btn btn-verde mt-2" id="BotaoInscrever" disabled>

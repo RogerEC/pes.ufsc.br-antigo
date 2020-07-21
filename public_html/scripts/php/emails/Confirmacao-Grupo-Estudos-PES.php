@@ -32,7 +32,7 @@ try {
     <p>Sua inscrição no Grupo de Estudos do Cursinho PES foi realizada com sucesso!</p>
     <p>Em breve você receberá um e-mail da nossa equipe informando as instruções de acesso ao Grupo de Estudos.</p>
     <p>Caso você tenha qualquer dúvida sobre o Grupo de Estudos pode entrar em contato pelo e-mail <b>grupodeestudos@pes.ufsc.br</b> ou através de nossas redes sociais no <a href='https://www.facebook.com/cursinhopes/'>Facebook</a> ou <a href='https://www.instagram.com/cursinhopes/'>Instagram</a>.</p>
-    <p><b>ATENÇÃO:</b> Se nossa equipe não entrar em contato por e-mail ou WhatsApp até o fim do <b>dia 27/07/2020</b>, entre em contato pelo e-mail: <b>grupodeestudos@pes.ufsc.br.</b></p>
+    <p><b>ATENÇÃO:</b> Se nossa equipe não entrar em contato por e-mail ou WhatsApp até o fim do <b>dia 03/08/2020</b>, entre em contato pelo e-mail: <b>grupodeestudos@pes.ufsc.br.</b></p>
     <br>
     <p>Tenha uma semana maravilhosa e até logo!</p>
     Cursinho PES.<br/>

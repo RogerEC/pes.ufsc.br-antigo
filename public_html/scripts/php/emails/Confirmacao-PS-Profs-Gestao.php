@@ -30,9 +30,9 @@ try {
     //Mensagem
     $mensagem = "<p>Olá $nome,</p>
     <p>Sua inscrição no Processo Seletivo $nomePS foi realizada com sucesso!</p>
-    <p>Informações sobre os próximos passos do processo seletivo serão enviadas por e-mail no dia <b>26/07/2020.</b></p>
+    <p>Informações sobre os próximos passos do processo seletivo serão enviadas por e-mail no dia <b>02/08/2020.</b></p>
     <p>Caso você tenha qualquer dúvida sobre o processo seletivo pode entrar em contato pelo e-mail <b>processoseletivo@pes.ufsc.br</b> ou através de nossas redes sociais no <a href='https://www.facebook.com/cursinhopes/'>Facebook</a> ou <a href='https://www.instagram.com/cursinhopes/'>Instagram</a>.</p>
-    <p><b>ATENÇÃO:</b> Se nossa equipe não entrar em contato por e-mail ou WhatsApp até o fim do <b>dia 27/07/2020</b>, entre em contato pelo e-mail: <b>processoseletivo@pes.ufsc.br.</b></p>
+    <p><b>ATENÇÃO:</b> Se nossa equipe não entrar em contato por e-mail ou WhatsApp até o fim do <b>dia 03/08/2020</b>, entre em contato pelo e-mail: <b>processoseletivo@pes.ufsc.br.</b></p>
     <br>
     <p>Tenha uma semana maravilhosa e até logo!</p>
     Cursinho PES.<br/>

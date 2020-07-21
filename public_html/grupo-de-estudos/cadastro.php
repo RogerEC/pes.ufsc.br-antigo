@@ -1,7 +1,7 @@
 <?php
     // Definição de datas
     $inicio_inscricoes = '11/07/2020 00:00:00';
-    $final_inscricoes = '25/07/2020 23:59:59';
+    $final_inscricoes = '01/08/2020 23:59:59';
     $timezone = new DateTimeZone('America/Sao_Paulo');
     $agora = new DateTime('now', $timezone);
     $inicio = DateTime::createFromFormat('d/m/Y H:i:s', $inicio_inscricoes, $timezone);

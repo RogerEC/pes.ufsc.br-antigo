@@ -20,7 +20,7 @@
                 <p class="text-justify">Processo seletivo para selecionar voluntários para atuar como monitores do Grupo de Estudos online oferecido pelo Cursinho PES durante o ano de 2020.
                     Apesar de ser um projeto de Extensão da Universidade Federal de Santa Catarina, não é necessário ter ligação prévia com a universidade para particpar.
                     Mais informações sobre os critérios de seleção podem ser conferidas no edital disponível abaixo. Para se inscrever basta clicar no botão <b>"Realizar Inscrição".</b></p>
-                <p class="pb-4"><b>PRAZO DE INSCRIÇÃO:</b> de 13/07/2020 até 25/07/2020 às 23h59min.</p>
+                <p class="pb-4"><b>PRAZO DE INSCRIÇÃO:</b> de 13/07/2020 até 01/08/2020 às 23h59min.</p>
                 <div class="text-center w-100 pb-4">
                     <button type="button" class="btn btn-verde mt-2" id="BotaoInscrever">
                         Realizar Inscrição
@@ -30,8 +30,9 @@
                     </button>
                 </div>
                 <p><h5>Documentos importantes:</h5></p>
+                <p>[20/07/2020] <a href="/processo-seletivo/professores/2020/Edital_N05PES2020-2.pdf" target="_blank">Prorrogação do prazo de inscrição para o Edital Nº 05/PES/2020</a></p>
                 <p>[13/07/2020] <a href="/processo-seletivo/professores/2020/Edital_N05PES2020.pdf" target="_blank">Edital Nº 05/PES/2020 - Processo Seletivo de Monitores 2020</a></p>
-                <p>[13/07/2020] <a href="/processo-seletivo/professores/2020/Edital_N05PES2020-2.pdf" target="_blank">Anexo I - Edital Nº 05/PES/2020 - Das Atribuições dos Monitores</a></p>
+                <p>[13/07/2020] <a href="/processo-seletivo/professores/2020/Edital_N05PES2020-Anexo_I.pdf" target="_blank">Anexo I - Edital Nº 05/PES/2020 - Das Atribuições dos Monitores</a></p>
                 <!--<p>[07/07/2020] <a href="/processo-seletivo/professores/2020/Cancelamento_Edital_N02PES2020.pdf" target="_blank">Cancelamento do Edital Nº 02/PES/2020</a></p>
                 <p>[16/03/2020] <a href="/processo-seletivo/professores/2020/Suspensao_Edital_N02PES2020.pdf" target="_blank">Suspensão do Cronograma de Atividades para o Edital Nº 02/PES/2020</a></p>
                 <p>[13/03/2020] <a href="/processo-seletivo/professores/2020/Edital_N02PES2020-2.pdf" target="_blank">Prorrogação do prazo de inscrição para o Edital Nº 02/PES/2020</a></p>

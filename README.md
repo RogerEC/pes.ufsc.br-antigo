@@ -10,8 +10,13 @@ Membro do projeto desde março de 2018, atualmente faço parte da gestão como v
 
 Mais informações sobre o projeto consulte [esse link.](https://linktr.ee/cursinhopes)
 
-## Dependências do Projeto
+## Dependências e bibliotecas utilizadas no projeto
 
 - Apache 2.4.41
-- PHP 7.4.3
+- [PHP](https://www.php.net/) 7.4.8
 - OpenSSL/1.1.1c
+- [Bootstrap](https://getbootstrap.com/) 4.5.0
+- [Jquery](https://jquery.com/) 3.5.1
+- [PHPMailer](https://github.com/PHPMailer/PHPMailer) 6.1.7
+- [jQuery Mask Plugin](https://github.com/igorescobar/jQuery-Mask-Plugin) 1.14.16
+- [jQuery Validation Plugin](https://jqueryvalidation.org/) 1.19.2

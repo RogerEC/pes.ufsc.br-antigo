@@ -582,7 +582,7 @@
                         <div id="FINALIZAR_SUCESSO" class="ocultar">
                             <p>Seu cadastro no Grupo de Estudos foi salvo com sucesso!</p>
                             <P>Enviamos uma confirmação de inscrição para o endereço de e-mail informado.</P>
-                            <p>Até o dia 27/07/2020 você deve receber um novo e-mail instruções para o acessar o Grupo de Estudos.</p>
+                            <p>Até o dia 03/08/2020 você deve receber um novo e-mail instruções para o acessar o Grupo de Estudos.</p>
                         </div>
                         <div id="FINALIZAR_ERRO_EMAIL" class="ocultar">
                             <p>Seu cadastro no Grupo de Estudos foi salvo com sucesso!</p>

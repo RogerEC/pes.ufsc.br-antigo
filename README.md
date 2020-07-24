@@ -13,10 +13,11 @@ Mais informações sobre o projeto consulte [esse link.](https://linktr.ee/cursi
 ## Dependências e bibliotecas utilizadas no projeto
 
 - Apache 2.4.41
-- [PHP](https://www.php.net/) 7.4.8
 - OpenSSL/1.1.1c
+- [PHP](https://www.php.net/) 7.4.8
+- [PHPMailer](https://github.com/PHPMailer/PHPMailer) 6.1.7
 - [Bootstrap](https://getbootstrap.com/) 4.5.0
 - [Jquery](https://jquery.com/) 3.5.1
-- [PHPMailer](https://github.com/PHPMailer/PHPMailer) 6.1.7
-- [jQuery Mask Plugin](https://github.com/igorescobar/jQuery-Mask-Plugin) 1.14.16
+- [jQuery Masked Input Plugin](https://github.com/digitalBush/jquery.maskedinput) 1.4.1
 - [jQuery Validation Plugin](https://jqueryvalidation.org/) 1.19.2
+- [ViaCEP](https://viacep.com.br/exemplo/jquery/) (exemplo do site em jQuery modificado)

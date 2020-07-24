@@ -160,9 +160,9 @@
         <?php require_once($path."/scripts/php/componentes/rodape.php"); //Rodapé?>
         
         <!--Javascript-->
-        <script src="/scripts/js/libs/jquery-3.4.1.min.js"></script>
+        <script src="/scripts/js/libs/jquery.min.js"></script>
         <script src="/scripts/js/libs/bootstrap.min.js"></script>
-        <script src="/scripts/js/libs/jquery.maskedinput.js"></script>
+        <script src="/scripts/js/libs/jquery.maskedinput.min.js"></script>
         <script src="/scripts/js/definicoes-maskedinput.js"></script>
         <script src="/scripts/js/libs/jquery.validate.min.js"></script>
         <script src="/scripts/js/validacao-PS.js"></script>

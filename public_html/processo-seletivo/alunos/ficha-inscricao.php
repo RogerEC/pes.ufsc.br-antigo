@@ -855,10 +855,10 @@
         </main><!--/Conteúdo da página-->
         
         <!--Javascript-->
-        <script src="/scripts/js/libs/jquery-3.4.1.min.js"></script>
+        <script src="/scripts/js/libs/jquery.min.js"></script>
         <script src="/scripts/js/libs/bootstrap.min.js"></script>
         <script src="/scripts/js/libs/api_viacep.js"></script>
-        <script src="/scripts/js/libs/jquery.maskedinput.js"></script>
+        <script src="/scripts/js/libs/jquery.maskedinput.min.js"></script>
         <script src="/scripts/js/definicoes-maskedinput.js"></script>
         <script src="/scripts/js/libs/jquery.validate.min.js"></script>
         <script src="/scripts/js/validacao/inscricao-PSAlunos.js"></script>

@@ -115,7 +115,7 @@
         <!--/Rodapé-->
 
         <!--Javascript-->
-        <script src="/scripts/js/libs/jquery-3.4.1.min.js"></script>
+        <script src="/scripts/js/libs/jquery.min.js"></script>
         <script src="/scripts/js/libs/bootstrap.min.js"></script>
     </body>
 </html>

@@ -15,26 +15,28 @@
         <main><!--Conteúdo da página-->
             <div class="container">
                 <div class="text-center w-100 pt-5 pb-5">
-                    <h1>Processo Seletivo de Alunos 2020 (CANCELADO)</h1>
+                    <h1>Processo Seletivo de Alunos 2021</h1>
                 </div>
-                <p class="text-justify">As inscrições no Processo Seletivo de Alunos 2020 foram canceladas, mas você ainda pode se inscrever no Grupo de Estudos online 
+                <p class="text-justify">Inscrições devem começar em breve. Fique atento as nossas redes sociais no <a href='https://www.facebook.com/cursinhopes/'>Facebook</a> ou <a href='https://www.instagram.com/cursinhopes/'>Instagram</a> para mais informações.</p>
+                <!--<p class="text-justify">As inscrições no Processo Seletivo de Alunos 2020 foram canceladas, mas você ainda pode se inscrever no Grupo de Estudos online 
                     que sera oferecido pelo Cursinho PES ao longo desse ano <b>até o dia 01/08/2020</b>. Clique no botão "Mais informações sobre o Grupo de Estudos" para saber mais.
-                </p>
+                </p>-->
                 <div class="text-center w-100 pt-3 pb-5">
                     <button type="button" class="btn btn-verde mt-2" id="BotaoInscrever" disabled>
-                        Realizar Inscrição (CANCELADO)
+                        Realizar Inscrição (Em breve)
                     </button>
-                    <a href="/grupo-de-estudos" class="btn btn-verde ml-2 mt-2">Mais informações sobre o Grupo de Estudos</a>
+                    <!--<a href="/grupo-de-estudos" class="btn btn-verde ml-2 mt-2">Mais informações sobre o Grupo de Estudos</a>
                     <button type="button" class="btn btn-verde mt-2" id="BotaoAcompanhar" disabled hidden>
                         Acompanhar Inscrição
-                    </button>
+                    </button>-->
                 </div>
                 <p><h5>Documentos importantes:</h5></p>
-                <p>[07/07/2020] <a href="/processo-seletivo/alunos/2020/Cancelamento_Edital_N03PES2020.pdf" target="_blank">Cancelamento do Edital Nº 03/PES/2020</a></p>
+                <p>[01/03/2021] Edital será publicado em breve.<!--<a href="/processo-seletivo/alunos/2020/Cancelamento_Edital_N03PES2020.pdf" target="_blank">Cancelamento do Edital Nº 03/PES/2020</a>--></p>
+                <!--<p>[07/07/2020] <a href="/processo-seletivo/alunos/2020/Cancelamento_Edital_N03PES2020.pdf" target="_blank">Cancelamento do Edital Nº 03/PES/2020</a></p>
                 <p>[16/03/2020] <a href="/processo-seletivo/alunos/2020/Suspensao_Edital_N03PES2020.pdf" target="_blank">Suspensão do Cronograma de Atividades para o Edital Nº 03/PES/2020</a></p>
                 <p>[15/03/2020] <a href="/processo-seletivo/alunos/2020/Retificacao_Edital_N03PES2020.pdf" target="_blank">Retificação do Edital Nº 03/PES/2020</a></p>
                 <p>[09/03/2020] <a href="/processo-seletivo/alunos/2020/Edital_N03PES2020.pdf" target="_blank">Edital Nº 03/PES/2020 - Processo Seletivo de Alunos 2020</a></p>
-                <p>[09/03/2020] <a href="/processo-seletivo/alunos/2020/Calendario2020-Alunos.pdf" target="_blank">Anexo I - Calendário Letivo Cursinho PES 2020</a></p>
+                <p>[09/03/2020] <a href="/processo-seletivo/alunos/2020/Calendario2020-Alunos.pdf" target="_blank">Anexo I - Calendário Letivo Cursinho PES 2020</a></p>-->
             </div>
         
             <!-- Modal Realizar inscrição -->

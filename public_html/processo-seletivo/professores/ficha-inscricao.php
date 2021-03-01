@@ -1,7 +1,7 @@
 <?php
     // Definição de datas
-    $inicio_inscricoes = '13/07/2020 00:00:00';
-    $final_inscricoes = '01/08/2020 23:59:59';
+    $inicio_inscricoes = '01/03/2021 00:00:00';
+    $final_inscricoes = '09/05/2021 23:59:59';
     $timezone = new DateTimeZone('America/Sao_Paulo');
     $agora = new DateTime('now', $timezone);
     $inicio = DateTime::createFromFormat('d/m/Y H:i:s', $inicio_inscricoes, $timezone);
@@ -26,7 +26,7 @@
             $id_usuario = $obj->ID_USUARIO;
             
             $resultado->close();
-            $resultado = $conexao->query("SELECT ID_VOLUNT, DATA_REGISTRO FROM pes_volunt WHERE ID_USUARIO = $id_usuario AND VERSAO_PS = '2020-2'");
+            $resultado = $conexao->query("SELECT ID_VOLUNT, DATA_REGISTRO FROM pes_volunt WHERE ID_USUARIO = $id_usuario AND VERSAO_PS = '2021-1'");
         
             if($resultado->num_rows == 1){
                 $cadastro_existente = true;
@@ -95,8 +95,8 @@
         $data_nasc = DateTime::createFromFormat('Y-m-d', $info_inscrito->DATA_NASC, $timezone);
         $data_registro = DateTime::createFromFormat('Y-m-d H:i:s', $data_registro_str, $timezone);
         $email = explode('@', trim($info_inscrito->EMAIL));
-        $nome_ps = ($info_inscrito->TIPO_INFO == 'P')? "Processo Seletivo de Monitores 2020":"Processo Seletivo de Gestores 2020-2";
-        $link_edital = ($info_inscrito->TIPO_INFO == 'P')? "<a href='/processo-seletivo/professores/2020/Edital_N05PES2020.pdf' target='_blank'>Edital Nº 05/PES/2020</a>":"<a href='/processo-seletivo/gestao/2020/Edital_N04PES2020.pdf' target='_blank'>Edital Nº 04/PES/2020</a>";
+        $nome_ps = ($info_inscrito->TIPO_INFO == 'P')? "Processo Seletivo de Professores 2021":"Processo Seletivo de Gestores 2021-1";
+        $link_edital = ($info_inscrito->TIPO_INFO == 'P')? "<a href='/processo-seletivo/professores/2021/Edital_N02PES2021.pdf' target='_blank'>Edital Nº 02/PES/2021</a>":"<a href='/processo-seletivo/gestao/2021/Edital_N01PES2021.pdf' target='_blank'>Edital Nº 01/PES/2021</a>";
 ?>
         <!-- Mensagem de erro: Aluno já inscrito -->
         <div class="container mt-5 mb-5 text-center">
@@ -108,14 +108,13 @@
             <p class="text-justify mt-4"><b>RESUMO DOS DADOS DA INSCRIÇÃO:</b></p>
             <p class="text-justify mb-1"><b>Nome do processo seletivo: </b><?php echo $nome_ps; ?></p>
             <p class="text-justify mb-1"><b>Nome do candidato: </b><?php echo $info_inscrito->NOME." ".$info_inscrito->SOBRENOME; ?></p>
-            <p class="text-justify mb-1"><b>CPF do candidato: </b><?php echo $cpf; ?> </p>
+            <p class="text-justify mb-1"><b>CPF do candidato: </b><?php echo substr($cpf, 0, 4)."***.*".substr($cpf, 9); ?> </p>
             <p class="text-justify mb-1"><b>Data de nascimento: </b><?php echo $data_nasc->format('d/m/Y'); ?></p>
             <p class="text-justify mb-1"><b>E-mail do candidato: </b><?php echo substr($email[0], 0, -5).'*****@'.$email[1]; ?> </p>
             <p class="text-justify"><b>Telefone do candidato: </b><?php echo '('.substr(trim($info_inscrito->NUM_WPP), 0, 2).') 9 ****-'.substr(trim($info_inscrito->NUM_WPP), -4); ?></p>
-            <p class="text-justify mb-4"><small>* Por questão de privacidade, foram omitidos alguns caracteres do e-mail e telefone de contato.</small> </p>
+            <p class="text-justify mb-4"><small>* Por questão de privacidade, foram omitidos alguns caracteres do CPF, e-mail e telefone do contato.</small> </p>
             <p class="text-justify mb-4">Caso alguma informação esteja incorreta, você pode entrar em contato pelo e-mail <b>processoseletivo@pes.ufsc.br</b> para que sejam feitas as respectivas correções.
-             Entraremos em contato pelo e-mail fornecido na inscrição a partir do dia <b><?php $final->add(new DateInterval('P1D')); echo $final->format('d/m/Y'); ?></b> para informar as instruções das 
-             próximas etapas do processo seletivo de acordo com os dados do <b><?php echo $link_edital; ?></a></b>.</p>
+             Entraremos em contato pelo e-mail fornecido na inscrição em até 10 dias úteis para informar as instruções das próximas etapas do processo seletivo de acordo com os dados do <b><?php echo $link_edital; ?></a></b>.</p>
             <p><a href="/">Clique aqui</a> para voltar a página inicial do site.</p>
         </div>
         <!-- Scripts -->
@@ -141,16 +140,16 @@
                 <form action="/processo-seletivo/gestao/salvar-inscricao.php" method="POST" id="FormularioProfessores">
                     <div id="INICIO" class="corpo">
                         <div class="conteudo">
-                        <div class="titulo">Ficha de Inscrição - Processo Seletivo de Monitores 2020</div>
+                        <div class="titulo">Ficha de Inscrição - Processo Seletivo de Professores 2021-1</div>
                                 <p class="text-justify">Olá candidato e, espero, futuro monitor/professor do Cursinho PES. Estamos muito felizes por você querer fazer parte do projeto.</p>
-                                <p class="text-justify">Antes de começar a preencher a ficha de inscrição, reiteramos a importância da leitura completa do <b><a href="/processo-seletivo/professores/2020/Edital_N05PES2020.pdf" target="_blank">EDITAL Nº 05/PES/2020</a></b>. 
+                                <p class="text-justify">Antes de começar a preencher a ficha de inscrição, reiteramos a importância da leitura completa do <b><a href="/processo-seletivo/professores/2021/Edital_N02PES2021.pdf" target="_blank">EDITAL Nº 02/PES/2021</a></b>. 
                                 Nele estão contidas todas as regras, etapas e datas do Processo Seletivo. Caso ainda sim a qualquer momento você tenha alguma dúvida sobre o processo seletivo, você pode entrar em contato com a quipe do Cursinho PES  
                                 através do e-mail <b>processoseletivo@pes.ufsc.br</b> ou através das nossas redes sociais no <a href="https://www.facebook.com/cursinhopes/" target="_blank">Facebook</a> ou <a href="https://www.instagram.com/cursinhopes/" target="_blank">Instagram</a>.</p>
                                 <div class="subtitulo">Instruções para o preenchimento da ficha de inscrição</div>
                                     <p>Para começar a preencher a ficha de inscrição, confime abaixo a leitura completa do edital e em seguida clique no botão "Iniciar inscrição" no final dessa página. Todos os campos são obrigatórios, exceto os indicados com (opcional) ao lado da pergunta.</p>
                                     <div class="custom-control custom-checkbox my-1 mr-sm-2">
                                         <input type="checkbox" class="custom-control-input" id="ConfirmaLeituraEdital" name="ConfirmaLeituraEdital">
-                                        <label class="custom-control-label" for="ConfirmaLeituraEdital">Eu declaro que realizei a leitura do <b>Edital Nº 05/PES/2020</b>, aceito seu termos e quero participar do Processo Seletivo de Monitores 2020.</label>
+                                        <label class="custom-control-label" for="ConfirmaLeituraEdital">Eu declaro que realizei a leitura do <b>Edital Nº 02/PES/2021</b>, aceito seu termos e quero participar do Processo Seletivo de Professores 2021.</label>
                                     </div>
                                     <div class="invalid-feedback font-100 ocultar" id="ErroConfirmaLeituraEdital"><b>ATENÇÃO!</b> Você precisa declarar ciência do Edital antes de prosseguir com a inscrição.</div>
                         </div>
@@ -332,12 +331,9 @@
                     <div id="DISPONIBILIDADE" class="d-none corpo">
                         <div class="conteudo">
                             <div class="titulo mb-3">Disponibilidade</div>
-                            <p class="mb-1 text-justify">As monitorias online do Cursinho PES ocorrem de segunda a sexta-feira no horário das 19h às 21h atravez de um grupo no Discord.</p>
-                            <p class="mb-1 text-justify">Em 2020 será oferecido apenas o Grupo de Estudos online. A ideia é que semanalmente os monitores montem um breve guia de estudos e uma lista de exercícios sobre um determinado 
-                                assunto da sua disciplina (fornecido pela gestão do projeto) a ser enviada para os alunos através do Google Sala de Aula. Também uma vez por semana, os monitores tem um horário de monitoria no grupo do  
-                                Discord para tirar as duvidas que os alunos tiveram durante a semana em relação a lista de exercícios postada na semana anterior.
-                            <p class="mb-1 text-justify">Cada horário de monitoria possuí duração de até 60 minutos e cada monitor fica responsável por atender a monitoria de uma disciplina. Nas matérias que possuem mais de um monitor  
-                                os monitores se revesam no atendimento dos alunos entre as semanas.</p>
+                            <p class="mb-1 text-justify">As monitorias online do Cursinho PES ocorrem de segunda a sexta-feira no horário das 19h às 21h através de uma sala no Conferência RPN.</p>
+                            <p class="mb-1 text-justify">Em 2021 será oferecido apenas o Grupo de Estudos online, com previsão de início em meados de maio de 2021. A ideia é que semanalmente os monitores montem um guia de estudos sobre algum assunto da sua disciplina e uma lista de exercícios a ser enviada para os alunos através do Google Sala de Aula. Também uma vez por semana, os monitores tem um horário de monitoria na sala virtual para tirar as dúvidas que os alunos tiveram durante a semana em relação a lista de exercícios postada na semana anterior ou ao conteúdo apresentado no guia de estudos. Os assuntos tratados no decorrer da disciplina seguem o cronograma elaborado pela gestão e são informados com antecedência aos monitores para que possam montar suas aulas e o guia de estudos.
+                            <p class="mb-1 text-justify">Cada horário de monitoria possuí duração de até 60 minutos e cada monitor fica responsável por atender a monitoria de uma disciplina. Nas matérias que possuem mais de um monitor os monitores se revesam no atendimento dos alunos entre as semanas.</p>
                             <div class="subtitulo">Disponibilidade semanal</div>
                             <div class="form-row">
                                 <div class="form-group col-auto pt-1-5">

@@ -15,16 +15,19 @@
         <main class="h-100"><!--Conteúdo da página-->
             <div class="banner">
                 <div class="bg-color-banner">
-                    <div class="text-center w-100" style="padding-top: 100px; padding-bottom: 40px">
+                    <div class="text-center w-100 pb-3" style="padding-top: 150px;">
                         <b>PROJETO EDUCAÇÃO SOLIDÁRIA</b>
                     </div>
-                    <div class="w-100 text-center mb-0">
-                        <button class="btn btn-verde mb-3" id="GrupoEstudos"><b>Inscrição no Grupo de Estudos - 2ª Chamada</b></button>
+                    <div class="text-center w-100 pb-5">
+                        <h4>Curso pré-vestibular social da UFSC Campus Araranguá.</h4>
                     </div>
+                    <!--<div class="w-100 text-center mb-0">
+                        <button class="btn btn-verde mb-3" id="GrupoEstudos"><b>Inscrição no Grupo de Estudos - 2ª Chamada</b></button>
+                    </div>-->
                     <div class="w-100 text-center mb-5">
-                        <button class="btn btn-verde mb-3" id="PSAlunos"><b>Processo Seletivo<br>de Alunos</b></button>
-                        <button class="btn btn-verde mb-3" id="PSGestao"><b>Processo Seletivo<br>de Gestores</b></button>
-                        <button class="btn btn-verde mb-3" id="PSProfs"><b>Processo Seletivo<br>de Monitores</b></button>
+                        <button class="btn btn-verde mb-3" id="PSAlunos"><b>Processo Seletivo de<br>Alunos (Em breve)</b></button>
+                        <button class="btn btn-verde mb-3" id="PSGestao"><b>Processo Seletivo de<br>Gestores (Aberto)</b></button>
+                        <button class="btn btn-verde mb-3" id="PSProfs"><b>Processo Seletivo de<br>Monitores (Aberto)</b></button>
                     </div> 
                 </div>
             </div>

@@ -15,7 +15,7 @@
         <main><!--Conteúdo da página-->
             <div class="container">
                 <div class="text-center w-100 pt-4 pb-4">
-                    <h1 class="mb-5">Grupo de Estudos Cursinho PES — 2ª Chamada</h1>
+                    <h1 class="mb-5">Grupo de Estudos 2020 Cursinho PES — 2ª Chamada</h1>
                     <p class="text-justify">Considerando a descisão da Universidade Federal de Santa Catarina em não retomar o ensino de forma presencial este ano 
                         (<a href="https://noticias.ufsc.br/2020/06/nota-oficial-ufsc-nao-retomara-ensino-presencial-em-2020/" target="_blank">link</a>), 
                         o Cursinho PES comunica que não irá realizar nenhuma atividade presencial em 2020, cancelando o Edital Nº 03/PES/2020 que tratava do Processo Seletivo de Alunos 2020. Durante esse ano 

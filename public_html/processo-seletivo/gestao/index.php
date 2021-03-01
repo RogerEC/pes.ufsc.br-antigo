@@ -1,3 +1,11 @@
+<?php 
+    $versao_ps = "2021-1";
+    $ano = "2021";
+    $nome_edital = "Edital Edital Nº 01/PES/2021 - Processo Seletivo de Gestores 2021-1";
+    $link_edital = "/processo-seletivo/gestao/2020/Edital_N01PES2021.pdf";
+    $data_inicio = "01/03/2021";
+    $data_final = "09/05/2021";
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
@@ -16,12 +24,12 @@
 
             <div class="container">
             <div class="text-center w-100 pt-5 pb-5">
-                    <h1>Processo Seletivo de Gestores 2020-2</h1>
+                    <h1>Processo Seletivo de Gestores <?=$versao_ps;?></h1>
                 </div>
-                <p class="text-justify">Processo seletivo para selecionar voluntários para atuar na organização e gestão do Cursinho PES durante o ano de 2020.
+                <p class="text-justify">Processo seletivo para selecionar voluntários para atuar na organização e gestão do Cursinho PES durante o ano de <?=$ano;?>.
                     Apesar de ser um projeto de Extensão da Universidade Federal de Santa Catarina, não é necessário ter ligação prévia com a universidade para particpar.
                     Mais informações sobre os critérios de seleção podem ser conferidas no edital disponível abaixo. Para se inscrever basta clicar no botão <b>"Realizar Inscrição".</b></p>
-                <p class="pb-4"><b>PRAZO DE INSCRIÇÃO:</b> de 13/07/2020 até 01/08/2020 às 23h59min.</p>
+                <p class="pb-4"><b>PRAZO DE INSCRIÇÃO:</b> de <?=$data_inicio;?> até <?=$data_final;?> às 23h59min.</p>
                 <div class="text-center w-100 pb-4">
                     <button type="button" class="btn btn-verde mt-2" id="BotaoInscrever">
                         Realizar Inscrição
@@ -31,9 +39,10 @@
                     </button>
                 </div>
                 <p><h5>Documentos importantes:</h5></p>
-                <p>[20/07/2020] <a href="/processo-seletivo/gestao/2020/Edital_N04PES2020-2.pdf" target="_blank">Prorrogação do prazo de inscrição para o Edital Nº 04/PES/2020</a></p>
+                <p>[01/03/2021] <a href="<?=$link_edital;?>" target="_blank"><?=$nome_edital;?></a></p>
+                <!--<p>[20/07/2020] <a href="/processo-seletivo/gestao/2020/Edital_N04PES2020-2.pdf" target="_blank">Prorrogação do prazo de inscrição para o Edital Nº 04/PES/2020</a></p>
                 <p>[13/07/2020] <a href="/processo-seletivo/gestao/2020/Edital_N04PES2020.pdf" target="_blank">Edital Nº 04/PES/2020 - Processo Seletivo de Gestores 2020-2</a></p>
-                <p>[13/07/2020] <a href="/processo-seletivo/gestao/2020/Edital_N04PES2020-Anexo_I.pdf" target="_blank">Anexo I - Organização interna e atribuições de cada setor</a></p>
+                <p>[13/07/2020] <a href="/processo-seletivo/gestao/2020/Edital_N04PES2020-Anexo_I.pdf" target="_blank">Anexo I - Organização interna e atribuições de cada setor</a></p>-->
                 <!--<p>[07/07/2020] <a href="/processo-seletivo/gestao/2020/Cancelamento_Edital_N01PES2020.pdf" target="_blank">Cancelamento do Edital Nº 01/PES/2020</a></p>
                 <p>[16/03/2020] <a href="/processo-seletivo/gestao/2020/Suspensao_Edital_N01PES2020.pdf" target="_blank">Suspensão do Cronograma de Atividades para o Edital Nº 01/PES/2020</a></p>
                 <p>[13/03/2020] <a href="/processo-seletivo/gestao/2020/Edital_N01PES2020-2.pdf" target="_blank">Prorrogação do prazo de inscrição para o Edital Nº 01/PES/2020</a></p>

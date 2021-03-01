@@ -11,7 +11,7 @@
     $prof_proj = array();//prof responsavel projeto antigo
     $divulgacao = array();//pesquisa divulgacao
 
-    $versao_ps = "2020-2";
+    $versao_ps = "2021-1";
     $senha = "Recurso Desativado";
     $inscrito = (isset($_POST["inscrito"]))? intval($_POST["inscrito"]):0;
     $nome = (isset($_POST["nome"]))? trim($_POST["nome"]):null;
@@ -212,7 +212,7 @@
         }
     }
 
-    $nomePS = "de Gestores 2020-2";
+    $nomePS = "de Gestores 2021-1";
     require_once($path."/scripts/php/emails/Confirmacao-PS-Profs-Gestao.php");
     echo "SUCESSO";
     $conexao->close();

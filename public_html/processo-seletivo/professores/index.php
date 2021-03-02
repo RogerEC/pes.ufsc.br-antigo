@@ -4,7 +4,7 @@
     $nome_edital = "Edital Edital Nº 02/PES/2021 - Processo Seletivo de Professores 2021-1";
     $link_edital = "/processo-seletivo/gestao/2021/Edital_N02PES2021.pdf";
     $data_inicio = "01/03/2021";
-    $data_final = "09/05/2021";
+    $data_final = "02/05/2021";
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

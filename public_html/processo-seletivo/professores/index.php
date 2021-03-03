@@ -3,7 +3,7 @@
     $ano = "2021";
     $nome_edital = "Edital Edital Nº 02/PES/2021 - Processo Seletivo de Professores 2021-1";
     $link_edital = "/processo-seletivo/gestao/2021/Edital_N02PES2021.pdf";
-    $data_inicio = "01/03/2021";
+    $data_inicio = "04/03/2021";
     $data_final = "02/05/2021";
 ?>
 <!DOCTYPE html>
@@ -22,8 +22,8 @@
 
         <main><!--Conteúdo da página-->
             <div class="container">
-                <div class="text-center w-100 pt-5 pb-5">
-                    <h1>Processo Seletivo de Professores <?=$ano;?></h1>
+                <div class="text-center w-100 pt-4 pb-4">
+                    <h1>Processo Seletivo de Professores <?=$ano;?>-1</h1>
                 </div>
                 <p class="text-justify">Processo seletivo para selecionar voluntários para atuar como monitores do Grupo de Estudos online oferecido pelo Cursinho PES durante o ano de <?=$ano;?>.
                     Apesar de ser um projeto de Extensão da Universidade Federal de Santa Catarina, não é necessário ter ligação prévia com a universidade para particpar.
@@ -38,7 +38,12 @@
                     </button>
                 </div>
                 <p><h5>Documentos importantes:</h5></p>
-                <p>[01/03/2021] <a href="<?=$link_edital;?>" target="_blank"><?=$nome_edital;?></a></p>
+                <p>[03/03/2021] <a href="<?=$link_edital;?>" target="_blank"><?=$nome_edital;?></a></p>
+                <p><h5>Etapas:</h5></p>
+                <p class="mb-1 text-justify">1º Prenchimento da <b>Ficha de Inscrição</b>, disponível no botão "Realizar Inscrição" acima.</p>
+                <p class="mb-1 text-justify">2º Elaboração e envio do <b>Guia de Estudos</b>. O tema será enviado por email após o envio da <b>Ficha de Inscrição</b>.</p>
+                <p class="mb-1 text-justify">3º Apresentação da <b>Aula Teste</b> e <b>Entrevista</b>. A data será agendada por e-mail após a entrega do <b>Guia de Estudos</b>.</p>
+                <p class="mb-4 text-justify"><b>ATENÇÃO:</b> Os prazos e requisitos de cada etapa estão descritos no <a href="http://pes.ufsc.br/processo-seletivo/gestao/2021/Edital_N02PES2021.pdf"><b>Edital Nº 02/PES/2021</b></a>.</p>
                 <!--<p>[20/07/2020] <a href="/processo-seletivo/professores/2020/Edital_N05PES2020-2.pdf" target="_blank">Prorrogação do prazo de inscrição para o Edital Nº 05/PES/2020</a></p>
                 <p>[13/07/2020] <a href="/processo-seletivo/professores/2020/Edital_N05PES2020.pdf" target="_blank">Edital Nº 05/PES/2020 - Processo Seletivo de Monitores 2020</a></p>
                 <p>[13/07/2020] <a href="/processo-seletivo/professores/2020/Edital_N05PES2020-Anexo_I.pdf" target="_blank">Anexo I - Edital Nº 05/PES/2020 - Das Atribuições dos Monitores</a></p>-->

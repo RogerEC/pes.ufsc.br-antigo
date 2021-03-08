@@ -25,9 +25,9 @@
                         <button class="btn btn-verde mb-3" id="GrupoEstudos"><b>Inscrição no Grupo de Estudos - 2ª Chamada</b></button>
                     </div>-->
                     <div class="w-100 text-center mb-5">
-                        <button class="btn btn-verde mb-3" id="PSAlunos"><b>Processo Seletivo de<br>Alunos (Em breve)</b></button>
+                        <button class="btn btn-verde mb-3" id="PSAlunos"><b>Processo Seletivo de<br>Alunos (Aberto)</b></button>
                         <button class="btn btn-verde mb-3" id="PSGestao"><b>Processo Seletivo de<br>Gestores (Aberto)</b></button>
-                        <button class="btn btn-verde mb-3" id="PSProfs"><b>Processo Seletivo de<br>Monitores (Aberto)</b></button>
+                        <button class="btn btn-verde mb-3" id="PSProfs"><b>Processo Seletivo de<br>Professores (Aberto)</b></button>
                     </div> 
                 </div>
             </div>

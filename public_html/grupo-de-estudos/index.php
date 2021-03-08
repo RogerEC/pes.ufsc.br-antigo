@@ -15,7 +15,7 @@
         <main><!--Conteúdo da página-->
             <div class="container">
                 <div class="text-center w-100 pt-4 pb-4">
-                    <h1 class="mb-5">Grupo de Estudos 2020 Cursinho PES — 2ª Chamada</h1>
+                    <h1 class="mb-5">Grupo de Estudos 2021 Cursinho PES</h1>
                     <p class="text-justify">Considerando a descisão da Universidade Federal de Santa Catarina em não retomar o ensino de forma presencial este ano 
                         (<a href="https://noticias.ufsc.br/2020/06/nota-oficial-ufsc-nao-retomara-ensino-presencial-em-2020/" target="_blank">link</a>), 
                         o Cursinho PES comunica que não irá realizar nenhuma atividade presencial em 2020, cancelando o Edital Nº 03/PES/2020 que tratava do Processo Seletivo de Alunos 2020. Durante esse ano 
@@ -23,7 +23,7 @@
                     <p class="text-justify">Para não prejudicar os candidatos que estavam a espera do retorno das atividades normais, iremos abrir uma segunda chamada de inscrições para o Grupo de Estudos.
                         Podem se inscrever qualquer pessoa com 16 anos completos ou mais que tenha vontade de se prepara para a realização do ENEM ou do Vestibular UFSC. Para tal, basta preencher a ficha de 
                         inscrição clicando no botão "Realizar Inscrição no Grupo de Estudos.</p>
-                    <p class="text-justify"><b>PRAZO PARA INSCRIÇÃO NA 2ª CHAMADA:</b> de 11/07/2020 até 01/08/2020 às 23:59:59. Após esse prazo não serão aceitas novas inscrições.</p>
+                    <p class="text-justify"><b>PRAZO PARA INSCRIÇÃO:</b> de 07/03/2021 até 16/05/2021 às 23:59:59. Após esse prazo não serão aceitas novas inscrições.</p>
                     <p class="text-justify"><b>Informações adicionais:</b> <a href="Funcionamento-GEPES.pdf" target="_blank">Informações adicionais sobre o Grupo de Estudos do Cursinho PES</a></p>
                     <p class="text-justify"><b>Gravações das monitorias:</b> <a href="https://www.youtube.com/channel/UC6rD7xpvC-YvUtkrP6KhyNA" target="_blank">Disponíveis no canal do Cursinho PES no YouTube</a></p>
                     <p class="text-justify">Dúvidas podem ser encaminhadas para o e-mail <b>grupodeestudos@pes.ufsc.br</b> ou nas nossas redes sociais no 

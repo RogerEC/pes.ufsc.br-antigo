@@ -1,6 +1,6 @@
 <?php
     // Definição de datas
-    $inicio_inscricoes = '05/03/2021 00:00:00';
+    $inicio_inscricoes = '07/03/2021 00:00:00';
     $final_inscricoes = '16/05/2021 23:59:59';
     $timezone = new DateTimeZone('America/Sao_Paulo');
     $agora = new DateTime('now', $timezone);
@@ -20,7 +20,7 @@
 
         $inscrito = 0;
 
-        $resultado = $conexao->query("SELECT NOME, SOBRENOME, NUM_WPP, EMAIL, DATA_NASC, DATA_REGISTRO FROM COVID_CADASTRO_GEPES WHERE CPF = '{$cpf2}' AND VERSAO_PS = '2021-1' LIMIT 1");
+        $resultado = $conexao->query("SELECT NOME, SOBRENOME, NUM_WPP, EMAIL, DATA_NASC, DATA_REGISTRO FROM covid_cadastro_gepes WHERE CPF = '{$cpf2}' AND VERSAO_PS = '2021-1' LIMIT 1");
 
         $cadastro_existente = ($resultado->num_rows == 0)? false:true;
     }else{
@@ -577,7 +577,7 @@
                         <div id="FINALIZAR_SUCESSO" class="ocultar">
                             <p>Seu cadastro no Grupo de Estudos foi salvo com sucesso!</p>
                             <P>Enviamos uma confirmação de inscrição para o endereço de e-mail informado.</P>
-                            <p>Até o dia 03/08/2020 você deve receber um novo e-mail instruções para o acessar o Grupo de Estudos.</p>
+                            <p>Até o dia 19/05/2021 você deve receber um novo e-mail instruções para o acessar o Grupo de Estudos.</p>
                         </div>
                         <div id="FINALIZAR_ERRO_EMAIL" class="ocultar">
                             <p>Seu cadastro no Grupo de Estudos foi salvo com sucesso!</p>
@@ -671,7 +671,7 @@
         <script src="/scripts/js/definicoes-maskedinput.js"></script>
         <script src="/scripts/js/libs/jquery.validate.min.js"></script>
         <script src="/scripts/js/validacao/Inscricao-GrupoEstudos.js?v1"></script>
-        <script src="/scripts/js/pagina/Inscricao-GrupoEstudosPES.js"></script>
+        <script src="/scripts/js/pagina/Inscricao-GrupoEstudosPES.js?v1"></script>
 <?php }?>        
     </body>
 </html>

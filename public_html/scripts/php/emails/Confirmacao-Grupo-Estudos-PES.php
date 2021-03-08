@@ -30,16 +30,16 @@ try {
     //Mensagem
     $mensagem = "<p>Olá $nome,</p>
     <p>Sua inscrição no Grupo de Estudos do Cursinho PES foi realizada com sucesso!</p>
-    <p>Em breve você receberá um e-mail da nossa equipe informando as instruções de acesso ao Grupo de Estudos.</p>
+    <p>A partir do dia 17 de maio de 2021 você receberá um e-mail da nossa equipe informando as instruções de acesso ao Grupo de Estudos.</p>
     <p>Caso você tenha qualquer dúvida sobre o Grupo de Estudos pode entrar em contato pelo e-mail <b>grupodeestudos@pes.ufsc.br</b> ou através de nossas redes sociais no <a href='https://www.facebook.com/cursinhopes/'>Facebook</a> ou <a href='https://www.instagram.com/cursinhopes/'>Instagram</a>.</p>
-    <p>Desde o início de Junho começamos a gravar os atendimentos de monitoria e a postar os vídeos no <a href='https://www.youtube.com/channel/UC6rD7xpvC-YvUtkrP6KhyNA'>canal do Cursinho PES</a> no YouTube. Por enquanto, você pode ver e acompanhar as aulas sobre os assuntos já trabalhados por lá. ;)</p>
-    <p><b>ATENÇÃO:</b> Se nossa equipe não entrar em contato por e-mail ou WhatsApp até o fim do <b>dia 03/08/2020</b>, entre em contato pelo e-mail: <b>grupodeestudos@pes.ufsc.br.</b></p>
+    <p>Nossas aulas serão gravadas e disponibilizadas no <a href='https://www.youtube.com/channel/UC6rD7xpvC-YvUtkrP6KhyNA'>canal do Cursinho PES</a> no YouTube. As atividades realizadas no ano passado já se encontram disponíveis lá no canal e até o mês de maio serão realizadas algumas lives explicando o funcionamento e apresentando o projeto, as quais serão divulgadas com antecedência nas nossas redes sociais.</p>
+    <p><b>ATENÇÃO:</b> Se nossa equipe não entrar em contato por e-mail ou WhatsApp até o fim do <b>dia 19/05/2021</b> para passar as informações de acesso ao Grupo de Estudos, entre em contato pelo e-mail: <b>grupodeestudos@pes.ufsc.br.</b> para verificarmos o que aconteceu.</p>
     <br>
     <p>Tenha uma semana maravilhosa e até logo!</p>
     Cursinho PES.<br/>
     <small>Mensagem enviada automaticamente pelo sistema.</small>";
     $mail->isHTML(true);
-    $mail->Subject = "Confirmação de Inscrição - Grupo de Estudos Cursinho PES 2020";
+    $mail->Subject = "Confirmação de Inscrição - Grupo de Estudos Cursinho PES 2021";
     $mail->Body    = $mensagem;
     $mail->AltBody = strip_tags($mensagem);
 

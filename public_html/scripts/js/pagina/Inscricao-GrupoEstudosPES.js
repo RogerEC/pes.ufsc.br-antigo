@@ -33,7 +33,7 @@ $(document).ready(function(){
         var $form = $("#FormularioAlunos");
         var serializedData = $form.serializeArray();
         request = $.ajax({
-            url: "/grupo-de-estudos/carregar-info-inscrito.php",
+            url: "/processo-seletivo/alunos/carregar-info-inscrito.php",
             type: "post",
             data: serializedData
         });
@@ -95,7 +95,7 @@ $(document).ready(function(){
     $("#idade").change( function(){
         $("#FormularioAlunos").validate().element("#idade");
     });
-    $("#EncerrarInscricao").on("click", function(){
+    $("#EncerrarInscricao").on("click", function(event){
         event.preventDefault();
         $("#FormularioAlunos").validate().resetForm();
         $("#FormularioAlunos").each(function(){
@@ -104,9 +104,9 @@ $(document).ready(function(){
         })
         $("#FormularioAlunos input").val("");
         $("#FormularioAlunos select").val("null");
-        $(location).attr('href', 'https://pes.ufsc.br/grupo-de-estudos');
+        $(location).attr('href', 'https://pes.ufsc.br/processo-seletivo/alunos/');
     });
-    $("#BotaoFinalizar").on("click", function(){
+    $("#BotaoFinalizar").on("click", function(event){
         event.preventDefault();
         $("#EncerrarInscricao").click();
     });

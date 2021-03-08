@@ -6,7 +6,7 @@
 
         $cpf = preg_replace('/[^0-9]/', '', $_POST["cpf"]);
 
-        $resultado = $conexao->query("SELECT ID_COVID_CADASTRO_GEPES FROM COVID_CADASTRO_GEPES WHERE CPF = '{$cpf}' AND VERSAO_PS = '2021-1' LIMIT 1");
+        $resultado = $conexao->query("SELECT ID_COVID_CADASTRO_GEPES FROM covid_cadastro_gepes WHERE CPF = '{$cpf}' AND VERSAO_PS = '2021-1' LIMIT 1");
 
         if($resultado->num_rows == 0){
             echo "true";

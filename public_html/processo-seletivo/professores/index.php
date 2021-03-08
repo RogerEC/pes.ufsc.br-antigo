@@ -2,7 +2,7 @@
     $versao_ps = "2021-1";
     $ano = "2021";
     $nome_edital = "Edital Edital Nº 02/PES/2021 - Processo Seletivo de Professores 2021-1";
-    $link_edital = "/processo-seletivo/gestao/2021/Edital_N02PES2021.pdf";
+    $link_edital = "/processo-seletivo/professores/2021/Edital_N02PES2021.pdf";
     $data_inicio = "04/03/2021";
     $data_final = "02/05/2021";
 ?>
@@ -43,7 +43,7 @@
                 <p class="mb-1 text-justify">1º Prenchimento da <b>Ficha de Inscrição</b>, disponível no botão "Realizar Inscrição" acima.</p>
                 <p class="mb-1 text-justify">2º Elaboração e envio do <b>Guia de Estudos</b>. O tema será enviado por email após o envio da <b>Ficha de Inscrição</b>.</p>
                 <p class="mb-1 text-justify">3º Apresentação da <b>Aula Teste</b> e <b>Entrevista</b>. A data será agendada por e-mail após a entrega do <b>Guia de Estudos</b>.</p>
-                <p class="mb-4 text-justify"><b>ATENÇÃO:</b> Os prazos e requisitos de cada etapa estão descritos no <a href="http://pes.ufsc.br/processo-seletivo/gestao/2021/Edital_N02PES2021.pdf"><b>Edital Nº 02/PES/2021</b></a>.</p>
+                <p class="mb-4 text-justify"><b>ATENÇÃO:</b> Os prazos e requisitos de cada etapa estão descritos no <a href="<?=$link_edital;?>"><b>Edital Nº 02/PES/2021</b></a>.</p>
                 <!--<p>[20/07/2020] <a href="/processo-seletivo/professores/2020/Edital_N05PES2020-2.pdf" target="_blank">Prorrogação do prazo de inscrição para o Edital Nº 05/PES/2020</a></p>
                 <p>[13/07/2020] <a href="/processo-seletivo/professores/2020/Edital_N05PES2020.pdf" target="_blank">Edital Nº 05/PES/2020 - Processo Seletivo de Monitores 2020</a></p>
                 <p>[13/07/2020] <a href="/processo-seletivo/professores/2020/Edital_N05PES2020-Anexo_I.pdf" target="_blank">Anexo I - Edital Nº 05/PES/2020 - Das Atribuições dos Monitores</a></p>-->

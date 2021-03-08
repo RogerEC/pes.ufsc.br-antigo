@@ -5,7 +5,7 @@ $("#FormularioAlunos").validate({
         sexo:{select:true},
         cpf:{required:true, cpf:true,
             remote:{
-                url: "/grupo-de-estudos/verifica-cpf.php",
+                url: "/processo-seletivo/alunos/verifica-cpf.php",
                 type:"post"
             }
         },
@@ -23,7 +23,7 @@ $("#FormularioAlunos").validate({
             required:true,
             email:true,
             remote:{
-                url: "/grupo-de-estudos/verifica-email.php",
+                url: "/processo-seletivo/alunos/verifica-email.php",
                 type:"post"
             }
         },
@@ -43,7 +43,7 @@ $("#FormularioAlunos").validate({
         serie:{select:true},
         turma:{required:true},
         turno:{select:true},
-        ano_conclusao:{required:true, range:[1900, 2019], number:true},
+        ano_conclusao:{required:true, range:[1900, 2020], number:true},
         rotina_estudo:{select:true},
         dias_estudo:{select:true},
         tempo_estudo:{select:true},
@@ -65,9 +65,9 @@ $("#FormularioAlunos").validate({
         sobrenome:{required:"Informe o seu sobrenome."},
         sexo:{select:"Informe o seu sexo."},
         cpf:{
-            required:"ERRO CRÍTICO! Volte na <a href='https://pes.ufsc.br/grupo-de-estudo'>página inicial do Grupo de Estudo</a> e reinicie seu cadastro!",
-            cpf:"ERRO CRÍTICO! Volte na <a href='https://pes.ufsc.br/grupo-de-estudo'>página inicial do Grupo de Estudo</a> e reinicie seu cadastro!",
-            remote:"ERRO CRÍTICO! Volte na <a href='https://pes.ufsc.br/grupo-de-estudo'>página inicial do Grupo de Estudo</a> e reinicie seu cadastro!"
+            required:"ERRO CRÍTICO! Volte na <a href='https://pes.ufsc.br/processo-seletivo/alunos'>página inicial do Processo Seletivo de Alunos</a> e reinicie seu cadastro!",
+            cpf:"ERRO CRÍTICO! Volte na <a href='https://pes.ufsc.br/processo-seletivo/alunos'>página inicial do Processo Seletivo de Alunos</a> e reinicie seu cadastro!",
+            remote:"ERRO CRÍTICO! Volte na <a href='https://pes.ufsc.br/processo-seletivo/alunos'>página inicial do Processo Seletivo de Alunos</a> e reinicie seu cadastro!"
         },
         data_nasc:{
             required:"Informe a sua data de nascimento.",
@@ -76,7 +76,7 @@ $("#FormularioAlunos").validate({
         idade:{
             required: "Erro ao calcular idade, corrija a sua data de nascimento.",
             idade_max: "Você precisa ter 150 anos ou menos para se inscrever.",
-            idade_min: "Você precisa ter pelo menos 16 anos para se inscrever."
+            idade_min: "Você precisa ter pelo menos 14 anos para se inscrever."
         },
         email:{
             required:"Informe seu endereço de e-mail.",
@@ -181,7 +181,7 @@ jQuery.validator.addMethod("select", function(value, element) {
 
 jQuery.validator.addMethod("idade_min", function(value, element) {
     var idade = parseInt(value);
-    if(idade<16){
+    if(idade<14){
         return this.optional(element) || false;
     }else{
         return this.optional(element) || true;
